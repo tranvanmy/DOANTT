@@ -7,7 +7,7 @@ use App\Models\Relations\CategoryRelations;
 
 class Category extends Model
 {
-    use CategoryRelation;
+    use CategoryRelations;
 
     protected $fillable = [
         'id',

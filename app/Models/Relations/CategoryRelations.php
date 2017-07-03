@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace App\Models\Relations;
 
 use App\Models\Category;
