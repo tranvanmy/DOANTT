@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('sites.home.index');
 });
+
+Route::resource('category', 'Admins\categoryController');
