@@ -21,13 +21,28 @@
                     </ul>
                 </li>
                 <li><a href="" title="{{ trans('sites.contact') }}"><span>{{ trans('sites.contact') }}</span></a></li>
+                @if(Auth::check())
+                <li class="current-menu-item"><a href="#"><span>{{ Auth::user()->name }}</span></a>
+                    <ul>
+                        <li><a href="{{ route('logout') }}" >{{ trans('sites.profile') }}</a></li>
+                        <li>
+                        {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
+                            <a onclick="confirmButtonBeforeSubmit(this)" data-text="{{ trans('sites.sure') }}" >{{ trans('sites.logout') }}</a>
+                        {!! Form::close() !!}
+                        </li>
+                    </ul>
+                </li>
+                @endif
             </ul>
         </nav>
         <nav class="user-nav" role="navigation">
             <ul>
-                <li class="light"><a href="" title="{{ trans('sites.search') }}"><i class="ico i-search"></i> <span>{{ trans('sites.search') }}</span></a></li>
-                <li class="medium"><a href="" title="{{ trans('sites.myAccount') }}"><i class="ico i-account"></i> <span>{{ trans('sites.myAccount') }}</span></a></li>
-                <li class="dark"><a href="" title="{{ trans('sites.submitRepice') }}"><i class="ico i-submitrecipe"></i> <span>{{ trans('sites.submitRepice') }}</span></a></li>
+                @if(Auth::check())
+                @else
+                    <li class="medium"><a href="{{ route('login') }}" title="{{ trans('sites.login') }}"><i class="ico i-account"></i> <span>{{ trans('sites.login') }}</span></a></li>
+                @endif
+                    <li class="light"><a href="" title="{{ trans('sites.search') }}"><i class="ico i-search"></i> <span>{{ trans('sites.search') }}</span></a></li>
+                    <li class="dark"><a href="" title="{{ trans('sites.submitRepice') }}"><i class="ico i-submitrecipe"></i> <span>{{ trans('sites.submitRepice') }}</span></a></li>
             </ul>
         </nav>
     </div>

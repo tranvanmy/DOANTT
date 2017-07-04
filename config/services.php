@@ -35,4 +35,16 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => '577128473078-03rjg69d0omdpbb23u6t37gcm9uap74u.apps.googleusercontent.com',
+        'client_secret' => '788mWgDfbBlVd2IIM-Pho1eN',
+        'redirect' => env('APP_URL') . 'callback/google',
+    ],
+
+    'facebook' => [
+        'client_id' => '1911052735798387',
+        'client_secret' => '4c5d7d03e046853d8529cad32560ef41',
+        'redirect' => env('APP_URL') . 'callback/facebook',
+    ],
+    
 ];
