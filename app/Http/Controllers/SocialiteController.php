@@ -24,7 +24,7 @@ class SocialiteController extends Controller
 
         $authUser = $this->findOrCreateUser($user);
         Auth::login($authUser, true);
- 
+
         return redirect()->to('/');
     }
 
@@ -51,17 +51,17 @@ class SocialiteController extends Controller
         ];
 
         $rememeber = $request->input('Remember');
-        
+
         if (Auth::attempt($auth, $rememeber)) {
             if ((Auth::user()->level_id) == 1) {
-                  return view('sites.home.index');
+                  return  redirect('/');
             }
             if (( Auth::user()->level_id == 2)) {
-                return view('admin.master');
+                return redirect('admin/dashboard');
             }
         } else {
             $message = trans('messages.mess');
-            
+
             return view('auth.login', ['message' => $message]);
         }
     }
