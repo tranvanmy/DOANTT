@@ -17,4 +17,9 @@ class Category extends Model
         'icon',
         'status',
     ];
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
 }

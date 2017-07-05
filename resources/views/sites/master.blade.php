@@ -9,8 +9,6 @@
     {{ Html::style('bower/font-awesome/css/font-awesome.min.css') }}
     {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
     {{ Html::style('bower/sweetalert/dist/sweetalert.css') }}
-    <script src="//d3cxv97fi8q177.cloudfront.net/mediasource-A249085-fc90-4e98-904f-95b25288c53b1-c-4415.min.js"></script>
-    <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
 </head>
 <body class="home">
 

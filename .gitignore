@@ -11,4 +11,7 @@ npm-debug.log
 .env
 /public/bower
 /public/images
+/public/photos
+/public/vendor
+/resources/views/vendor
 /storage
