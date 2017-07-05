@@ -30,7 +30,11 @@ abstract class AbstractEloquentRepository
 
     public function update($id, $data = [])
     {
-        return $this->find($id)->update($data);
+        if ($a = $this->find($id, [], ['id'])) {
+            return $a->update($data);
+        }
+
+        return false;
     }
 
     public function delete($id)

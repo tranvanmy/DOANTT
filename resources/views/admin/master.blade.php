@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>@yield('title')</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('sites_custom/css/app.css') }}
         {{ Html::style('bower/swiper/dist/css/swiper.min.css') }}
         {{ Html::style('bower/nvd3/build/nv.d3.min.css') }}
@@ -13,6 +14,8 @@
         {{ Html::style('sites_custom/css/custom.css') }}
         {{ Html::style('sites_custom/css/dashboard1.css') }}
         {{ Html::style('sites_custom/css/dashboard1_timeline.css') }}
+        {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
+
         @yield('style')
     </head>
     <body class="skin-default">
@@ -170,7 +173,7 @@
                                 </a>
                             </li>
                             <li class="menu-dropdown">
-                                <a href="javascript:void(0)">
+                                <a href="{{ route('admin.category.index') }}">
                                     <i class="menu-icon ti-view-list"></i>
                                     <span>{{ trans('admin.category') }}</span>
                                 </a>
@@ -256,6 +259,9 @@
         {{ Html::script('bower/nvd3/build/nv.d3.min.js') }}
         {{ Html::script('bower/moment/min/moment.min.js') }}
         {{ Html::script('sites_custom/js/dashboard1.js') }}
-        @yield('scrip')
+        {{ Html::script('bower/vue/dist/vue.min.js') }}
+        {{ Html::script('bower/axios/dist/axios.min.js') }}
+        {{ Html::script('bower/toastr/toastr.min.js') }}
+        @yield('script')
     </body>
 </html>

@@ -14,4 +14,9 @@ class CategoryEloquentRepository extends AbstractEloquentRepository implements C
     {
         $this->model = $category;
     }
+
+    public function hasChild($id)
+    {
+        return $this->model->where('parent_id', $id)->count();
+    }
 }
