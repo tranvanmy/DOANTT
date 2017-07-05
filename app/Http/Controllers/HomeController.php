@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contracts\Repositories\CategoryRepository;
 
 class HomeController extends Controller
 {
+    protected $category;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CategoryRepository $category)
     {
-        $this->middleware('auth');
+        $this->category = $category;
     }
 
     /**
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('sites.home.index');
+        $categories = $this->category->status(config('category.in_home_page'));
+        return view('sites.home.index')->with(['categories' => $categories]);
     }
 }

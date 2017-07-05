@@ -19,4 +19,9 @@ class CategoryEloquentRepository extends AbstractEloquentRepository implements C
     {
         return $this->model->where('parent_id', $id)->count();
     }
+
+    public function status($status)
+    {
+        return $this->model->status($status)->get();
+    }
 }

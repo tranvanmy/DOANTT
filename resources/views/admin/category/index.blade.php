@@ -28,12 +28,14 @@
                 <table class="table table-bordered">
                     <tr>
                         <th class="col-md-1">{{ trans('admin.id') }}</th>
+                        <th class="col-md-1">{{ trans('admin.icon') }}</th>
                         <th class="col-md-3">{{ trans('admin.name') }}</th>
                         <th class="col-md-1">{{ trans('admin.status') }}</th>
                         <th class="col-md-1">{{ trans('admin.action') }}</th>
                     </tr>
                     <tr v-for="item in items">
                         <td>@{{ item.id }}</td>
+                        <td><img class="icon-category" v-bind:src="item.icon" alt=""></td>
                         <td>@{{ item.name }}</td>
                         <td v-if="item.status == null || item.status == 0"><span class=""><i class=" fa fa-eye-slash text-danger" aria-hidden="true" title="{{ trans('admin.not_show') }}"></i></span></td>
                         <td v-if="item.status == 1"><span class=""><i class="fa fa-eye text-primary" aria-hidden="true" title="{{ trans('admin.show') }}"></i></span></td>
@@ -41,6 +43,7 @@
                         <td>
                             <span class="" v-on:click="editItem(item)"><i class="fa fa-fw ti-pencil text-primary actions_icon" title="{{ trans('admin.edit') }}"></i></span>
                             <span class="" v-on:click="comfirmDeleteItem(item)"><i class="fa fa-fw ti-close text-danger actions_icon" title="{{ trans('admin.delete') }}"></i></span>
+                            <div class="input-group">
                         </td>
                     </tr>
                 </table>
@@ -98,6 +101,17 @@
                                     <option value="2">{{ trans('admin.in_home_page') }}</option>
                                 </select></td>
                                     </tr>
+                                    <tr>
+                                        <td>{{ trans('admin.icon') }}</td>
+                                        <td>
+                                            <img class="icon-category" id="new-image-preview">
+                                            <span class="input-group-btn">
+                                                <a id="new-image" data-input="name-new-image" data-preview="new-image-preview" class="btn btn-primary">
+                                                <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
+                                            </span>
+                                            <input id="name-new-image" class="" type="text" name="filepath">
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="form-group">
@@ -153,6 +167,14 @@
                                     <option value="0">{{ trans('admin.not_show') }}</option>
                                     <option value="2">{{ trans('admin.in_home_page') }}</option>
                                 </select>
+                                <div>
+                                    <img id="edit-image-preview" style="margin-top:15px;max-height:100px;">
+                                    <span class="input-group-btn">
+                                        <a id="edit-image" data-input="name-edit-image" data-preview="edit-image-preview" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
+                                    </span>
+                                    <input id="name-edit-image" class="" type="text" name="filepath">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">{{ trans('admin.category_update') }}</button>
@@ -163,7 +185,9 @@
             </div>
         </div>
     </div>
+
 @endsection
 @section('script')
-    {{ Html::script('admin/category.js') }}
+   <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
+  {{ Html::script('admin/category.js') }}
 @endsection

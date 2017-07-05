@@ -1,11 +1,18 @@
 <aside class="sidebar one-fourth">
     <div class="widget wow fadeInRight">
-    
+
         <h3>{{ trans('sites.recipeCategory') }}</h3>
         <ul class="boxed">
-            <li class="light"><a href="" title="{{ trans('sites.piza') }}"><i class="ico i-appetizers"></i> <span>{{ trans('sites.piza') }}</span></a></li>
+        @foreach ($categories as $key => $category)
+            @if ($key % 2)
+                <li class="light"><a href="" title="{{ $category['name'] }}"><img class="ico" src="https://maxcdn.icons8.com/Share/icon/Animals//chicken1600.png" alt=""> <span>{{ $category['name'] }}</span></a></li>
+            @else
+                <li class="dark"><a href="" title="{{ $category['name'] }}"><img class="ico" src="https://maxcdn.icons8.com/Share/icon/Animals//chicken1600.png" alt=""><span>{{ $category['name'] }}</span></a></li>
+            @endif
+        @endforeach
+           {{--  <li class="light"><a href="" title="{{ trans('sites.piza') }}"><i class="ico i-appetizers"></i> <span>{{ trans('sites.piza') }}</span></a></li>
             <li class="medium"><a href="" title="{{ trans('sites.cocktails') }}"><i class="ico i-cocktails"></i> <span>{{ trans('sites.cocktails') }}</span></a></li>
-            <li class="dark"><a href="" title="{{ trans('sites.deserts') }}"><i class="ico i-deserts"></i> <span>{{ trans('sites.deserts') }}</span></a></li>
+            <li class="dark"><a href="" title="{{ trans('sites.deserts') }}"><i class="ico i-deserts"></i> <span>{{ trans('sites.deserts') }}</span></a></li> --}}
         </ul>
     </div>
     <div class="widget wow fadeInRight" data-wow-delay=".2s">
