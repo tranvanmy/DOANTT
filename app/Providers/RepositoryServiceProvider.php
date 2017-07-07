@@ -11,6 +11,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\CategoryRepository::class,
             \App\Repositories\Eloquents\CategoryEloquentRepository::class,
         ],
+        'ingredient' => [
+            \App\Contracts\Repositories\IngredientRepository::class,
+            \App\Repositories\Eloquents\IngredientEloquentRepository::class,
+        ],
     ];
 
     /**

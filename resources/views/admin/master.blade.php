@@ -7,8 +7,6 @@
         {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('sites_custom/css/app.css') }}
         {{ Html::style('bower/swiper/dist/css/swiper.min.css') }}
-        {{ Html::style('bower/nvd3/build/nv.d3.min.css') }}
-        {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
         {{ Html::style('bower/font-awesome/css/font-awesome.min.css') }}
         {{ Html::style('sites_custom/css/lc_switch.css') }}
         {{ Html::style('sites_custom/css/custom.css') }}
@@ -166,43 +164,43 @@
                             </div>
                         </div>
                         <ul class="navigation">
-                            <li class="active" id="active">
+                            <li>
                                 <a href="">
                                     <i class="menu-icon ti-desktop"></i>
                                     <span class="mm-text ">{{ trans('admin.dashboard') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
+                            <li>
                                 <a href="{{ route('admin.category.index') }}">
                                     <i class="menu-icon ti-view-list"></i>
                                     <span>{{ trans('admin.category') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
+                            <li>
                                 <a href="javascript:void(0)">
                                     <i class="menu-icon ti-user"></i>
                                     <span>{{ trans('admin.user') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
-                                <a href="javascript:void(0)">
+                            <li>
+                                <a href="{{ route('admin.ingredient.index') }}">
                                     <i class="menu-icon ti-server"></i>
                                     <span>{{ trans('admin.ingredient') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
+                            <li>
                                 <a href="javascript:void(0)">
                                     <i class="menu-icon ti-check-box"></i>
                                     <span>{{ trans('admin.order') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
+                            <li>
                                 <a href="javascript:void(0)">
                                     <i class="menu-icon ti-gallery"></i>
                                     <span>{{ trans('admin.post') }}</span>
                                 </a>
                             </li>
-                            <li class="menu-dropdown">
+                            <li>
                                 <a href="javascript:void(0)">
                                     <i class="menu-icon ti-layout-placeholder"></i>
                                     <span>{{ trans('admin.subscribe') }}</span>
@@ -217,24 +215,7 @@
             </aside>
             <aside class="right-side">
                 <section class="content-header">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-5 col-xs-8">
-                            <div class="header-element">
-                                <h3>{{ trans('admin.framgia_cook') }}/
-                                    <small>{{ trans('admin.dashboard') }}</small>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-lg-offset-2 col-md-6 col-sm-7 col-xs-4">
-                            <div class="header-object">
-                                <span class="option-search pull-right hidden-xs">
-                                    <span class="search-wrapper">
-                                        <input type="text" placeholder="{{ trans('admin.search') }}"><i class="ti-search"></i>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                    @yield('breadcrumb')
                 </section>
 
                 <section class="content">
@@ -247,16 +228,16 @@
         <!-- ./wrapper -->
         <!-- global js -->
         <div id="qn"></div>
+        {{ Html::script('bower/jquery/dist/jquery.min.js') }}
         {{ Html::script('sites_custom/js/app.js') }}
         {{ Html::script('sites_custom/js/jquery.flot.spline.js') }}
         {{ Html::script('sites_custom/js/jquery.flot.tooltip.js') }}
         {{ Html::script('sites_custom/js/newsTicker.js') }}
-        {{ Html::script('bower/flot/jquery.flot.js') }}
-        {{ Html::script('bower/flot/jquery.flot.resize.js') }}
-        {{ Html::script('bower/flot/jquery.flot.stack.js') }}
+        {{ Html::script('bower/Flot/jquery.flot.js') }}
+        {{ Html::script('bower/Flot/jquery.flot.resize.js') }}
+        {{ Html::script('bower/Flot/jquery.flot.stack.js') }}
         {{ Html::script('bower/swiper/dist/js/swiper.min.js') }}
         {{ Html::script('bower/chart.js/dist/Chart.js') }}
-        {{ Html::script('bower/nvd3/build/nv.d3.min.js') }}
         {{ Html::script('bower/moment/min/moment.min.js') }}
         {{ Html::script('sites_custom/js/dashboard1.js') }}
         {{ Html::script('bower/vue/dist/vue.min.js') }}
