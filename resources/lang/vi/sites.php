@@ -77,4 +77,8 @@ return [
     'comfirm' => 'Xác nhận mật khẩu',
     'sure' => 'Bạn có muốn thoát không',
     'name' => 'Họ Và Tên',
+    'aboutMe' => 'Thông tin',
+    'myRicepes' => 'Công thức',
+    'myFactory' => 'Yêu thích',
+    'myPost' => 'Bài Viết',
 ];

@@ -4,16 +4,22 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Relations\UserRelations;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use UserRelations;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
+    const STATUS_CUSTOMER = 0;
+    const STATUS_ADMIN = 1;
+    const STATUS_DELETE = 3;
+
     protected $fillable = [
         'id',
         'name',
@@ -23,8 +29,6 @@ class User extends Authenticatable
         'avatar',
         'level_id',
         'facebook_id',
-        'google_id',
-        'twitter_id',
         'status',
     ];
 

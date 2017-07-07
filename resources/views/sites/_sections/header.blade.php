@@ -24,7 +24,12 @@
                 @if(Auth::check())
                 <li class="current-menu-item"><a href="#"><span>{{ Auth::user()->name }}</span></a>
                     <ul>
-                        <li><a href="{{ route('logout') }}" >{{ trans('sites.profile') }}</a></li>
+                        <li>
+                        {{--  {{ Form::open(array('url' => '/profile', Auth::user()->id), 'method'=>'POST', 'id' => 'delForm')) }} --}}
+                      {{--   {!! Form::open(array('url' => '/profile', 'class' => 'form-horizontal')) !!}
+                            <a href="{{ route('profile') }}" >{{ trans('sites.profile') }}</a>
+                        {!! Form::close() !!} --}}
+                        </li>,
                         <li>
                         {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
                             <a onclick="confirmButtonBeforeSubmit(this)" data-text="{{ trans('sites.sure') }}" >{{ trans('sites.logout') }}</a>

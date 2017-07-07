@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquents;
 
 use App\Repositories\Eloquents\AbstractEloquentRepository;
-use App\Contracts\Repositories\UserRepository;
+use App\Contracts\Repositories\ProfileRepository;
 use App\Models\User;
 use App\Models\Level;
 use App\Models\Order;
@@ -13,7 +13,7 @@ use App\Models\Follow;
 use App\Models\Cooking;
 use App\Models\Comment;
 
-class UserEloquentRepository extends AbstractEloquentRepository implements UserRepository
+class ProfileEloquentRepository extends AbstractEloquentRepository implements ProfileRepository
 {
     public $model;
 
