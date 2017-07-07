@@ -17,13 +17,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('dashboard', function () {
         return view('admin.master');
     });
+    Route::resource('user', 'Admins\UserController');
     Route::resource('category', 'Admins\CategoryController');
+    Route::resource('profile', 'Admins\ProfileCotroller');
     Route::resource('ingredient', 'Admins\IngredientController');
     // Route::resource('product', 'ProductController');
     // Route::resource('order', 'OrderController');
     // Route::resource('comment', 'CommentController');
     // Route::get('rate', 'RateController@index')->name('rate');
-    // Route::resource('user', 'UserController');
 });
 
 //auth

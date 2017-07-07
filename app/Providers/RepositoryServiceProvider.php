@@ -11,6 +11,16 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\CategoryRepository::class,
             \App\Repositories\Eloquents\CategoryEloquentRepository::class,
         ],
+        'user' => [
+            \App\Contracts\Repositories\UserRepository::class,
+            \App\Repositories\Eloquents\UserEloquentRepository::class,
+        ],
+
+        'profile' => [
+            \App\Contracts\Repositories\ProfileRepository::class,
+            \App\Repositories\Eloquents\ProfileEloquentRepository::class,
+            ],
+            
         'ingredient' => [
             \App\Contracts\Repositories\IngredientRepository::class,
             \App\Repositories\Eloquents\IngredientEloquentRepository::class,

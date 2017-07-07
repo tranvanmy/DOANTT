@@ -8,6 +8,7 @@ article,aside,figure,figcaption,hgroup,footer,header,nav,section,video,object{di
 audio, canvas, video { display: inline-block; *display: inline; *zoom: 1;max-width: 100%; }
 
 /*LAYOUT*/
+.profile { margin-top: 120px; }
 .footer-category ul li a {color: white;}
 .messageLogin {background-color: #f4716a !important;}
 .head 		{float:left;width:100%;position:relative;z-index:2;height:90px;}

@@ -13,7 +13,8 @@
         {{ Html::style('sites_custom/css/dashboard1.css') }}
         {{ Html::style('sites_custom/css/dashboard1_timeline.css') }}
         {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
-
+        {{ Html::style('bower/bootstrap-select/dist/css/bootstrap-select.min.css') }}
+        <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
         @yield('style')
     </head>
     <body class="skin-default">
@@ -176,8 +177,9 @@
                                     <span>{{ trans('admin.category') }}</span>
                                 </a>
                             </li>
+                            <li class="menu-dropdown">
+                                <a href="{{ route('admin.user.index') }}">
                             <li>
-                                <a href="javascript:void(0)">
                                     <i class="menu-icon ti-user"></i>
                                     <span>{{ trans('admin.user') }}</span>
                                 </a>
@@ -243,6 +245,7 @@
         {{ Html::script('bower/vue/dist/vue.min.js') }}
         {{ Html::script('bower/axios/dist/axios.min.js') }}
         {{ Html::script('bower/toastr/toastr.min.js') }}
+        {{ Html::script('bower/bootstrap-select/dist/js/bootstrap-select.min.js') }}
         @yield('script')
     </body>
 </html>

@@ -53,10 +53,9 @@ class SocialiteController extends Controller
         $rememeber = $request->input('Remember');
 
         if (Auth::attempt($auth, $rememeber)) {
-            if ((Auth::user()->level_id) == 1) {
-                  return  redirect('/');
-            }
-            if (( Auth::user()->level_id == 2)) {
+            if ((Auth::user()->status) == 0) {
+                return  redirect('/');
+            } else {
                 return redirect('admin/dashboard');
             }
         } else {

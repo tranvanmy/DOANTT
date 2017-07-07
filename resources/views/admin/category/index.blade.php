@@ -5,7 +5,6 @@
 @endsection
 
 @section('style')
-    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
 @endsection
 @section('content')
