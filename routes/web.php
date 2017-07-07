@@ -17,7 +17,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('dashboard', function () {
         return view('admin.master');
     });
-    Route::resource('category', 'Admins\categoryController');
+    Route::resource('category', 'Admins\CategoryController');
+    Route::resource('ingredient', 'Admins\IngredientController');
     // Route::resource('product', 'ProductController');
     // Route::resource('order', 'OrderController');
     // Route::resource('comment', 'CommentController');
