@@ -81,4 +81,5 @@ return [
     'myRicepes' => 'Công thức',
     'myFactory' => 'Yêu thích',
     'myPost' => 'Bài Viết',
+    'UserDelete' => 'Người Dùng Đã Bị Vô Hiệu Hóa',
 ];

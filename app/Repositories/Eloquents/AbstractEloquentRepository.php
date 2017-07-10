@@ -3,7 +3,7 @@ namespace App\Repositories\Eloquents;
 
 abstract class AbstractEloquentRepository
 {
-    public function make($with)
+    public function make($with = null)
     {
         return $this->model->with($with);
     }

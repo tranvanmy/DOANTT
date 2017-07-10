@@ -4,6 +4,7 @@ namespace App\Models\Relations;
 
 use App\Models\Comment;
 use App\Models\Rate;
+use App\Models\Level;
 use App\Models\Category;
 
 trait CookingRelations
@@ -21,5 +22,10 @@ trait CookingRelations
     public function categories()
     {
         return $this->belongstoMany(Category::class, 'cooking_categories');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id');
     }
 }

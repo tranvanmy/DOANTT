@@ -40,14 +40,14 @@ class SocialiteController extends Controller
             'email' => $facebookUser->getEmail(),
             'facebook_id' => $facebookUser->getId(),
             'avatar' => $facebookUser->getAvatar(),
-        ]);
+            ]);
     }
 
     public function postLogin(Request $request)
     {
         $auth = [
-            'email' => $request->email,
-            'password' => $request->password,
+        'email' => $request->email,
+        'password' => $request->password,
         ];
 
         $rememeber = $request->input('Remember');
@@ -61,12 +61,12 @@ class SocialiteController extends Controller
 
                 return redirect('login');
             } else {
-                return redirect('admin/dashboard');
-            }
-        } else {
-            session()->flash('message', trans('sites.incorrect_username_or_pass'));
+                $message = trans('sites.mess');
+                return view('auth.login', ['message' => $message]);
+                session()->flash('message', trans('sites.incorrect_username_or_pass'));
 
-            return redirect('login');
+                return redirect('login');
+            }
         }
     }
 }

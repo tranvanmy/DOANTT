@@ -113,7 +113,7 @@
                                 <span class="input-group-btn">
                                     <a id="new-image" data-input="name-new-image" data-preview="new-image-preview" class="btn btn-primary">
                                         <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
-                                    </span>
+                                </span>
                                     <input id="name-new-image" style="display: none;" type="text" name="filepath">
                                 </td>
                                 <br>
@@ -124,7 +124,7 @@
                                         </td>
                                         <td></td>
                                         <td>
-                                            <select  name="level_id" class="selectpicker show-menu-arrow rankUser" id="" v-model="newItem.level_id" >
+                                            <select  name="level_id" class="input-sm rankUser" id="" v-model="newItem.level_id" >
                                                 <option value="1">{{ trans('admin.newbee') }}</option>
                                                 <option value="2">{{ trans('admin.taste') }}</option>
                                                 <option value="3">{{ trans('admin.cookee') }}</option>
@@ -140,7 +140,7 @@
                                         <td>
                                             <label for="status">{{trans('admin.status') }}</label></td>
                                             <td>
-                                                <select  name="status" class="input-sm statusUser selectpicker show-tick" id="" v-model="newItem.status" >
+                                                <select  name="status" class="input-sm statusUser" id="" v-model="newItem.status" >
                                                     <option value="0">{{ trans('admin.customer') }}</option>
                                                     <option value="1">{{ trans('admin.admin') }}</option>
                                                 </select>
@@ -210,7 +210,6 @@
                     <div class="modal-body">
                         <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
                             <div class="form-group">
-
                                 <label for="name">{{ trans('admin.password') }}</label>
                                 <input type="text" name="password" class="form-control" v-model="fillItem.password" />
                                 <span v-if="formErrors['password']" class="error text-danger">@{{ formErrors['password'][0] }}</span><br>
@@ -221,7 +220,7 @@
                                         </td>
                                         <td></td>
                                         <td>
-                                            <select  name="level_id" class="selectpicker show-menu-arrow rankUser" id="" v-model="fillItem.level_id" >
+                                            <select  name="level_id" class="input-sm rankUser" id="" v-model="fillItem.level_id">
                                                 <option value="1">{{ trans('admin.newbee') }}</option>
                                                 <option v-bind:value="2">{{ trans('admin.taste') }}</option>
                                                 <option v-bind:value="3">{{ trans('admin.cookee') }}</option>
@@ -237,7 +236,7 @@
                                         <td>
                                             <label for="status">{{trans('admin.status') }}</label></td>
                                             <td>
-                                                <select  name="status" class="input-sm statusUser selectpicker show-tick" id="" v-model="fillItem.status" >
+                                                <select  name="status" class="input-sm statusUser" id="" v-model="fillItem.status" >
                                                     <option v-bind:value="0">{{ trans('admin.customer') }}</option>
                                                     <option v-bind:value="1">{{ trans('admin.admin') }}</option>
                                                 </select>
