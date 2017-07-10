@@ -116,7 +116,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('password');
-        
+
         $data['password'] = bcrypt($request->password);
         $user = $this->user->update($id, $data);
         if ($user) {
@@ -141,7 +141,7 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $data = $request->except('status');
-        $data['status'] = '3';
+        $data['status'] = config('permission.disable');
         if ($category = $this->user->update($id, $data)) {
             $response['status'] = 'success';
             $response['message'] = trans('admin.delete_success');
@@ -151,7 +151,7 @@ class UserController extends Controller
             $response['message'] = trans('admin.error_happen');
             $response['action'] = trans('admin.error');
         }
-        
+
         return response()->json($response);
     }
 }

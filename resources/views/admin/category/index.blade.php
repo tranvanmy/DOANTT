@@ -5,7 +5,7 @@
 @endsection
 
 @section('style')
-    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
+    {!! Html::style('admin/css/category.css') !!}
 @endsection
 @section('content')
     <div class="container" id="manage-vue">

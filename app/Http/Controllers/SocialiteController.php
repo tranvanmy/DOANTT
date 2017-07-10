@@ -55,13 +55,18 @@ class SocialiteController extends Controller
         if (Auth::attempt($auth, $rememeber)) {
             if ((Auth::user()->status) == 0) {
                 return  redirect('/');
+            } elseif (Auth::user()->status == 2) {
+                Auth::logout();
+                session()->flash('message', trans('sites.user_disable'));
+
+                return redirect('login');
             } else {
                 return redirect('admin/dashboard');
             }
         } else {
-            $message = trans('messages.mess');
+            session()->flash('message', trans('sites.incorrect_username_or_pass'));
 
-            return view('auth.login', ['message' => $message]);
+            return redirect('login');
         }
     }
 }

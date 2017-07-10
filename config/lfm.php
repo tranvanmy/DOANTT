@@ -26,14 +26,14 @@ return [
     // If true, private folders will be created for each signed-in user.
     'allow_multi_user' => true,
     // If true, share folder will be created when allow_multi_user is true.
-    'allow_share_folder' => true,
+    'allow_share_folder' => false,
 
     // Flexibla way to customize client folders accessibility
     // If you want to customize client folders, publish tag="lfm_handler"
     // Then you can rewrite userField function in App\Handler\ConfigHander class
     // And set 'user_field' to App\Handler\ConfigHander::class
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => App\Handlers\LfmConfigHander::class,
+    'user_field' => App\Handlers\LfmConfigHandler::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
 
     // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
     // You should create routes to serve images if it is not set to public.
-    'base_directory' => 'public',
+    'base_directory' => 'public/media',
 
     'images_folder_name' => 'photos',
     'files_folder_name'  => 'files',
