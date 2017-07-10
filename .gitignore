@@ -13,5 +13,6 @@ npm-debug.log
 /public/images
 /public/photos
 /public/vendor
+/public/media
 /resources/views/vendor
 /storage

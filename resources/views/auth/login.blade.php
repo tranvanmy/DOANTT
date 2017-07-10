@@ -7,8 +7,8 @@
         <div class="panel panel-default">
             <div class="panel-heading panel-login">{{ trans('sites.login') }}</div>
             <div class="panel-body">
-               @if(isset($message))
-                    <div class="alert alert-danger messageLogin" role="alert">{!! $message !!}</div>
+               @if(session()->has('message'))
+                    <div class="alert alert-danger messageLogin" role="alert">{!! session()->get('message') !!}</div>
                @endif
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('postLogin') }}">
                     {{ csrf_field() }}

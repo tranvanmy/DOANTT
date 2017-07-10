@@ -14,6 +14,7 @@
         {{ Html::style('sites_custom/css/dashboard1_timeline.css') }}
         {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
         {{ Html::style('bower/bootstrap-select/dist/css/bootstrap-select.min.css') }}
+        {{ Html::style('bower/toastr/toastr.min.css') }}
         <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
         @yield('style')
     </head>
@@ -246,6 +247,7 @@
         {{ Html::script('bower/axios/dist/axios.min.js') }}
         {{ Html::script('bower/toastr/toastr.min.js') }}
         {{ Html::script('bower/bootstrap-select/dist/js/bootstrap-select.min.js') }}
+        {{ Html::script('bower/toastr/toastr.min.js') }}
         @yield('script')
     </body>
 </html>

@@ -50,18 +50,17 @@
                                 <i class="fa fa-user-o" aria-hidden="true"></i>{{ trans('admin.noRank') }}
                             </span>
                         </td>
-                        <td v-if="item.status == {{ App\Models\User::STATUS_CUSTOMER }}">
+                        <td v-if="item.status == {{ config('permission.user') }}">
                             <span class="label label-success">
                                 <i class="fa fa-user" aria-hidden="true"></i> {{ trans('admin.customer') }}
                             </span>
                         </td>
-                        <td v-if="item.status == {{ App\Models\User::STATUS_ADMIN }}">
+                        <td v-if="item.status == {{ config('permission.admin') }}">
                             <span class="label label-success">
                                 <i class="fa fa-heart" aria-hidden="true"></i> {{ trans('admin.admin') }}
                             </span>
                         </td>
-                        <td v-if="item.status == {{ App\Models\User::STATUS_
-                            DELETE }}">
+                        <td v-if="item.status == {{ config('permission.disable') }}">
                             <span class="label label-danger">
                                 <i class="fa fa-user" aria-hidden="true"></i> {{ trans('admin.deleteUser') }}
                             </span>

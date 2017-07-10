@@ -13,7 +13,7 @@
 
 
 //admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('dashboard', function () {
         return view('admin.master');
     });

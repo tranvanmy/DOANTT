@@ -16,10 +16,6 @@ class User extends Authenticatable
      * @var array
      */
 
-    const STATUS_CUSTOMER = 0;
-    const STATUS_ADMIN = 1;
-    const STATUS_DELETE = 3;
-
     protected $fillable = [
         'id',
         'name',
