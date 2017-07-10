@@ -21,7 +21,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('category', 'Admins\CategoryController');
     Route::resource('profile', 'Admins\ProfileCotroller');
     Route::resource('ingredient', 'Admins\IngredientController');
-    // Route::resource('product', 'ProductController');
+    Route::resource('post', 'Admins\PostController');
     // Route::resource('order', 'OrderController');
     // Route::resource('comment', 'CommentController');
     // Route::get('rate', 'RateController@index')->name('rate');
