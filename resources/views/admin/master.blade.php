@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>@yield('title')</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />
         {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('sites_custom/css/app.css') }}
         {{ Html::style('bower/swiper/dist/css/swiper.min.css') }}
@@ -180,7 +181,6 @@
                             </li>
                             <li class="menu-dropdown">
                                 <a href="{{ route('admin.user.index') }}">
-                            <li>
                                     <i class="menu-icon ti-user"></i>
                                     <span>{{ trans('admin.user') }}</span>
                                 </a>
@@ -198,7 +198,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">
+                                <a href="{{ route('admin.post.index') }}">
                                     <i class="menu-icon ti-gallery"></i>
                                     <span>{{ trans('admin.post') }}</span>
                                 </a>

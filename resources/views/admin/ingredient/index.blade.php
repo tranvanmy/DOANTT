@@ -85,7 +85,7 @@
                                 <nav class="dataTables_paginate paging_simple_numbers">
                                     <ul class="pagination">
                                         <li v-if="pagination.current_page > 1">
-                                            <a href="#" aria-label="Previous"
+                                            <a href="#"
                                                @click.prevent="changePage(pagination.current_page - 1)">
                                                 <span aria-hidden="true">«</span>
                                             </a>
@@ -96,7 +96,7 @@
                                                @click.prevent="changePage(page)">@{{ page }}</a>
                                         </li>
                                         <li v-if="pagination.current_page < pagination.last_page">
-                                            <a href="#" aria-label="Next"
+                                            <a href="#"
                                                @click.prevent="changePage(pagination.current_page + 1)">
                                                 <span aria-hidden="true">»</span>
                                             </a>
@@ -114,7 +114,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">{{ trans('admin.ingredient_new') }}</h4>
                     </div>
                     <div class="modal-body">
