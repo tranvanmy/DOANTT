@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('sites.master')
 
 @section('content')
-<div class="container">
+@include('sites._sections.header')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('sites.register') }}</div>
+        <div class="col-md-7 col-md-offset-3 login full-width">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-login">{{ trans('sites.register') }}</div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
@@ -15,7 +15,6 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -23,7 +22,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">{{ trans('sites.emailAdrees') }}</label>
 
@@ -33,6 +31,20 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">{{ trans('sites.phone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -61,7 +73,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                            <div class="col-md-6 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">
                                     {{ trans('sites.register') }}
                                 </button>
@@ -72,5 +84,5 @@
             </div>
         </div>
     </div>
-</div>
+    @include('sites._sections.footer')
 @endsection

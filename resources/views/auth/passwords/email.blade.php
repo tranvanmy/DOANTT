@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('sites.master')
 
 @section('content')
-<div class="container">
+@include('sites._sections.header')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-7 col-md-offset-2 login full-width">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('sites.reset') }}</div>
+                <div class="panel-heading panel-login">{{ trans('sites.reset') }}</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -42,5 +42,5 @@
             </div>
         </div>
     </div>
-</div>
+    @include('sites._sections.footer')
 @endsection

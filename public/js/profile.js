@@ -19,6 +19,7 @@ new Vue({
         formErrorsUpdate: {},
         newItem: {'name':'', 'email':'', 'password':'', 'phone':'', 'avatar':'', 'confirm_pass': ''},
         fillItem: {'id':'', 'name': '', 'password':'', 'phone': '', 'avatar': '', 'confirm_pass': ''},
+        passItem: {'password': '', 'confirm_pass': ''}
     },
 
     computed: {
@@ -70,16 +71,31 @@ new Vue({
         },
         editItem: function(item){
             axios.get('/site/profile/user/'+item +'/edit').then((response) => {
-            this.fillItem.id = response.data.id;
-            this.fillItem.name = response.data.name; 
-            this.fillItem.phone = response.data.phone;
-            this.fillItem.avatar = response.data.avatar;
-            console.log(this.fillItem.avatar);
-            $("#edititem").modal('show');
-        })
-    },  
+                this.fillItem.id = response.data.id;
+                this.fillItem.name = response.data.name; 
+                this.fillItem.phone = response.data.phone;
+                this.fillItem.avatar = response.data.avatar;
+                $("#edititem").modal('show');
+            })
+        },  
         creatItem: function() {
-            $("#addpost").modal('show');
+            $("#editpass").modal('show');
+        },
+
+        updatePass: function(id){
+            var input = this.passItem;
+            axios.put( '/site/profile/changepass/'+ id, input).then((response) => {
+                $("#editpass").modal('hide');
+                if (response.data.status == 'error') {
+                    toastr.error(response.data.message, response.data.action, {timeOut: 5000});
+                } else {
+                    toastr.success('', response.data.action, {timeOut: 5000});
+                }
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    this.formErrorsUpdate = error.response.data
+                }
+            });
         },
 
         updateItem: function(id){

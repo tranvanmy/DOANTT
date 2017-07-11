@@ -35,7 +35,7 @@
                             <i class="fa fa-graduation-cap" aria-hidden="true"></i>{{ trans('sites.manegeAcount') }}
                         </a>
                         <a v-on:click="creatItem()" type="button" class="btn btn-success btn-sm">
-                            <i class="fa fa-book" aria-hidden="true"></i>{{ trans('sites.DangPost') }}
+                            <i class="fa fa-key" aria-hidden="true"></i> {{ trans('sites.changePass') }}
                         </a>
                         <br/>
                         @else
@@ -54,7 +54,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">{{ trans('sites.manage') }}</h4>
+                                <h4 class="modal-title"><i class="fa fa-user" aria-hidden="true"></i> {{ trans('sites.manegeAcount') }}</h4>
                             </div>
                             <div class="modal-body">
                              <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
@@ -70,17 +70,6 @@
                                         <input type="text" name="phone" class="form-control" v-model="fillItem.phone" />
                                         <span v-if="formErrorsUpdate['phone']" class="error text-danger">@{{ formErrorsUpdate['phone'][0] }}</span><br>
                                         <br/>
-                                    </div>
-                                    <div class="form-group col-md-6" >
-                                        <label for="name">{{ trans('admin.password') }}</label>
-                                        <input type="password" name="password" class="form-control" v-model="fillItem.password" />
-                                        <span v-if="formErrorsUpdate['password']" class="error text-danger">@{{ formErrorsUpdate['password'][0] }}</span><br>
-                                        <br/>
-                                    </div>
-                                    <div class="form-group col-md-6" >
-                                        <label for="name">{{ trans('admin.confirm_pass') }}</label>
-                                        <input type="password" name="confirm_pass" class="form-control" v-model="fillItem.confirm_pass" />
-                                        <span v-if="formErrorsUpdate['confirm_pass']" class="error text-danger">@{{ formErrorsUpdate['confirm_pass'][0] }}</span><br>
                                     </div>
                                 </div>
                                     <div class="clearfix"></div>
@@ -111,51 +100,30 @@
                     </div>
                 </div>
             </div>
-            <div id="addpost" class="modal fade" role="dialog">
+            <div id="editpass" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">{{ trans('sites.addPost') }}</h4>
+                            <h4 class="modal-title"><i class="fa fa-key" aria-hidden="true"></i>{{ trans('sites.editpass') }}</h4>
                         </div>
-                        <div class="modal-body">
-                         <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
-                           <div class="form-group">
-                            <div class="form-group">
-                                <label for="name">{{ trans('sites.title') }}</label>
-                                <input type="text" name="title" class="form-control"/>
-                                <span v-if="formErrors['title']" class="error text-danger">@{{ formErrors['title'][0] }}</span>
-                                <br>
-                            </div>
-                            <div class="form-group">
-                                <div>
-                                    <div class="file-upload-form">
-                                        <input type="file" @change="previewImage" accept="image/*" name="avatar">
-                                    </div>
-                                    <div class="image-preview" v-if="imageData.length > 0">
-                                        <img class="preview" :src="imageData" wi>
-                                    </div>
+                        <div class="clearfix"></div>
+                           <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updatePass({{ $allData['id'] }})">
+                                <div class="col-md-6" >
+                                    <label for="name">{{ trans('admin.password') }}</label>
+                                    <input type="password" name="password" class="form-control" v-model="passItem.password" />
+                                    <span v-if="formErrorsUpdate['password']" class="error text-danger">@{{ formErrorsUpdate['password'][0] }}</span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">{{ trans('sites.Description') }}</label>
-                                <textarea class="form-control" rows="5" name="description"></textarea>
-                                <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span>
-                                <br>
-                            </div>
-                            <div class="form-group">
-                                <label for="name">{{ trans('sites.content') }}</label>
-                                <textarea class="form-control" rows="5" name="content"></textarea>
-                                <span v-if="formErrors['content']" class="error text-danger">@{{ formErrors['content'][0] }}</span>
-                                <br>
-                            </div>
-                        </div>
+                                <div class="col-md-6" >
+                                    <label for="name">{{ trans('admin.confirm_pass') }}</label>
+                                    <input type="password" name="confirm_pass" class="form-control" v-model="passItem.confirm_pass" />
+                                    <span v-if="formErrorsUpdate['confirm_pass']" class="error text-danger">@{{ formErrorsUpdate['confirm_pass'][0] }}</span><br>
+                                </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('sites.close') }}</button>
                             <button type="submit" class="btn btn-success">{{ trans('sites.update') }}</button>
                         </div>
                     </form>
-                </div>
             </div>
         </div>
     </div>
@@ -166,7 +134,7 @@
                 <li class="active"><a href="#about" title="About me">{{ trans('sites.aboutMe') }}</a></li>
                 <li><a href="#recipes"   title="My recipes">{{ trans('sites.myRicepes') }}</a></li>
                 <li><a href="#post" title="My post">{{ trans('sites.myPost') }}</a></li>
-                <li><a href="#follows" title="My follows">{{ trans('sites.follows') }}</a></li>
+                <li><a href="#follows" title="My follows">{{ trans('sites.follow') }}</a></li>
             </ul>
         </nav>
         <!--about-->
@@ -182,6 +150,8 @@
                     <dt>{{ trans('sites.level') }}</dt>
                     @if($allData->level)
                     <dd>{{ $allData->level->name }}</dd>
+                    @else
+                    <dd>0</dd>
                     @endif
                     <dt>{{ trans('sites.totalPost') }}</dt>
                     <dd>{{ $totalPost }}</dd>
@@ -243,7 +213,7 @@
                 <!--item-->
             </div>
             <div>
-                <button class="btn btn-success">{{ trans('sites.contunue') }}</button>
+                <button class="btn btn-success">{{ trans('sites.continue') }}</button>
             </div>
         </div>
         <div class="tab-content" id="follows">
@@ -251,7 +221,7 @@
                 <nav class="tabs" id="followTabs1">
                     <ul>
                         <li class="active">
-                            <a href="#follow" id="followU">{{ trans('sites.follows') }}</a>
+                            <a href="#follow" id="followU">{{ trans('sites.follow') }}</a>
                         </li>
                         <li>
                             <a href="#byfollow" id="follows" >{{  trans('sites.byfollow') }}</a>

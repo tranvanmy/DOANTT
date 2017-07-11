@@ -8,6 +8,7 @@ use App\Contracts\Repositories\ProfileRepository;
 use App\Helpers\Helpers;
 use App\Models\User;
 use App\Http\Requests\ProfileUserRequest;
+use App\Http\Requests\PassWordResquest;
 
 class ProfileController extends Controller
 {
@@ -84,6 +85,26 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function changePass(PassWordResquest $request, $id)
+    {
+        $data = $request->except('password');
+        $data['password'] = bcrypt($request->password);
+
+        $user = $this->user->update($id, $data);
+        if ($user) {
+            $response['status'] = 'success';
+            $response['message'] = trans('sites.edit_success');
+            $response['action'] = trans('sites.success');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('sites.error_happen');
+            $response['action'] = trans('sites.error');
+        }
+
+        return response()->json($response);
+    }
+
     public function update(ProfileUserRequest $request, $id)
     {
         $exploded = explode(',', $request->avatar);

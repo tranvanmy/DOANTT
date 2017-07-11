@@ -60,13 +60,12 @@ class SocialiteController extends Controller
                 session()->flash('message', trans('sites.user_disable'));
 
                 return redirect('login');
-            } else {
-                $message = trans('sites.mess');
-                return view('auth.login', ['message' => $message]);
-                session()->flash('message', trans('sites.incorrect_username_or_pass'));
-
-                return redirect('login');
             }
+        } else {
+            $message = trans('sites.mess');
+            session()->flash('message', trans('sites.incorrect_username_or_pass'));
+
+            return redirect('login');
         }
     }
 }
