@@ -1,12 +1,11 @@
-@extends('layouts.app')
+@extends('sites.master')
 
 @section('content')
-<div class="container">
+@include('sites._sections.header')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+          <div class="col-md-7 col-md-offset-3 login full-width">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('sites.reset') }}</div>
-
+                <div class="panel-heading panel-login">{{ trans('sites.reset') }}</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -34,7 +33,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">{{ trans('sites.password') }}</label>
+                            <label for="password" class="col-md-4 control-label">{{ trans('sites.passWord') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -48,7 +47,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">{{ trans('sites.comfirm') }}
+                            <label for="password-confirm" class="col-md-4 control-label">{{ trans('sites.comfirm') }}</label>
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
 
@@ -61,8 +60,8 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 col-md-offset-3">
+                                <button type="submit" class="btn btn-success">
                                     {{ trans('sites.reset') }}
                                 </button>
                             </div>
@@ -72,5 +71,5 @@
             </div>
         </div>
     </div>
-</div>
+@include('sites._sections.footer')
 @endsection

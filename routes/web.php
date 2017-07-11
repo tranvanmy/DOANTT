@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 });
 
 Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
+    Route::put('profile/changepass/{id}', 'ProfileController@changePass');
     Route::resource('profile/user', 'ProfileController');
 });
 

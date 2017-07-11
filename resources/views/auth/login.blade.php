@@ -3,7 +3,7 @@
 @section('content')
 @include('sites._sections.header')
 <div class="row">
-    <div class="col-md-7 col-md-offset-3 login full-width wow fadeInUp">
+    <div class="col-md-7 col-md-offset-3 login full-width">
         <div class="panel panel-default">
             <div class="panel-heading panel-login">{{ trans('sites.login') }}</div>
             <div class="panel-body">
@@ -44,12 +44,15 @@
                         </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-3">
+                            <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn">
                                     {{ trans('sites.login') }}
                                 </button>
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ trans('sites.forgot')}}
+                                </a>|
+                                <a class="btn btn-link" href="{{ route('register') }}">
+                                    {{ trans('sites.regiter') }}
                                 </a>
                             </div>
                             <div class="clearfix"></div>
@@ -65,4 +68,5 @@
             </div>
         </div>
     </div>
+    @include('sites._sections.footer')
 @endsection
