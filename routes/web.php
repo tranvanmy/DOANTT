@@ -19,12 +19,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     });
     Route::resource('user', 'Admins\UserController');
     Route::resource('category', 'Admins\CategoryController');
-    Route::resource('profile', 'Admins\ProfileCotroller');
     Route::resource('ingredient', 'Admins\IngredientController');
     Route::resource('post', 'Admins\PostController');
     // Route::resource('order', 'OrderController');
     // Route::resource('comment', 'CommentController');
     // Route::get('rate', 'RateController@index')->name('rate');
+});
+
+Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
+    Route::resource('profile/user', 'ProfileController');
 });
 
 //auth

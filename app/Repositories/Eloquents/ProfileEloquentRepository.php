@@ -21,4 +21,61 @@ class ProfileEloquentRepository extends AbstractEloquentRepository implements Pr
     {
         $this->model = $user;
     }
+
+    public function total($id, $with = null)
+    {
+        $users = $this->make($with)->where('id', $id)->first();
+        return $users->posts()->count();
+    }
+
+    public function totalCooking($id, $with = null)
+    {
+        $users = $this->make($with)->where('id', $id)->first();
+        return $users->cookings()->count();
+    }
+
+    public function takePost($id, $with = null)
+    {
+        $users = $this->model->with([])->where('id', $id)->first();
+
+        return $users;
+    }
+
+    public function takeCooking($id, $with = null)
+    {
+        $users = $this->model->with(['cookings' => function ($query) {
+            $query->with('level')->orderBy('rate_point', 'DESC')->take('3');
+        }])->where('id', $id)->first();
+
+        return $users;
+    }
+
+    public function takefollows($id, $with = null)
+    {
+        $follow = $this->model->with([])->where('id', $id)->first();
+
+        return $follow;
+    }
+
+    public function takeByFollows($id, $with = null)
+    {
+        $follow = $this->model->with([])->where('id', $id)->first();
+
+        return $follow;
+    }
+
+    public function takeAll($id)
+    {
+        $users = $this->model->with(['cookings' => function ($query) {
+            $query->with('level')->orderBy('rate_point', 'DESC')->take('3');
+        }, 'follows.userFollow' => function ($query) {
+            $query->orderBy('id', 'DESC')->take('3');
+        },'followBys.user' => function ($query) {
+            $query->orderBy('id', 'DESC')->take('3');
+        }, 'posts' => function ($query) {
+            $query->orderBy('id', 'DESC')->take('3');
+        }])->where('id', $id)->first();
+
+        return $users;
+    }
 }

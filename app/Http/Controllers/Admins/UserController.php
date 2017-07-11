@@ -141,6 +141,7 @@ class UserController extends Controller
     public function destroy(Request $request, $id)
     {
         $data = $request->except('status');
+
         $data['status'] = config('permission.disable');
         if ($category = $this->user->update($id, $data)) {
             $response['status'] = 'success';

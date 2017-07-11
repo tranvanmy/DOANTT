@@ -9,6 +9,8 @@
     {{ Html::style('bower/font-awesome/css/font-awesome.min.css') }}
     {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
     {{ Html::style('bower/sweetalert/dist/sweetalert.css') }}
+    {{ Html::style('bower/toastr/toastr.min.css') }}
+    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
 </head>
 <body class="home">
 
@@ -21,8 +23,13 @@
     {{ Html::script('js/scripts.js') }}
     {{ Html::script('bower/jquery.uniform/dist/js/jquery.uniform.standalone.js') }}
     {{ Html::script('bower/wow/dist/wow.min.js') }}
+    {{ Html::script('bower/axios/dist/axios.min.js') }}
     {{ Html::script('bower/axios/dist/axios.js') }}
     {{ Html::script('bower/vue/dist/vue.min.js') }}
     {{ Html::script('bower/toastr/toastr.min.js') }}
+    <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
+    {{ Html::script('bower/ckeditor/ckeditor.js') }}
+    {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}
+    {{ Html::script('js/profile.js') }}
 </body>
 </html>
