@@ -30,7 +30,11 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\PostRepository::class,
             \App\Repositories\Eloquents\PostEloquentRepository::class,
         ],
-
+        
+        'cooking' => [
+            \App\Contracts\Repositories\CookingRepository::class,
+            \App\Repositories\Eloquents\CookingEloquentRepository::class,
+        ],
     ];
 
     /**
