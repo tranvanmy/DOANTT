@@ -1,3 +1,6 @@
+<div class="preloader" style="display: none;">
+        <div class="spinner"></div>
+</div>
 <header class="head" role="banner">
     <div class="wrap clearfix">
         <a href="" class="logo"><img src="{{ asset('images/ok.png') }}" style="margin-top: -29px;" /></a>
@@ -25,7 +28,7 @@
                     <li class="current-menu-item"><a href="#"><span>{{ Auth::user()->name }}</span></a>
                         <ul>
                             <li>
-                                <a href="site/profile/user/{{ Auth::user()->id }}">
+                                <a href="{{ asset('site/profile/user/' . Auth::user()->id) }}">
                                     {{ trans('site.profile') }}
                                 </a>
                             </li>

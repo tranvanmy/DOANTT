@@ -26,9 +26,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     // Route::get('rate', 'RateController@index')->name('rate');
 });
 
+ 
 Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::put('profile/changepass/{id}', 'ProfileController@changePass');
     Route::resource('profile/user', 'ProfileController');
+    Route::resource('cooking', 'Sites\CookingController');
 });
 
 //auth
