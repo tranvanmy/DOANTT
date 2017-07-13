@@ -25,15 +25,21 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\IngredientRepository::class,
             \App\Repositories\Eloquents\IngredientEloquentRepository::class,
         ],
-
         'post' => [
             \App\Contracts\Repositories\PostRepository::class,
             \App\Repositories\Eloquents\PostEloquentRepository::class,
         ],
-        
+        'blog' => [
+            \App\Contracts\Repositories\BlogRepository::class,
+            \App\Repositories\Eloquents\BlogEloquentRepository::class,
+        ],
         'cooking' => [
             \App\Contracts\Repositories\CookingRepository::class,
             \App\Repositories\Eloquents\CookingEloquentRepository::class,
+        ],
+        'follow' => [
+            \App\Contracts\Repositories\FollowRepository::class,
+            \App\Repositories\Eloquents\FollowEloquentRepository::class,
         ],
     ];
 

@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Sites;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Contracts\Repositories\CookingRepository;
+use App\Contracts\Repositories\BlogRepository;
 
-class CookingController extends Controller
+class BlogController extends Controller
 {
-    protected $cooking;
 
-    public function __construct(CookingRepository $cooking)
+    protected $post;
+
+    public function __construct(BlogRepository $post)
     {
-        $this->cooking = $cooking;
+        $this->post = $post;
     }
     /**
      * Display a listing of the resource.
@@ -22,25 +23,22 @@ class CookingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $repices = $this->cooking->paginageCooking('10', ['level']);
+            $listPost = $this->post->paginagePost('10', ['user']);
             $response = [
-                'pagination' => [
-                'total'        => $repices->total(),
-                'per_page'     => $repices->perPage(),
-                'current_page' => $repices->currentPage(),
-                'last_page'    => $repices->lastPage(),
-                'from'         => $repices->firstItem(),
-                'to'           => $repices->lastItem()
-                ],
-                'data' => $repices
-            ];
-
+                    'pagination' => [
+                    'total'        => $listPost->total(),
+                    'per_page'     => $listPost->perPage(),
+                    'current_page' => $listPost->currentPage(),
+                    'last_page'    => $listPost->lastPage(),
+                    'from'         => $listPost->firstItem(),
+                    'to'           => $listPost->lastItem()
+                    ],
+                    'data' => $listPost
+                ];
             return response()->json($response);
         }
-
-        return view('sites._components.recipes');
+        return view('sites._components.blog');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -62,10 +60,10 @@ class CookingController extends Controller
         //
     }
 
-    public function showCooking($id, Request $request)
+    public function showList($id, Request $request)
     {
         if ($request->ajax()) {
-            $allData = $this->cooking->takeListCooking($id, '1');
+            $allData = $this->post->takeListPost($id, '9');
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),
@@ -79,7 +77,7 @@ class CookingController extends Controller
             ];
             return response()->json($response);
         }
-        return view('sites._components.listCookingUser');
+        return view('sites._components.listPostUser');
     }
     /**
      * Display the specified resource.
@@ -89,18 +87,9 @@ class CookingController extends Controller
      */
     public function show($id)
     {
-        $cooking = $this->cooking->find($id, [
-            'user',
-            'categories',
-            'level',
-            'rates',
-            'comments',
-            'cookingIngredients.ingredient',
-            'cookingIngredients.unit',
-            'steps'
-            ]);
-
-        return view('sites._components.cooking_detail', compact('cooking'));
+        $detailPost = $this->post->find($id, 'user');
+    
+        return view('sites._components.detailBlog', compact('detailPost'));
     }
 
     /**

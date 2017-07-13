@@ -17,7 +17,6 @@
                     </ul>
                 </nav>
                 <!--//breadcrumbs-->
-                
                 <!--row-->
                 <div class="row">
                     <!--content-->
@@ -42,13 +41,11 @@
                                         <div class="intro"><p><strong>{{ $cooking->description }}</p></div>
                                         <div class="instructions">
                                             <ol>
-
                                             @foreach($cooking->steps as $step)
                                                 <li>
                                                     {{ $step->content }}
                                                 </li>
                                             @endforeach
-
                                             </ol>
                                         </div>
 
@@ -56,8 +53,7 @@
                                             <a class="" onclick="window.print();" href="#"><i class="fa fa-fw fa-print" aria-hidden="true"></i> <span>{{ trans('sites.print_recipe') }}</span></a>
                                         </div>
                                     </article>
-                                    <!--//two-third-->
-                                    
+                                    <!--//two-third-->        
                                     <!--one-third-->
                                     <article class="one-third wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
                                         <div class="rating">
@@ -90,9 +86,7 @@
                                             <dt>{{ trans('sites.difficulty') }}</dt>
                                             <dd>{{ $cooking->level->name }}</dd>
                                         </dl>
-                                        
                                         <dl class="ingredients">
-
                                             @foreach($cooking->cookingIngredients as $ingredient)
                                                 <dt>{{ $ingredient->quantity }} {{ $ingredient->unit->name }}</dt>
                                                 <dd>{{ $ingredient->ingredient->name }}</dd>
@@ -122,9 +116,7 @@
                                 </div>
                             </div>
                             <!--//recipe-->
-
                             @include('sites._components.comments')
-
                     </section>
                     <!--//content-->
                 </div>

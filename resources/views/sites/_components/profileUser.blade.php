@@ -14,13 +14,13 @@
             </ul>
         </nav>
         <!--content-->
-        <section class="content">
+        <section class="content col-md-12">
             <!--row-->
             <div class="row">
                 <div class="panel panel-widget panel-default my_account one-fourth wow fadeInLeft img-circle col-md-3">
                     <div class="form-group">
-                        <div class="text-center col-md-9">
-                            <img src="{{ $allData['avatar'] }}" alt="" style="margin-left: 30%;" class="img-circle img-bor"/>
+                        <div class="text-center col-md-8" id="avatarProfile">
+                            <img src="{{ $allData['avatar'] }}" class="img-circle img-bor"/>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -31,20 +31,20 @@
                     &nbsp;&nbsp;
                     <div class="profile_user text-center">
                         @if((Auth::user()->id) == $allData['id'])
-                        <a v-on:click="editItem({{ $allData['id'] }})" type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-graduation-cap" aria-hidden="true"></i>{{ trans('sites.manegeAcount') }}
-                        </a>
-                        <a v-on:click="creatItem()" type="button" class="btn btn-success btn-sm">
-                            <i class="fa fa-key" aria-hidden="true"></i> {{ trans('sites.changePass') }}
-                        </a>
-                        <br/>
+                            <a v-on:click="editItem({{ $allData['id'] }})" type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>{{ trans('sites.manegeAcount') }}
+                            </a>
+                            <a v-on:click="creatItem()" type="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-key" aria-hidden="true"></i> {{ trans('sites.changePass') }}
+                            </a>
+                            <br/>
                         @else
-                        <a v-on:click="" type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{ trans('admin.follows') }}
-                        </a>
-                        <a v-on:click="" type="button" class="btn btn-success btn-sm">
-                            <i class="fa fa-book" aria-hidden="true"></i>{{ trans('sites.contact') }}
-                        </a>
+                            <a v-on:click="" type="button" class="btn btn-primary btn-sm">
+                                <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{ trans('admin.follows') }}
+                            </a>
+                            <a v-on:click="" type="button" class="btn btn-success btn-sm">
+                                <i class="fa fa-phone" aria-hidden="true"></i> {{ trans('sites.contact') }}
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                     @if($allData->level)
                     <dd>{{ $allData->level->name }}</dd>
                     @else
-                    <dd>0</dd>
+                    <dd>{{ trans('sites.newUser') }}</dd>
                     @endif
                     <dt>{{ trans('sites.totalPost') }}</dt>
                     <dd>{{ $totalPost }}</dd>
@@ -185,7 +185,7 @@
                 @endforeach
             </div>
             <div>
-                <a href="{{ $allData['id'] }}" class="btn btn-success">{{ trans('sites.continue') }}</a>
+                <a href="{{ route('site.cooking', $allData['id'] ) }}" class="btn btn-success"><i class="fa fa-forward" aria-hidden="true"></i> {{ trans('sites.continue') }}</a>
             </div>
         </div>
         <!--my favorites-->
@@ -196,16 +196,17 @@
                 <div class="entry one-third">
                     <figure>
                         <img src="{{ $post->image }}" height="250px" width="300px" />
-                        <figcaption><a href="{{ $post->id }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                        <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                     </figure>
                     <div class="container">
-                        <h2><a href="{{ $post->id }}">{{ $post->title }}</a></h2>
+                        <h2><a href="{{ route('site.blog.show', [$post->id] ) }}">{{ $post->title }}</a></h2>
                         <div class="actions">
                             <div class="excerpt">
                                 <p>{{ $post->description }}</p>
-                                <div class="date"><i class="ico i-date"></i><a href="#">{{ $post->created_at }}</a></div>
+                                <div class="date">
+                                    <i class="ico i-date"></i>{{ $post->created_at }}</a>
+                                </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -213,7 +214,8 @@
                 <!--item-->
             </div>
             <div>
-                <button class="btn btn-success">{{ trans('sites.continue') }}</button>
+                <a href="{{ route('site.listPost', $allData['id'] ) }}" class="btn btn-success">
+                <i class="fa fa-forward" aria-hidden="true"></i> {{ trans('sites.continue') }}</a>
             </div>
         </div>
         <div class="tab-content" id="follows">
@@ -241,10 +243,12 @@
                         </figure>
                         <div class="container">
                             <h2><a href="{{ ($follow->userFollow->id) }}"><i class="fa fa-user-md" aria-hidden="true"></i> {{ ($follow->userFollow->name) }}</a></h2>
-                            
                         </div>
                     </div>
                     @endforeach
+                </div>
+                <div>
+                    <a href="{{ route('site.follow', $allData['id'] ) }}" class="btn btn-success"><i class="fa fa-forward" aria-hidden="true"></i> {{ trans('sites.continue') }}</a>
                 </div>
             </div>
             <div class="tab-content" id="byfollow">
@@ -254,15 +258,24 @@
                         <figure>
                             <img src="{{ ($byFollow->user->avatar) }}" alt=""  height="250px" width="300px"/>
                             <figcaption>
-                                <a href="{{ ($byFollow->user->id) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
+                                <a href="{{ ($byFollow->user->id) }}">
+                                    <i class="ico i-view"></i>
+                                    <span>{{ trans('sites.view') }}</span>
+                                </a>
                             </figcaption>
                         </figure>
                         <div class="container">
-                            <h2><a href="{{ ($byFollow->user->id) }}"><i class="fa fa-user-md" aria-hidden="true"></i> {{ ($byFollow->user->name) }}</a></h2>
-                            
+                            <h2>
+                                <a href="{{ ($byFollow->user->id) }}">
+                                    <i class="fa fa-user-md" aria-hidden="true"></i> {{ ($byFollow->user->name) }}
+                                </a>
+                            </h2>
                         </div>
                     </div>
                     @endforeach
+                </div>
+                <div>
+                    <a href="{{ route('site.byfollow', $allData['id'] ) }}" class="btn btn-success"><i class="fa fa-forward" aria-hidden="true"></i> {{ trans('sites.continue') }}</a>
                 </div>
             </div>
         </div>

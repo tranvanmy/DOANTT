@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Relations\CookingRelations;
+use Laravel\Scout\Searchable;
 
 class Cooking extends Model
 {
     use CookingRelations;
+    use Searchable;
 
     protected $fillable = [
         'id',
@@ -22,4 +24,16 @@ class Cooking extends Model
         'image',
         'video_link',
     ];
+
+    public function searchableAs()
+    {
+        return 'cooking';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return $array;
+    }
 }
