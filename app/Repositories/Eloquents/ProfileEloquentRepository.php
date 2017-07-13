@@ -78,4 +78,13 @@ class ProfileEloquentRepository extends AbstractEloquentRepository implements Pr
 
         return $users;
     }
+
+    public function takeMaster($paginate, $with = [], $select = null)
+    {
+        $post = $this->model->with(['level' => function ($query) {
+            $query->orderBy('id', 'DESC');
+        }])->paginate($paginate);
+ 
+        return $post;
+    }
 }

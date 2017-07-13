@@ -8,6 +8,7 @@ article,aside,figure,figcaption,hgroup,footer,header,nav,section,video,object{di
 audio, canvas, video { display: inline-block; *display: inline; *zoom: 1;max-width: 100%; }
 
 /*LAYOUT*/
+#avatarProfile{margin-left: 20%;}
 #passwordForm{margin-top: 50px;}
 #imgprofile {margin-left: 70%;}
 .submitProfile {margin-top: 30px;}

@@ -16,6 +16,9 @@ return [
     'lastRecipes' => 'Công thức mới nhất',
     'level' => 'Cấp Bậc',
     'comment' => '27',
+    'follows' => 'Theo Dõi',
+    'byfollows' => 'Được Theo Đõi',
+    'viewInfo' => 'Xem Thông Tin',
     'moreRecipes' => 'Công thức nấu ăn khác',
     'backToTop' => 'Trở lại trang đầu',
     'latestArticles' => 'Bài viết mới nhất',
@@ -94,5 +97,7 @@ return [
     'phone' => 'Số Điện Thoại',
     'totalPost' => 'Tổng bài viết',
     'totalCookings' => 'Tổng công thức',
+    'read_more' => 'Đọc Thêm...',
+    'newUser' => 'Người mới',
 
 ];

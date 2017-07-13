@@ -50,6 +50,26 @@ class ProfileController extends Controller
         //
     }
 
+    public function showList($id, Request $request)
+    {
+        
+        if ($request->ajax()) {
+            $allData = $this->user->takeListPost($id, '4');
+            $response = [
+                'pagination' => [
+                'total'        => $allData->total(),
+                'per_page'     => $allData->perPage(),
+                'current_page' => $allData->currentPage(),
+                'last_page'    => $allData->lastPage(),
+                'from'         => $allData->firstItem(),
+                'to'           => $allData->lastItem()
+                ],
+                'data' => $allData
+            ];
+            return response()->json($response);
+        }
+        return view('sites._components.listPostUser');
+    }
     /**
      * Display the specified resource.
      *
