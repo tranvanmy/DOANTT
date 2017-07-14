@@ -13,5 +13,6 @@ class Follow extends Model
         'id',
         'user_id',
         'user_id_follow',
+        'status',
     ];
 }

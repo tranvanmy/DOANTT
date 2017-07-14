@@ -41,4 +41,10 @@ abstract class AbstractEloquentRepository
     {
         return $this->model->destroy($id);
     }
+
+
+    public function deleteItem($data = [])
+    {
+        return $this->model->destroy($data);
+    }
 }

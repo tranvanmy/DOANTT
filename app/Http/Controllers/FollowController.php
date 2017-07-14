@@ -8,6 +8,7 @@ use App\Contracts\Repositories\FollowRepository;
 use App\Helpers\Helpers;
 use App\Models\User;
 use App\Models\Follow;
+use Auth;
 
 class FollowController extends Controller
 {
@@ -42,15 +43,15 @@ class FollowController extends Controller
                 ],
                 'data' => $allData
             ];
+
             return response()->json($response);
         }
+
         return view('sites._components.listFollowsUser');
     }
 
     public function showByFollow($id, Request $request)
     {
-
-       
         if ($request->ajax()) {
             $allData = $this->follow->listByFollowsUser($id, '10');
             $response = [
@@ -64,8 +65,10 @@ class FollowController extends Controller
                 ],
                 'data' => $allData
             ];
+
             return response()->json($response);
         }
+
         return view('sites._components.listByFollow');
     }
     /**
@@ -73,7 +76,7 @@ class FollowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
     }
@@ -86,7 +89,43 @@ class FollowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $curentUserid = Auth::user()->id;
+        $user_id_follow = $request->id;
+
+        $follow = $this->follow->findFollow($curentUserid, $user_id_follow);
+       
+        if (!$follow) {
+            if ($this->follow->create([
+                'user_id' => Auth::user()->id,
+                'user_id_follow' => $request->id,
+                'status' => 1 ])
+            ) {
+                    $response['status'] = 'success';
+                    $response['statusFlow'] = 1;
+                    $response['message'] = trans('sites.followsusecc');
+                    $response['action'] = trans('sites.success');
+            } else {
+                    $response['status'] = 'error';
+                    $response['statusFlow'] = 0;
+                    $response['message'] = trans('admin.error_happen');
+                    $response['action'] = trans('admin.error');
+            }
+        } else {
+            if ($this->follow->delete($follow->id)) {
+                $response['status'] = 'success';
+                $response['statusFlow'] = 0;
+                $response['message'] = trans('sites.unFollow');
+                $response['action'] = trans('admin.success');
+            } else {
+                $response['status'] = 'error';
+                $response['statusFlow'] = 1;
+                $response['message'] = trans('admin.error_happen');
+                $response['action'] = trans('admin.error');
+            }
+        }
+        
+
+        return response()->json($response);
     }
 
     /**
@@ -129,7 +168,7 @@ class FollowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
     }

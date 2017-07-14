@@ -79,6 +79,14 @@ class ProfileEloquentRepository extends AbstractEloquentRepository implements Pr
         return $users;
     }
 
+
+    public function inforFollow($id)
+    {
+        $user = $this->model->with(['follows'])->where('id', $id)->first();
+
+        return $user;
+    }
+
     public function takeMaster($paginate, $with = [], $select = null)
     {
         $post = $this->model->with(['level' => function ($query) {

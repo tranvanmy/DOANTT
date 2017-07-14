@@ -19,4 +19,6 @@ interface ProfileRepository extends AbstractRepository
     public function takeByFollows($id, $with = null);
 
     public function takeMaster($paginate, $with = [], $select = null);
+
+    public function inforFollow($id);
 }

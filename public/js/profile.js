@@ -1,6 +1,6 @@
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-new Vue({
+var followView = new Vue({
     el: '#profile',
 
     data: {
@@ -15,6 +15,7 @@ new Vue({
         imageData: "",
         image: "",
         offset: 4,
+        statusFollow: 0,
         formErrors: {},
         formErrorsUpdate: {},
         newItem: {'name':'', 'email':'', 'password':'', 'phone':'', 'avatar':'', 'confirm_pass': ''},
@@ -47,7 +48,7 @@ new Vue({
         }
     },
 
-      mounted : function(){
+    mounted : function(){
         this.initFilemanager();
     },
 
@@ -80,6 +81,16 @@ new Vue({
         },  
         creatItem: function() {
             $("#editpass").modal('show');
+        },
+
+        follow: function(id) {
+            axios.post('/site/follow', {'id': id}).then((response) => {
+
+                if(response.data) {
+                    this.statusFollow = response.data.statusFlow;
+                    toastr.success(response.data.message, response.data.action, {timeOut: 5000});
+                }
+            });
         },
 
         updatePass: function(id){
