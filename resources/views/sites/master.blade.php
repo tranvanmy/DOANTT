@@ -16,6 +16,8 @@
     @yield('style')
 
 </head>
+<script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async=1; ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=b3905c95262af552b195bf500d6d7813&data=eyJzc29faWQiOjEzMDE1MjUsImhhc2giOiI3MTIxYzU4OTRmYmMwMGQ3ZjdmMWNjNTQ5ZmJkOTYyOSJ9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();
+</script>
 <body class="home">
     @yield('content')
 

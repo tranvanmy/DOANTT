@@ -31,4 +31,19 @@ class FollowEloquentRepository extends AbstractEloquentRepository implements Fol
         
         return $byFollow;
     }
+
+
+    public function findelete($id)
+    {
+        $users = $this->model->where('user_id_follow', $id)->first();
+
+        return $users;
+    }
+
+    public function findFollow($user_id, $user_id_follow)
+    {
+        $users = $this->model->where('user_id', $user_id)->where('user_id_follow', $user_id_follow)->first();
+
+        return $users;
+    }
 }

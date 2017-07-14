@@ -39,12 +39,18 @@
                             </a>
                             <br/>
                         @else
-                            <a v-on:click="" type="button" class="btn btn-primary btn-sm">
-                                <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{ trans('admin.follows') }}
-                            </a>
-                            <a v-on:click="" type="button" class="btn btn-success btn-sm">
-                                <i class="fa fa-phone" aria-hidden="true"></i> {{ trans('sites.contact') }}
-                            </a>
+                            <div id="followUser">
+                                <div>
+                                    <a v-on:click="follow({{ $allData['id'] }})" type="button" class="btn btn-default">
+                                        <span v-if="statusFollow == 0" class="text-success">
+                                            <i class="fa fa-rss-square" aria-hidden="true"></i> {{ trans('admin.follows') }}
+                                        </span>
+                                        <span v-else="statusFollow == 0" class="text-danger" >
+                                            <i class="fa fa-rss" aria-hidden="true"></i> {{ trans('sites.unfollows') }}
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -193,23 +199,23 @@
             <div class="entries row">
                 <!--item-->
                 @foreach($allData->posts as $post)
-                <div class="entry one-third">
-                    <figure>
-                        <img src="{{ $post->image }}" height="250px" width="300px" />
-                        <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
-                    </figure>
-                    <div class="container">
-                        <h2><a href="{{ route('site.blog.show', [$post->id] ) }}">{{ $post->title }}</a></h2>
-                        <div class="actions">
-                            <div class="excerpt">
-                                <p>{{ $post->description }}</p>
-                                <div class="date">
-                                    <i class="ico i-date"></i>{{ $post->created_at }}</a>
+                    <div class="entry one-third">
+                        <figure>
+                            <img src="{{ $post->image }}" height="250px" width="300px" />
+                            <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                        </figure>
+                        <div class="container">
+                            <h2><a href="{{ route('site.blog.show', [$post->id] ) }}">{{ $post->title }}</a></h2>
+                            <div class="actions">
+                                <div class="excerpt">
+                                    <p>{{ $post->description }}</p>
+                                    <div class="date">
+                                        <i class="ico i-date"></i>{{ $post->created_at }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
                 <!--item-->
             </div>
@@ -243,6 +249,7 @@
                         </figure>
                         <div class="container">
                             <h2><a href="{{ ($follow->userFollow->id) }}"><i class="fa fa-user-md" aria-hidden="true"></i> {{ ($follow->userFollow->name) }}</a></h2>
+                            <p><i class="fa fa-address-book" aria-hidden="true"></i> | {{ $follow->userFollow->email }}</p>
                         </div>
                     </div>
                     @endforeach
@@ -282,6 +289,11 @@
     </div>
 </section>
 </div>
-</main> 
+</main>
 @include('sites._sections.footer')
+@endsection
+@section('script')
+<script>
+    followView.statusFollow = {{ $statusfollow ? 1 : 0 }};
+</script>
 @endsection

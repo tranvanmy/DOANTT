@@ -31,6 +31,7 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('profile/user', 'ProfileController');
     Route::resource('blog', 'BlogController');
     Route::resource('cooking', 'Sites\CookingController');
+    Route::resource('follow', 'FollowController');
     Route::put('profile/changepass/{id}', 'ProfileController@changePass');
     Route::get('listPost/user/{id}', 'BlogController@showList')->name('listPost');
     Route::get('listCooking/user/{id}', 'Sites\CookingController@showCooking')->name('cooking');

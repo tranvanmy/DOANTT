@@ -5,19 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\ProfileRepository;
+use App\Contracts\Repositories\FollowRepository;
 use App\Helpers\Helpers;
 use App\Models\User;
 use App\Http\Requests\ProfileUserRequest;
 use App\Http\Requests\PassWordResquest;
+use Auth;
 
 class ProfileController extends Controller
 {
 
     protected $user;
+    protected $follow;
 
-    public function __construct(ProfileRepository $user)
-    {
+    public function __construct(
+        ProfileRepository $user,
+        FollowRepository $follow
+    ) {
         $this->user = $user;
+        $this->follow = $follow;
     }
     /**
      * Display a listing of the resource.
@@ -78,11 +84,13 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+        $user_id = Auth::user()->id;
         $totalPost = $this->user->total($id, ['posts']);
         $totalCookings = $this->user->totalCooking($id, ['cookings']);
         $allData = $this->user->takeAll($id);
-     
-        return view('sites._components.profileUser', compact('totalPost', 'totalCookings', 'allData'));
+        $statusfollow = $this->follow->findFollow($user_id, $id);
+
+        return view('sites._components.profileUser', compact('totalPost', 'totalCookings', 'allData', 'statusfollow'));
     }
 
     /**
@@ -114,7 +122,7 @@ class ProfileController extends Controller
         $user = $this->user->update($id, $data);
         if ($user) {
             $response['status'] = 'success';
-            $response['message'] = trans('sites.edit_success');
+            $response['message'] = trans('sites.success_pass');
             $response['action'] = trans('sites.success');
         } else {
             $response['status'] = 'error';
