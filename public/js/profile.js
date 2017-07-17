@@ -17,10 +17,13 @@ var followView = new Vue({
         offset: 4,
         statusFollow: 0,
         formErrors: {},
+        formPostErrors: {},
         formErrorsUpdate: {},
         newItem: {'name':'', 'email':'', 'password':'', 'phone':'', 'avatar':'', 'confirm_pass': ''},
-        fillItem: {'id':'', 'name': '', 'password':'', 'phone': '', 'avatar': '', 'confirm_pass': ''},
-        passItem: {'password': '', 'confirm_pass': ''}
+        postItem: {'user_id': '', 'title': '', 'image': '', 'description': '', 'content': '', 'status': '1'},
+        fillItem: {'id':'', 'name': '', 'password':'', 'phone': '', 'avatar': '', 'image': '','confirm_pass': ''},
+        passItem: {'password': '', 'confirm_pass': ''},
+        fillPost: {'id': '', 'user_id': '', 'title': '', 'image': '', 'description': '', 'content': '', 'status': '1'},
     },
 
     computed: {
@@ -70,19 +73,6 @@ var followView = new Vue({
                 reader.readAsDataURL(input.files[0]);
             }
         },
-        editItem: function(item){
-            axios.get('/site/profile/user/'+item +'/edit').then((response) => {
-                this.fillItem.id = response.data.id;
-                this.fillItem.name = response.data.name; 
-                this.fillItem.phone = response.data.phone;
-                this.fillItem.avatar = response.data.avatar;
-                $("#edititem").modal('show');
-            })
-        },  
-        creatItem: function() {
-            $("#editpass").modal('show');
-        },
-
         follow: function(id) {
             axios.post('/site/follow', {'id': id}).then((response) => {
 
@@ -92,10 +82,12 @@ var followView = new Vue({
                 }
             });
         },
-
+        creatItem: function() {
+            $("#editpass").modal('show');
+        },
         updatePass: function(id){
             var input = this.passItem;
-            axios.put( '/site/profile/changepass/'+ id, input).then((response) => {
+            axios.put('/site/profile/changepass/'+ id, input).then((response) => {
                 $("#editpass").modal('hide');
                 if (response.data.status == 'error') {
                     toastr.error(response.data.message, response.data.action, {timeOut: 5000});
@@ -108,7 +100,54 @@ var followView = new Vue({
                 }
             });
         },
+        addPost: function(){
+            $("#addpost").modal('show');
+        },
+        editItem: function(item){
+            axios.get('/site/profile/user/'+item +'/edit').then((response) => {
+                this.fillItem.id = response.data.id;
+                this.fillItem.name = response.data.name; 
+                this.fillItem.phone = response.data.phone;
+                this.fillItem.avatar = response.data.avatar;
+                $("#edititem").modal('show');
+            })
+        },
+        editPost: function(item) {
+            axios.get('/site/profile/editpost/' + item).then((response) => {
+                this.fillPost.id = response.data.id;
+                this.fillPost.title = response.data.title;
+                this.fillPost.image = response.data.image;
+                this.fillPost.description = response.data.description;
+                var content = CKEDITOR.instances['my-editor'].setData(response.data.content);
+                this.fillPost.content = content;
+                $("#updatePost").modal('show');
+            })
+        },
+        Updatepost: function(id){
+            var input = this.fillPost;
+            input.image = this.imageData;
+            axios.put('/site/profile/updatePost/' + id, input).then((response) => {
+                $("#updatePost").modal('hide');
+                if(response.data) {
+                    toastr.success(response.data.message, response.data.action, {timeOut: 5000});
+                }
+            })
+        },
+        createPost: function() {
+            var input = this.postItem;
+            input.image = this.imageData;
+            var content = CKEDITOR.instances['my-editor'].getData();
+            input.content = content;
 
+            axios.post('/site/profile/user', input).then((response) => {
+                $("#addpost").modal('hide');
+                if(response.data) {
+                    toastr.success(response.data.message, response.data.action, {timeOut: 5000});
+                }
+            }).catch((e) => {
+                this.formPostErrors = e.response.data;
+            })
+        },
         updateItem: function(id){
             var input = this.fillItem;
             input.avatar = this.imageData;
@@ -125,14 +164,12 @@ var followView = new Vue({
                 }
             });
         },
-
         initFilemanager: function() {
             this.$nextTick(function() {
                 $('#edit-image').filemanager('image');
                 $('#new-image').filemanager('image');
             });
         },
-
         changePage: function (page) {
             this.pagination.current_page = page;
             this.showInfor(page);

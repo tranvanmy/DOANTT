@@ -7,13 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\PostRepository;
 use App\Http\Requests\PostRequest;
 
-
 class PostController extends Controller
 {
 
     protected $post;
 
-    public function __construct (PostRepository $post)
+    public function __construct(PostRepository $post)
     {
         $this->post = $post;
     }
@@ -59,9 +58,9 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
-        // 
+        //
     }
 
     /**

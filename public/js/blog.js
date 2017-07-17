@@ -34,6 +34,7 @@ new Vue({
             'user-id': '',
             'user-avatar': ''
         },
+        deleteItem: {'name':'','id':''}
     },
         computed: {
             isActived: function () {
@@ -69,6 +70,15 @@ new Vue({
                     this.$set(this, 'pagination', response.data.pagination);
                 })
             },
+
+            comfirmDeleteItem: function(item) {
+                console.log(item);
+            // var name = item.name.split('-');
+            // this.deleteItem.name = name[name.length -1];
+            // this.deleteItem.id = item.id;
+            // $("#delete-item").modal('show');
+        },
+
             changePage: function (page) {
                 this.pagination.current_page = page;
                 this.showInfor(page);

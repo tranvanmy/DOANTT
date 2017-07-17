@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\FollowRepository;
+use App\Contracts\Repositories\PostRepository;
 use App\Helpers\Helpers;
 use App\Models\User;
 use App\Http\Requests\ProfileUserRequest;
+use App\Http\Requests\CreatPostUserRequest;
 use App\Http\Requests\PassWordResquest;
 use Auth;
 
@@ -17,13 +19,16 @@ class ProfileController extends Controller
 
     protected $user;
     protected $follow;
+    protected $post;
 
     public function __construct(
         ProfileRepository $user,
-        FollowRepository $follow
+        FollowRepository $follow,
+        PostRepository $post
     ) {
         $this->user = $user;
         $this->follow = $follow;
+        $this->post = $post;
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +37,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $master = $this->user->takeMaster('10', ['level']);
+
+        return view('sites._components.top_mater');
     }
 
     /**
@@ -51,14 +58,46 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatPostUserRequest $request)
     {
-        //
+        $exploded = explode(',', $request->image);
+
+        $decoded = base64_decode($exploded[1]);
+
+        if (str_contains($exploded[0], 'jpeg')) {
+            $extention = 'jpg';
+        } else {
+            $extention = 'png';
+        }
+
+        $fileName = str_random().'.'.$extention;
+
+        $path = public_path().'/images/'.$fileName;
+
+        file_put_contents($path, $decoded);
+        
+        $data['image'] = '/images/'.$fileName;
+        $data['user_id'] = Auth::user()->id;
+        $data['title'] = $request->title;
+        $data['description'] = $request->description;
+        $data['content'] = $request->content;
+        $data['status'] = '1';
+
+        if ($this->post->create($data)) {
+            $response['status'] = 'success';
+            $response['message'] = trans('sites.addpost');
+            $response['action'] = trans('admin.success');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin.error_happen');
+            $response['action'] = trans('admin.error');
+        }
+
+        return response()->json($response);
     }
 
     public function showList($id, Request $request)
     {
-        
         if ($request->ajax()) {
             $allData = $this->user->takeListPost($id, '4');
             $response = [
@@ -72,8 +111,10 @@ class ProfileController extends Controller
                 ],
                 'data' => $allData
             ];
+
             return response()->json($response);
         }
+
         return view('sites._components.listPostUser');
     }
     /**
@@ -106,6 +147,52 @@ class ProfileController extends Controller
         return response()->json($user);
     }
 
+    public function editPost($id)
+    {
+        $post = $this->post->find($id, ['user']);
+
+        return response()->json($post);
+    }
+
+    public function updatePost(Request $request, $id)
+    {
+        if ($request->image) {
+            $exploded = explode(',', $request->image);
+
+            $decoded = base64_decode($exploded[1]);
+
+            if (str_contains($exploded[0], 'jpeg')) {
+                $extention = 'jpg';
+            } else {
+                $extention = 'png';
+            }
+
+            $fileName = str_random().'.'.$extention;
+
+            $path = public_path().'/images/'.$fileName;
+
+            file_put_contents($path, $decoded);
+
+            $data['image'] = '/images/'.$fileName;
+        }
+        $data['user_id'] = Auth::user()->id;
+        $data['title'] = $request->title;
+        $data['description'] = $request->description;
+        $data['content'] = $request->content;
+        $data['status'] = '1';
+
+        if ($this->post->update($id, $data)) {
+            $response['status'] = 'success';
+            $response['message'] = trans('sites.editpostuser');
+            $response['action'] = trans('admin.success');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin.error_happen');
+            $response['action'] = trans('admin.error');
+        }
+
+        return response()->json($response);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -135,24 +222,28 @@ class ProfileController extends Controller
 
     public function update(ProfileUserRequest $request, $id)
     {
-        $exploded = explode(',', $request->avatar);
+        if ($request->avatar) {
+            $exploded = explode(',', $request->avatar);
 
-        $decoded = base64_decode($exploded[1]);
+            $decoded = base64_decode($exploded[1]);
 
-        if (str_contains($exploded[0], 'jpeg')) {
-            $extention = 'jpg';
-        } else {
-            $extention = 'png';
+            if (str_contains($exploded[0], 'jpeg')) {
+                $extention = 'jpg';
+            } else {
+                $extention = 'png';
+            }
+
+            $fileName = str_random().'.'.$extention;
+
+            $path = public_path().'/images/'.$fileName;
+
+            file_put_contents($path, $decoded);
+
+            $data = $request->except('avatar');
+            
+            $data['avatar'] = '/images/'.$fileName;
         }
 
-        $fileName = str_random().'.'.$extention;
-
-        $path = public_path().'/images/'.$fileName;
-
-        file_put_contents($path, $decoded);
-
-        $data = $request->except('avatar');
-        $data['avatar'] = '/images/'.$fileName;
         $data['password'] = bcrypt($request->password);
 
         $user = $this->user->update($id, $data);
@@ -177,6 +268,24 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = $this->post->find($id, ['user']);
+        
+        return response()->json($post);
+    }
+
+    public function deletePost($id)
+    {
+        $deltePost = $this->post->delete($id);
+        if ($deltePost) {
+            $response['status'] = 'success';
+            $response['message'] = trans('sites.edit_success');
+            $response['action'] = trans('sites.delete_succes');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('sites.error_happen');
+            $response['action'] = trans('sites.error');
+        }
+
+        return response()->json($response);
     }
 }

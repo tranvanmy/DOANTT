@@ -46,8 +46,8 @@ class SocialiteController extends Controller
     public function postLogin(Request $request)
     {
         $auth = [
-        'email' => $request->email,
-        'password' => $request->password,
+            'email' => $request->email,
+            'password' => $request->password,
         ];
 
         $rememeber = $request->input('Remember');
@@ -60,12 +60,14 @@ class SocialiteController extends Controller
                 session()->flash('message', trans('sites.user_disable'));
 
                 return redirect('login');
-            } else {
-                $message = trans('sites.mess');
-                session()->flash('message', trans('sites.incorrect_username_or_pass'));
-
-                return redirect('login');
+            } elseif (Auth::user()->status == 1) {
+                return  redirect('admin/dashboard');
             }
+        } else {
+            $message = trans('sites.mess');
+            session()->flash('message', trans('sites.incorrect_username_or_pass'));
+
+            return redirect('login');
         }
     }
 }
