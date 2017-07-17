@@ -32,7 +32,11 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('blog', 'BlogController');
     Route::resource('cooking', 'Sites\CookingController');
     Route::resource('follow', 'FollowController');
+    Route::get('master', 'ProfileController@showMater')->name('master');
     Route::put('profile/changepass/{id}', 'ProfileController@changePass');
+    Route::get('profile/editpost/{id}', 'ProfileController@editPost')->name('editPost');
+    Route::put('profile/updatePost/{id}', 'ProfileController@updatePost')->name('updatePost');
+    Route::put('profile/deletePost/{id}', 'ProfileController@deletePost')->name('deletePost');
     Route::get('listPost/user/{id}', 'BlogController@showList')->name('listPost');
     Route::get('listCooking/user/{id}', 'Sites\CookingController@showCooking')->name('cooking');
     Route::get('listFollows/user/{id}', 'FollowController@showFollow')->name('follow');

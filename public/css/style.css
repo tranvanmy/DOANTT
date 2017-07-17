@@ -8,6 +8,8 @@ article,aside,figure,figcaption,hgroup,footer,header,nav,section,video,object{di
 audio, canvas, video { display: inline-block; *display: inline; *zoom: 1;max-width: 100%; }
 
 /*LAYOUT*/
+.prouser{margin-top: 10px;}
+.approve{margin-top: -30px; border-top:1px solid #CCCCCC;}
 #avatarProfile{margin-left: 20%;}
 #passwordForm{margin-top: 50px;}
 #imgprofile {margin-left: 70%;}
@@ -1050,3 +1052,7 @@ h2.large        {background-size:100% 123px;font-size:24px;}
 
 .quicklinks .button {width:90%;margin:0 0 15px;}
 }
+
+.prouser{margin-top: 10px !important;}
+.editPostSpan{cursor: pointer !important;}
+.custom_blog{ margin-top: 5px !important; }
