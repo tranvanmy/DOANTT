@@ -36,6 +36,7 @@
     {{ Html::script('bower/ckeditor/ckeditor.js') }}
     {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}
     {{ Html::script('js/profile.js') }}
+    {{ Html::script('js/subcrice.js') }}
     @yield('script')
 
 </body>
