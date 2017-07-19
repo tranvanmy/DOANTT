@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $chartUser = Charts::database(User::all(), 'bar', 'highcharts')
             ->title(trans('admin.user'))
-            ->elementLabel('')
+            ->elementLabel(trans('admin.total'))
             ->dimensions(800, 500)
             ->responsive(true)
             ->groupBy('status', null, [
@@ -75,9 +75,9 @@ class UserController extends Controller
         ]);
         $chartOrder = Charts::database(Order::all(), 'bar', 'highcharts')
             ->title(trans('admin.order'))
-            ->elementLabel('')
+            ->elementLabel(trans('admin.total'))
             ->dimensions(800, 500)
-            ->responsive(true)
+            ->responsive(false)
             ->groupBy('status', null, [
                 0 => trans('admin.order_pending'),
                 1 => trans('admin.order_success'),
@@ -85,13 +85,13 @@ class UserController extends Controller
         ]);
         $chartPost = Charts::database(Post::all(), 'line', 'highcharts')
             ->title(trans('admin.post'))
-            ->elementLabel('')
+            ->elementLabel(trans('admin.total'))
             ->dimensions(800, 500)
             ->responsive(false)
             ->groupByDay();
         $chartRepices = Charts::database(Cooking::all(), 'bar', 'highcharts')
             ->title(trans('admin.cooking'))
-            ->elementLabel('')
+            ->elementLabel(trans('admin.total'))
             ->dimensions(800, 500)
             ->responsive(false)
             ->groupBy('status', null, [

@@ -28,7 +28,7 @@
                             <i class="ti-shopping-cart text-success"></i>
                         </div>
                         <div class="text-right">
-                            <h3><b id="widget_count3">{{ $sumPost }}</b></h3>
+                            <h3><b id="widget_count3">{{ $sumOrder }}</b></h3>
                             <p>{{ trans('admin.order') }}</p>
                         </div>
                         <div class="clearfix"></div>
@@ -75,14 +75,18 @@
                                         <a href="#home" role="tab" data-toggle="tab">{{ trans('admin.user') }}</a>
                                     </li>
                                     <li class="text-center">
-                                        <a href="#order" role="tab" data-toggle="tab">{{ trans('admin.order') }}</a>
-                                    </li>
-                                    <li class="text-center">
-                                        <a href="#profile" role="tab" data-toggle="tab"><span class="hidden-xs">{{ trans('admin.post') }}</span>
+                                        <a href="#order" role="tab" data-toggle="tab">
+                                            <span class="hidden-xs">{{ trans('admin.order') }}</span>
                                         </a>
                                     </li>
                                     <li class="text-center">
-                                        <a href="#repices" role="tab" data-toggle="tab"><span class="hidden-xs">{{ trans('admin.recipe') }}</span>
+                                        <a href="#profile" role="tab" data-toggle="tab">
+                                            <span class="hidden-xs">{{ trans('admin.post') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="text-center">
+                                        <a href="#repices" role="tab" data-toggle="tab">
+                                            <span class="hidden-xs">{{ trans('admin.recipe') }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -94,14 +98,13 @@
                                             {!! $chartUser->render() !!}
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade in active" id="order">
+                                    <div class="tab-pane fade" id="order">
                                         <div class="form-group">
                                             {!! $chartOrder->render() !!}
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="profile">
                                         <div class="form-group">
-                                                  
                                             {!! $chartPost->render() !!}
                                         </div>
                                     </div>
