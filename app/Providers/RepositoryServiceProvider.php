@@ -41,6 +41,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\FollowRepository::class,
             \App\Repositories\Eloquents\FollowEloquentRepository::class,
         ],
+        'subcrice' => [
+            \App\Contracts\Repositories\SubcriceRepository::class,
+            \App\Repositories\Eloquents\SubcriceEloquentRepository::class,
+        ],
     ];
 
     /**

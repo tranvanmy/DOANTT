@@ -26,28 +26,30 @@
             <!--content-->
             <section class="content three-fourth wow fadeInLeft">
                 <div  v-for="item in items">
-                    <article class="post wow fadeInUp">
-                        <div class="entry-meta">
-                            <div class="avatar">
-                                <a v-bind:href="'/site/profile/user/' + item.user.id"><img v-bind:src="item.user.avatar"/><span>@{{ item.user.name }}</span></a>
+                    <div v-if="item.status == 2">
+                        <article class="post wow fadeInUp">
+                            <div class="entry-meta">
+                                <div class="avatar">
+                                    <a v-bind:href="'/site/profile/user/' + item.user.id"><img v-bind:src="item.user.avatar"/><span>@{{ item.user.name }}</span></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="entry-featured"><a v-bind:href="'/site/blog/' + item.id"><img v-bind:src="item.image" alt="" /></a></div>
-                            <div class="entry-content">
-                                <h2><a v-bind:href="'/site/blog/' + item.id">@{{ item.title }}</a></h2>
-                                <p> @{{ item.description }}</p>
-                            </div>
-                            <div class="actions">
-                                <div>
-                                    <div class="more">
-                                        <i class="fa fa-book" aria-hidden="true"></i>
-                                        <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
+                            <div class="container">
+                                <div class="entry-featured"><a v-bind:href="'/site/blog/' + item.id"><img v-bind:src="item.image" alt="" /></a></div>
+                                <div class="entry-content">
+                                    <h2><a v-bind:href="'/site/blog/' + item.id">@{{ item.title }}</a></h2>
+                                    <p> @{{ item.description }}</p>
+                                </div>
+                                <div class="actions">
+                                    <div>
+                                        <div class="more">
+                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                            <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
                 </div>
                 <div class="pager wow fadeInUp">
                     <nav>
@@ -80,3 +82,4 @@
 @section('script')
 {{ Html::script('js/blog.js') }}  
 @endsection
+

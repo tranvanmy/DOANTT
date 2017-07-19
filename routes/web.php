@@ -18,6 +18,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
         return view('admin.master');
     });
     Route::resource('user', 'Admins\UserController');
+    Route::put('profile/{id}', 'Admins\UserController@showAdmin')->name('profile');
+    Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
+    Route::resource('subcrice', 'Admins\SubcriceController');
     Route::resource('category', 'Admins\CategoryController');
     Route::resource('ingredient', 'Admins\IngredientController');
     Route::resource('post', 'Admins\PostController');
@@ -32,6 +35,7 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('blog', 'BlogController');
     Route::resource('cooking', 'Sites\CookingController');
     Route::resource('follow', 'FollowController');
+    Route::post('subcrice', 'ProfileController@subcrice');
     Route::get('master', 'ProfileController@showMater')->name('master');
     Route::put('profile/changepass/{id}', 'ProfileController@changePass');
     Route::get('profile/editpost/{id}', 'ProfileController@editPost')->name('editPost');

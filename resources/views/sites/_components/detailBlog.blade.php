@@ -32,18 +32,20 @@
                             {!! $detailPost->content !!}
                         </div>
                     </div>
-                    @if((Auth::user()->id) == ($detailPost->user->id))
-                        @if( ($detailPost->status) == 1)
-                            <div class="col-md-4 col-md-offset-9 custom_blog">
-                                <a v-on:click="editPost({{ $detailPost->id }})" class="btn btn-default">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    <span class="text-success">{{ trans('sites.edit') }}</span>
-                                </a>
-                                <a v-on:click="comfirmDeleteItem({{ $detailPost->id }})" class="btn btn-default">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <span class="text-danger">{{ trans('sites.delete') }}</span>
-                                </a>
-                            </div>
+                    @if(Auth::check())
+                        @if((Auth::user()->id) == ($detailPost->user->id))
+                            @if( ($detailPost->status) == 1)
+                                <div class="col-md-4 col-md-offset-9 custom_blog">
+                                    <a v-on:click="editPost({{ $detailPost->id }})" class="btn btn-default">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <span class="text-success">{{ trans('sites.edit') }}</span>
+                                    </a>
+                                    <a v-on:click="comfirmDeleteItem({{ $detailPost->id }})" class="btn btn-default">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <span class="text-danger">{{ trans('sites.delete') }}</span>
+                                    </a>
+                                </div>
+                            @endif
                         @endif
                     @endif
               </article>
@@ -80,10 +82,12 @@
                        <i class="fa fa-times" aria-hidden="true"></i>
                         {{ trans('admin.no') }}
                     </button>
+                    @if(Auth::check())
                     <a href="javascript:void(0)" v-on:click="delItem(deleteItem.id, {{ Auth::user()->id }})" class="btn btn-danger">
                         <i class="fa fa-check" aria-hidden="true"></i>
                         {{ trans('admin.yes') }}
                     </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -152,5 +156,5 @@
 @include('sites._sections.footer')
 @endsection
 @section('script')
-{{ Html::script('js/detalt_blog.js') }}  
+{{ Html::script('js/detalt_blog.js') }} 
 @endsection

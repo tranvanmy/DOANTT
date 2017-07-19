@@ -9,17 +9,21 @@
                 <p>{{ trans('sites.contactUs') }}</p>
                 <p><em>T:</em>  +1 555 555 555<br /><em>E:</em>  <a href="#">{{ trans('sites.mail') }}</a></p>
             </article>
-            <article class="one-fourth">
-                <h5>{{ trans('sites.follow') }}</h5>
-                <form action="">
-                    <input type="text" value="">
-                </form>
-                <hr/>
-                <ul class="social">
-                    <li class="facebook"><a href="#" >{{ trans('sites.facebook') }}</a></li>
-                    <li class="youtube"><a href="#" >{{ trans('sites.youtube') }}</a></li>
-                </ul>
-            </article>
+            <div id="subcrice">
+                <article class="one-fourth">
+                    <h5>{{ trans('sites.follow') }}</h5>
+                    <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
+                        <input type="email" name="email" class="form-control" v-model="newItem.email" />
+                        <span v-if="formErrors['email']" class="error text-danger">@{{ formErrors['email'][0] }}</span>
+                        <br>
+                    </form>
+                    <hr/>
+                    <ul class="social">
+                        <li class="facebook"><a href="#" >{{ trans('sites.facebook') }}</a></li>
+                        <li class="youtube"><a href="#" >{{ trans('sites.youtube') }}</a></li>
+                    </ul>
+                </article>
+            </div>
             <div class="bottom">
                 <p class="copy">{{ trans('sites.copyRight') }}</p>
                 <nav class="foot-nav">

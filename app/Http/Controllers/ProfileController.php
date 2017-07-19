@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\ProfileRepository;
 use App\Contracts\Repositories\FollowRepository;
 use App\Contracts\Repositories\PostRepository;
+use App\Contracts\Repositories\SubcriceRepository;
 use App\Helpers\Helpers;
 use App\Models\User;
 use App\Http\Requests\ProfileUserRequest;
@@ -20,15 +21,18 @@ class ProfileController extends Controller
     protected $user;
     protected $follow;
     protected $post;
+    protected $subcrice;
 
     public function __construct(
         ProfileRepository $user,
         FollowRepository $follow,
-        PostRepository $post
+        PostRepository $post,
+        SubcriceRepository $subcrice
     ) {
         $this->user = $user;
         $this->follow = $follow;
         $this->post = $post;
+        $this->subcrice = $subcrice;
     }
     /**
      * Display a listing of the resource.
@@ -51,7 +55,20 @@ class ProfileController extends Controller
     {
         //
     }
+    public function subcrice(Request $request)
+    {
+        $data['email'] = $request->email;
 
+        if ($this->subcrice->create($data)) {
+            $response['message'] = trans('sites.susbuccess');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin.error_happen');
+            $response['action'] = trans('admin.error');
+        }
+
+        return response()->json($response);
+    }
     /**
      * Store a newly created resource in storage.
      *

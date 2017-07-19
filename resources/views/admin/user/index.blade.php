@@ -2,15 +2,22 @@
 @section('title')
 {{ trans('admin.category_manage') }}
 @endsection
+@section('breadcrumb')
+    <h1>{{ trans('admin.subcrice') }}</h1>
+    <ul class="breadcrumb">
+        <i class="ti-server panel-title"></i>
+        <li class="next">
+            <a href="{{ route('admin.') }}">{{ trans('admin.dashboard') }}</a>
+        </li>
+    </ul>
+@endsection
 @section('content')
 <div class="container" id="manage-vue">
     <div class="row">
         <div class="col-md-12 margin-tb">
             <div class="">
-                <h2>{{ trans('admin.user_list') }}</h2>
-            </div>
-            <div class="">
                 <button  type="button" class="btn btn-success" data-toggle="modal" v-on:click="addItem">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
                     {{ trans('admin.user_create') }}
                 </button>
             </div>
@@ -22,26 +29,23 @@
             <div class="col-md-10">
                 <table class="table table-bordered table-responsive">
                     <tr>
+                        <th class="col-md-1">{{ trans('admin.id') }}</th>
                         <th class="col-md-2">{{ trans('admin.name') }}</th>
                         <th class="col-md-3">{{ trans('admin.gmail') }}</th>
-                        <th class="col-md-3">{{ trans('admin.phone') }}</th>
-                        <th class="col-md-3">{{ trans('admin.avatar') }}</th>
-                        <th class="col-md-3">{{ trans('admin.rank') }}</th>
-                        <th class="col-md-3">{{ trans('admin.rule') }}</th>
-                        <th class="col-md-2">{{ trans('admin.action') }}</th>
+                        <th class="col-md-2">{{ trans('admin.phone') }}</th>
+                        <th class="col-md-1">{{ trans('admin.rank') }}</th>
+                        <th class="col-md-1">{{ trans('admin.rule') }}</th>
+                        <th class="col-md-5">{{ trans('admin.action') }}</th>
                     </tr>
                     <tr v-for="item in items">
+                        <td>@{{ item.id }}</td>
                         <td>
                             <a v-bind:href="'/admin/user/' + item.id">
-                                <i class="glyphicon glyphicon-search"></i>
-                                <span class="label label-success" aria-hidden="true">  @{{ item.name }}</span>
+                                @{{ item.name }}
                             </a>
                         </td>
                         <td>@{{ item.email }}</td>
                         <td>@{{ item.phone }}</td>
-                        <td>
-                            <img v-bind:src = "item.avatar" alt="">
-                        </td>
                         <td>
                             <span class="label label-primary" v-if="item.level">
                                 <i class="fa fa-user-o" aria-hidden="true"></i> @{{ item.level.name }}

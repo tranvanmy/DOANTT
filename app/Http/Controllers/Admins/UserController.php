@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admins;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\UserRepository;
-use App\Helpers\Helpers;
 use App\Http\Requests\UserManageRequest;
+use App\Http\Requests\ProfileAdminRequest;
+use App\Helpers\Helpers;
+use App\Models\User;
+use Charts;
 
 class UserController extends Controller
 {
@@ -42,6 +45,50 @@ class UserController extends Controller
             return view('admin.user.index');
     }
 
+    public function showAdmin($id)
+    {
+        $user = $this->user->find($id, ['level']);
+
+        return response()->json($user);
+    }
+    public function updaeAdmin(ProfileAdminRequest $request, $id)
+    {
+        if (($request->password) == ($request->newpassword)) {
+            if ($request->avatar) {
+                $exploded = explode(',', $request->avatar);
+                $decoded = base64_decode($exploded[1]);
+                if (str_contains($exploded[0], 'jpeg')) {
+                    $extention = 'jpg';
+                } else {
+                    $extention = 'png';
+                }
+                $fileName = str_random().'.'.$extention;
+                $path = public_path().'/images/'.$fileName;
+                file_put_contents($path, $decoded);
+                $data['avatar'] = '/images/'.$fileName;
+            }
+            $data['name'] =  $request->name;
+            $data['email'] = $request->email;
+            $data['phone'] = $request->phone;
+            $data['password'] = bcrypt($request->password);
+
+            if ($this->user->update($id, $data)) {
+                $response['status'] = 'success';
+                $response['message'] = trans('sites.success_account');
+                $response['action'] = trans('sites.success');
+            } else {
+                $response['status'] = 'error';
+                $response['message'] = trans('sites.error_happen');
+                $response['action'] = trans('sites.error');
+            }
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin.error_account');
+            $response['action'] = trans('admin.error');
+        }
+        
+        return response()->json($response);
+    }
     /**
      * Show the form for creating a new resource.
      *
