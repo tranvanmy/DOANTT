@@ -20,7 +20,7 @@ abstract class AbstractEloquentRepository
 
     public function find($id, $with = null, $select = null)
     {
-        return $this->make($with)->find($id, $select);
+        return $this->make($with)->find($id);
     }
 
     public function create($data = [])

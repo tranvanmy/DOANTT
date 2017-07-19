@@ -1510,11 +1510,6 @@
                 "laravel",
                 "search"
             ],
-<<<<<<< HEAD
-            "time": "2017-07-12 18:42:43"
-=======
-            "time": "2017-07-12T18:42:43+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "laravel/socialite",
@@ -2815,11 +2810,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2017-07-17 14:07:10"
-=======
-            "time": "2017-07-17T14:07:10+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "symfony/http-kernel",
@@ -2905,11 +2895,6 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2017-07-17 19:08:23"
-=======
-            "time": "2017-07-17T19:08:23+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3017,11 +3002,6 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-<<<<<<< HEAD
-            "time": "2017-07-13 13:05:09"
-=======
-            "time": "2017-07-13T13:05:09+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "symfony/routing",
@@ -3232,11 +3212,6 @@
                 "debug",
                 "dump"
             ],
-<<<<<<< HEAD
-            "time": "2017-07-10 14:18:27"
-=======
-            "time": "2017-07-10T14:18:27+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -3359,11 +3334,6 @@
                 "tinymce",
                 "upload"
             ],
-<<<<<<< HEAD
-            "time": "2017-07-13 06:55:50"
-=======
-            "time": "2017-07-13T06:55:50+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "vlucas/phpdotenv",
@@ -3768,11 +3738,6 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-<<<<<<< HEAD
-            "time": "2017-07-15 11:38:20"
-=======
-            "time": "2017-07-15T11:38:20+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -3819,11 +3784,6 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2017-07-14 14:27:02"
-=======
-            "time": "2017-07-14T14:27:02+00:00"
->>>>>>> edb934773d1595f949e6c88f25043cbdaff40e0e
         },
         {
             "name": "phpspec/prophecy",

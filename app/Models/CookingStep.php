@@ -15,5 +15,6 @@ class CookingStep extends Model
         'step',
         'content',
         'status',
+        'image',
     ];
 }

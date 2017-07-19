@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use Illuminate\Http\FileHelpers;
+
 class Helpers
 {
     private static $categories = array();
@@ -15,11 +17,14 @@ class Helpers
         }
     }
 
-    public static function deleteFile($name, $path)
+    public static function deleteFile($name)
     {
-        if (is_file($path . $name)) {
-            unlink($path . $name);
+        if (is_file($name)) {
+            unlink($name);
+            return true;
         }
+
+        return false;
     }
 
     public static function categoriesToArray($category, $parent_id = null, $char = '')

@@ -1,0 +1,13 @@
+
+.checkout-steps a{
+    /*color: #fff !important ;*/
+    color: #F4716A !important;
+
+}
+.active>a {
+    background-color: #f4716a !important;
+    color: white !important;
+}
+.row {
+    padding-bottom: 15px !important;
+}

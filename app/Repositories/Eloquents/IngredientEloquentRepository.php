@@ -14,4 +14,18 @@ class IngredientEloquentRepository extends AbstractEloquentRepository implements
     {
         $this->model = $ingredient;
     }
+
+    public function getByName($name)
+    {
+        $ingredient = $this->model->where('name', 'like', '%' . $name . '%')->where('status', '!=', 0)->get();
+
+        return $ingredient;
+    }
+
+    public function checkName($name)
+    {
+        $ingredient = $this->model->where('name', "$request->ingredientName")->first();
+
+        return $ingredient;
+    }
 }
