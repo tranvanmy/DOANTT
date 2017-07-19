@@ -5,19 +5,35 @@ namespace App\Http\Controllers\Admins;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\UserRepository;
+use App\Contracts\Repositories\PostRepository;
+use App\Contracts\Repositories\CookingRepository;
+use App\Contracts\Repositories\OrderRepository;
+use App\Helpers\Helpers;
+use Charts;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Cooking;
+use App\Models\Order;
 use App\Http\Requests\UserManageRequest;
 use App\Http\Requests\ProfileAdminRequest;
-use App\Helpers\Helpers;
-use App\Models\User;
-use Charts;
 
 class UserController extends Controller
 {
     protected $user;
+    protected $order;
+    protected $post;
+    protected $recipe;
 
-    public function __construct(UserRepository $user)
-    {
+    public function __construct(
+        UserRepository $user,
+        PostRepository $post,
+        CookingRepository $recipe,
+        OrderRepository $order
+    ) {
         $this->user = $user;
+        $this->order = $order;
+        $this->post = $post;
+        $this->recipe = $recipe;
     }
     /**
      * Display a listing of the resource.
@@ -43,6 +59,63 @@ class UserController extends Controller
             return response()->json($response);
         }
             return view('admin.user.index');
+    }
+
+    public function report()
+    {
+        $chartUser = Charts::database(User::all(), 'bar', 'highcharts')
+            ->title(trans('admin.user'))
+            ->elementLabel('')
+            ->dimensions(800, 500)
+            ->responsive(true)
+            ->groupBy('status', null, [
+                0 => trans('admin.customer'),
+                1 => trans('admin.admin'),
+                2 => trans('admin.user_disable')
+        ]);
+        $chartOrder = Charts::database(Order::all(), 'bar', 'highcharts')
+            ->title(trans('admin.order'))
+            ->elementLabel('')
+            ->dimensions(800, 500)
+            ->responsive(true)
+            ->groupBy('status', null, [
+                0 => trans('admin.order_pending'),
+                1 => trans('admin.order_success'),
+                2 => trans('admin.order_cancel')
+        ]);
+        $chartPost = Charts::database(Post::all(), 'line', 'highcharts')
+            ->title(trans('admin.post'))
+            ->elementLabel('')
+            ->dimensions(800, 500)
+            ->responsive(false)
+            ->groupByDay();
+        $chartRepices = Charts::database(Cooking::all(), 'bar', 'highcharts')
+            ->title(trans('admin.cooking'))
+            ->elementLabel('')
+            ->dimensions(800, 500)
+            ->responsive(false)
+            ->groupBy('status', null, [
+                0 => trans('admin.recipe_pending'),
+                1 => trans('admin.recipe_show'),
+                2 => trans('admin.recipe_editing'),
+                3 => trans('admin.recipe_order')
+        ]);
+
+        $sumPost = $this->post->countAll();
+        $sumOrder = $this->order->countAll();
+        $sumRecipe = $this->recipe->countAll();
+        $sumUser = $this->user->countAll();
+
+        return view('admin.report.index', [
+            'chartUser' => $chartUser,
+            'chartOrder' => $chartOrder,
+            'chartPost' => $chartPost,
+            'chartRepices' => $chartRepices,
+            'sumPost' => $sumPost,
+            'sumOrder' => $sumOrder,
+            'sumRecipe' => $sumRecipe,
+            'sumUser' => $sumUser,
+        ]);
     }
 
     public function showAdmin($id)

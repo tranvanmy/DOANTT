@@ -18,7 +18,8 @@
         {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
         {{ Html::style('bower/bootstrap-select/dist/css/bootstrap-select.min.css') }}
         {{ Html::style('bower/toastr/toastr.min.css') }}
-        
+        <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
+         {!! Charts::assets() !!}
         @yield('style')
     </head>
     <body class="skin-default">

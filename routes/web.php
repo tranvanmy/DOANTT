@@ -14,9 +14,7 @@
 
 //admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
-    Route::get('dashboard', function () {
-        return view('admin.master');
-    });
+    Route::get('dashboard', 'Admins\UserController@report')->name('report');
     Route::resource('user', 'Admins\UserController');
     Route::put('profile/{id}', 'Admins\UserController@showAdmin')->name('profile');
     Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
