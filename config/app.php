@@ -185,6 +185,8 @@ return [
 
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
     ],
 
     /*
@@ -239,7 +241,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
     ],
 
 ];

@@ -17,4 +17,6 @@ interface AbstractRepository
     public function update($id, $data = []);
 
     public function delete($id);
+
+    public function countAll();
 }
