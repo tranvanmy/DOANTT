@@ -7,7 +7,7 @@ use App\Models\Relations\CookingCategoryRelations;
 
 class CookingCategory extends Model
 {
-    use CookingCategoryRelation;
+    use CookingCategoryRelations;
 
     protected $fillable = [
         'id',

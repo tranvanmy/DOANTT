@@ -24,4 +24,9 @@ class CategoryEloquentRepository extends AbstractEloquentRepository implements C
     {
         return $this->model->status($status)->get();
     }
+
+    public function getAll()
+    {
+        return $this->model->with(['subCategories'])->whereNull('parent_id')->get();
+    }
 }

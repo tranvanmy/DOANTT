@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     // Route::get('rate', 'RateController@index')->name('rate');
 });
 
- 
+
 Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('profile/user', 'ProfileController');
     Route::resource('blog', 'BlogController');
@@ -47,10 +47,21 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
 //auth
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('category', 'Admins\categoryController');
 //facebook
 Route::get('auth/facebook', 'SocialiteController@redirect')->name('facebook.login');
 Route::get('callback/facebook', 'SocialiteController@callback');
 //Logout
 Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 Route::post('postLogin', ['as' => 'postLogin', 'uses' => 'SocialiteController@postLogin']);
+
+Route::resource('cooking', 'Sites\SubmitCookingController');
+Route::get('/search/cooking', 'Sites\SubmitCookingController@search');
+Route::get('/units/cooking', 'Sites\SubmitCookingController@getUnits');
+Route::post('upload/cooking', 'Sites\SubmitCookingController@uploadImage');
+Route::delete('cancel/cooking/{id}', 'Sites\SubmitCookingController@cancelCooking');
+Route::post('ingredient/cooking', 'Sites\SubmitCookingController@addIngredient');
+Route::delete('ingredient/cooking/{id}', 'Sites\SubmitCookingController@deleteIngredient');
+Route::post('step/cooking', 'Sites\SubmitCookingController@addStep');
+Route::delete('step/cooking/{id}', 'Sites\SubmitCookingController@deleteStep');
+Route::get('categories/cooking', 'Sites\SubmitCookingController@getCookingCategories');
+Route::post('categories/cooking', 'Sites\SubmitCookingController@storeCookingCategories');

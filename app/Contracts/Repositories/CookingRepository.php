@@ -9,4 +9,10 @@ interface CookingRepository extends AbstractRepository
     public function paginageCooking($paginate, $with = [], $select = null);
 
     public function takeListCooking($id, $paginate);
+
+    public function getCookingCreating($user);
+
+    public function storeCookingCategories($cooking_id, $data);
+
+    public function deleteCoking($id);
 }

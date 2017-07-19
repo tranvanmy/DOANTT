@@ -20,7 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\ProfileRepository::class,
             \App\Repositories\Eloquents\ProfileEloquentRepository::class,
             ],
-            
+
         'ingredient' => [
             \App\Contracts\Repositories\IngredientRepository::class,
             \App\Repositories\Eloquents\IngredientEloquentRepository::class,
@@ -41,6 +41,18 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\FollowRepository::class,
             \App\Repositories\Eloquents\FollowEloquentRepository::class,
         ],
+        'unit' => [
+            \App\Contracts\Repositories\UnitRepository::class,
+            \App\Repositories\Eloquents\UnitEloquentRepository::class,
+        ],
+        'cooking_ingredient' => [
+            \App\Contracts\Repositories\CookingIngredientRepository::class,
+            \App\Repositories\Eloquents\CookingIngredientEloquentRepository::class,
+        ],
+        'cooking_step' => [
+            \App\Contracts\Repositories\CookingStepRepository::class,
+            \App\Repositories\Eloquents\CookingStepEloquentRepository::class,
+        ],
         'subcrice' => [
             \App\Contracts\Repositories\SubcriceRepository::class,
             \App\Repositories\Eloquents\SubcriceEloquentRepository::class,
@@ -49,7 +61,6 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\OrderRepository::class,
             \App\Repositories\Eloquents\OrderEloquentRepository::class,
         ],
-
     ];
 
     /**
