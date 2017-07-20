@@ -33,6 +33,7 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('blog', 'BlogController');
     Route::resource('cooking', 'Sites\CookingController');
     Route::resource('follow', 'FollowController');
+    Route::resource('wislish', 'WishlishController');
     Route::post('subcrice', 'ProfileController@subcrice');
     Route::get('master', 'ProfileController@showMater')->name('master');
     Route::put('profile/changepass/{id}', 'ProfileController@changePass');

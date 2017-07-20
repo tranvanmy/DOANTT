@@ -34,6 +34,18 @@ class CookingEloquentRepository extends AbstractEloquentRepository implements Co
         return $cooking;
     }
 
+    public function takeListCookingStatus($id, $paginate)
+    {
+        $cooking = $this->model
+            ->with(['level'])
+            ->orderBy('id', 'DESC')
+            ->where('status', 1)
+            ->where('user_id', $id)
+            ->paginate($paginate);
+
+        return $cooking;
+    }
+
     public function getCookingCreating($user)
     {
         $cooking = $this->model->where('user_id', $user)

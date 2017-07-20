@@ -5,7 +5,7 @@
 @section('content')
     @include('sites._sections.header')
     @if($cooking->status === 1)
-        <main class="main not-home" role="main">
+        <main class="main not-home" role="main" id="addwishlish">
             <!--wrap-->
             <div class="wrap clearfix">
                 <!--breadcrumbs-->
@@ -104,11 +104,27 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        <div class="widget share">
+                                        <div class="">
                                             <ul class="boxed">
-                                                <li class="light"><a href="#" title="Facebook"><i class="ico i-facebook"></i> <span>{{ trans('sites.share_on_facebook') }}</span></a></li>
-                                                <li class="medium"><a href="#" title="Twitter"><i class="ico i-twitter"></i> <span>{{ trans('sites.share_on_twitter') }}</span></a></li>
-                                                <li class="dark"><a href="#" title="Favourites"><i class="ico i-favourites"></i> <span>{{ trans('sites.add_to_favourite') }}</span></a></li>
+                                                <li class="dark">
+                                                @if(Auth::check())
+                                                    <a v-on:click="wishlist({{ $cooking->id }})" title="Favourites">
+                                                        <div v-if="wishlishstatus == 0">
+                                                            <i class="fa fa-heart-o fa-4x" aria-hidden="true" class="wishlishead"></i>
+                                                            <span>{{ trans('sites.like') }}</span>
+                                                        </div>
+                                                        <div v-else="wishlishstatus == 0" >
+                                                            <i class="fa fa-heartbeat fa-4x wishlishead" aria-hidden="true"></i>
+                                                            <span>{{ trans('sites.unlike') }}</span>
+                                                        </div>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('login') }}">
+                                                        <i class="fa fa-heartbeat fa-4x wishlishead" aria-hidden="true"></i>
+                                                        <span>{{ trans('sites.like') }}</span>
+                                                    </a>
+                                                @endif
+                                                </li>
                                             </ul>
                                         </div>
                                     </article>
@@ -136,4 +152,10 @@
 @endsection
 @section('script')
     {!! Html::script('sites_custom/js/cooking.js') !!}
+    {!! Html::script('js/wishlist.js') !!}
+    @if (Auth::check())
+    <script>
+        wishlish.initData({{ $wishlish ? 1 : 0 }});
+    </script>
+    @endif
 @endsection

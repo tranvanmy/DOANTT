@@ -251,24 +251,84 @@
                 <div class="tab-content" id="recipes">
                     <div class="entries row">
                         @foreach($allData->cookings as $cooking)
-                        <div class="entry one-third">
-                            <figure>
-                                <img src="{{ $cooking->image }}" alt=""  height="250px" width="300px"/>
-                                <figcaption>
-                                    <a href="{{ $cooking->id }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
-                                </figcaption>
-                            </figure>
-                            <div class="container">
-                                <h2><a href=""> {{ $cooking->name }}</a></h2>
-                                <div class="actions">
-                                    <div>
-                                        <div class="difficulty"><i class="ico i-hard"></i> {{ $cooking->level->name }}</div>
-                                        <div class="time"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $cooking->time }}</div>
-                                        <div class="rate"><i class="fa fa-star-half-o" aria-hidden="true"></i> {{ $cooking->rate_point }} </div>
+                            @if((Auth::user()->id) == $allData['id'])
+                                <div class="entry one-third">
+                                    <figure>
+                                        <img src="{{ $cooking->image }}" alt=""/>
+                                        <figcaption>
+                                            <a href="{{ asset('/site/cooking/'.$cooking->id) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="container">
+                                        <h2><a href="{{ asset('/site/cooking/'.$cooking->id) }}"> {{ $cooking->name }}</a></h2>
+                                        <div class="actions">
+                                            <div>
+                                                <div class="difficulty">
+                                                    <i class="ico i-hard"></i>
+                                                    {{ $cooking->level->name }}
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                        {{ $cooking->time }}
+                                                </div>
+                                                <div class="rate">
+                                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                        {{ $cooking->rate_point }}
+                                                </div>
+                                            </div>
+                                                @if( ($cooking->status) == 0 )
+                                                <div class="rate">
+                                                    <span class="label label-danger">{{ trans('admin.recipe_pending') }}</span>
+                                                </div>
+                                                @elseif(($cooking->status) == 1)
+                                                <div class="rate">
+                                                <a href="{{ asset('/site/cooking/'.$cooking->id) }}">
+                                                    <span class="label label-success">{{ trans('admin.recipe_show') }}</span>
+                                                </a>
+                                                </div>
+                                                @elseif(($cooking->status) == 2)
+                                                    <div class="rate">
+                                                     <a href="{{asset('cooking')}}">
+                                                        <span class="label label-warning">{{ trans('admin.recipe_editing') }}</span>
+                                                    </a>
+                                                    </div>
+                                                @else
+                                                    <div class="rate">
+                                                    <span class="label label-success">{{ trans('admin.recipe_order') }}</span>
+                                                    </div>
+                                                @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            @elseif(($cooking->status) == 1)
+                                <div class="entry one-third">
+                                    <figure>
+                                        <img src="{{ $cooking->image }}" alt=""/>
+                                        <figcaption>
+                                            <a href="{{ $cooking->id }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
+                                        </figcaption>
+                                    </figure>
+                                    <div class="container">
+                                        <h2><a href=""> {{ $cooking->name }}</a></h2>
+                                        <div class="actions">
+                                            <div>
+                                                <div class="difficulty">
+                                                    <i class="ico i-hard"></i>
+                                                    {{ $cooking->level->name }}
+                                                </div>
+                                                <div class="time">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                    {{ $cooking->time }}
+                                                </div>
+                                                <div class="rate">
+                                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                    {{ $cooking->rate_point }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                     <div>
@@ -286,7 +346,7 @@
                             @if((Auth::user()->id) == $allData['id'])
                                 <div class="entry one-third">
                                     <figure>
-                                        <img src="{{ $post->image }}" height="250px" width="300px" />
+                                        <img src="{{ $post->image }}"/>
                                         <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                                     </figure>
                                     <div class="container">
@@ -314,7 +374,7 @@
                             @elseif(($post->status) != 1)
                                 <div class="entry one-third">
                                     <figure>
-                                        <img src="{{ $post->image }}" height="250px" width="300px" />
+                                        <img src="{{ $post->image }}"/>
                                         <figcaption>
                                             <a href="{{ route('site.blog.show', [$post->id] ) }}">
                                                 <i class="ico i-view"></i>
