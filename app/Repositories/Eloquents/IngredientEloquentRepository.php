@@ -24,7 +24,7 @@ class IngredientEloquentRepository extends AbstractEloquentRepository implements
 
     public function checkName($name)
     {
-        $ingredient = $this->model->where('name', "$request->ingredientName")->first();
+        $ingredient = $this->model->where('name', $name)->first();
 
         return $ingredient;
     }

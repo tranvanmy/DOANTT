@@ -3,19 +3,30 @@
 namespace App\Http\Controllers\Sites;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\CookingRepository;
+use App\Contracts\Repositories\CommentRepository;
+use App\Contracts\Repositories\RateRepository;
 use App\Contracts\Repositories\WishlishRepository;
 use Auth;
 
 class CookingController extends Controller
 {
     protected $cooking;
+    protected $comments;
+    protected $rates;
     protected $wishlish;
 
-    public function __construct(CookingRepository $cooking, WishlishRepository $wishlish)
-    {
+    public function __construct(
+        CookingRepository $cooking,
+        CommentRepository $comments,
+        RateRepository $rates,
+        WishlishRepository $wishlish
+    ) {
         $this->cooking = $cooking;
+        $this->comments = $comments;
+        $this->rates = $rates;
         $this->wishlish = $wishlish;
     }
     /**
@@ -87,6 +98,7 @@ class CookingController extends Controller
                 ],
                 'data' => $allData
             ];
+
             return response()->json($response);
         }
         return view('sites._components.listCookingUser');
@@ -97,7 +109,7 @@ class CookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $cooking = $this->cooking->find($id, [
             'user',
@@ -107,8 +119,30 @@ class CookingController extends Controller
             'comments',
             'cookingIngredients.ingredient',
             'cookingIngredients.unit',
-            'steps',
-            ]);
+            'steps'
+        ]);
+        
+        if ($cooking && $request->ajax()) {
+            if ($cooking->status == 0) {
+                if (Auth::check() && Auth::user()->id == $cooking->user->id) {
+        
+                    return response()->json($cooking);
+                }
+            } elseif ($cooking->status == 1) {
+
+                return response()->json($cooking);
+            }
+
+        }
+        if ($cooking) {
+            $cooking_id = $cooking->id;
+            $cooking_user_id = $cooking->user->id;
+
+        } else {
+            $cooking_id = null;
+            $cooking_user_id = null;
+
+        }
 
         if (Auth::check()) {
             $userId = Auth::user()->id;
@@ -119,7 +153,7 @@ class CookingController extends Controller
             }
         }
         
-        return view('sites._components.cooking_detail', compact('cooking', 'wishlish'));
+        return view('sites._components.cooking_detail', compact('cooking_id', 'cooking_user_id', 'wishlish'));        
     }
 
     /**
@@ -154,5 +188,51 @@ class CookingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showComment($id, Request $request)
+    {
+        if ($request->ajax()) {
+            $comments = $this->comments->getComments($id, 'cookings');
+            $response['comments'] = $comments;
+            $response['user_id'] = Auth::check() ? Auth::user()->id : null;
+            $response['pagination'] = [
+                'total'        => $comments->total(),
+                'per_page'     => $comments->perPage(),
+                'current_page' => $comments->currentPage(),
+                'last_page'    => $comments->lastPage(),
+                'from'         => $comments->firstItem(),
+                'to'           => $comments->lastItem()
+            ];
+
+            return $response;
+        }
+    }
+
+    public function submitComment(CommentRequest $request)
+    {
+        if (!$request->id) {
+            $comments = $this->comments->create($request->all());
+        } else {
+            $comments = $this->comments->update($request->id, $request->all());
+        }
+        $comments = $this->comments->getComments($request->comment_table_id, 'cookings');
+
+        return $comments;
+        
+    }
+
+    public function deleteComment($id)
+    {
+        if (Comment::destroy($id)){
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public function showRate ($id, Request $request)
+    {
+        return $this->cooking->getCooking($id);
     }
 }

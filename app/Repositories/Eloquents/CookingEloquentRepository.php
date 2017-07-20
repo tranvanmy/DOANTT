@@ -20,6 +20,11 @@ class CookingEloquentRepository extends AbstractEloquentRepository implements Co
         $this->model = $cooking;
     }
 
+    public function getCooking($id)
+    {
+        return $this->model->find($id);
+    }
+    
     public function paginageCooking($paginate, $with = [], $select = null)
     {
         $cooking = $this->model->with(['level'])->orderBy('id', 'DESC')->paginate($paginate);

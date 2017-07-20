@@ -1,5 +1,5 @@
 * {box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
-body {font:14px/1.42 'Raleway',Arial,Helvetica,sans-serif;text-align:center;color:#444;background:#DECEB9 url(../images/bgr/body.jpg) 0 0 repeat;overflow-x:hidden;word-wrap:break-word;text-rendering:optimizeLegibility;}
+body {font-family: 'Montserrat', sans-serif!important;text-align:center;color:#444;background:#DECEB9 url(../images/bgr/body.jpg) 0 0 repeat;overflow-x:hidden;word-wrap:break-word;text-rendering:optimizeLegibility;}
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,q,small,strong,sub,sup,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,input,table,caption,tbody,tfoot,thead,tr,th,td,figure{border:0;margin:0;padding:0}
 html {overflow-y: scroll;-webkit-text-size-adjust:auto;-webkit-overflow-scrolling: touch;-webkit-tap-highlight-color:#FF7A73;}
 
@@ -99,10 +99,10 @@ nav a:hover,.button:hover,.generic-button a:hover,.quicklinks .button:hover {tex
 
 .alert          {color:#fff !important;float:left;width:100%;margin:0 0 20px;padding:15px;font-size:17px;font-weight:700;}
 .alert .close   {background:none;padding:0;float:right;margin:3px 0 0;}
-.alert-info         {background:#3498db;}
-.alert-success  {background:#2ecc71;}
-.alert-warning  {background:#f1c40f;}
-.alert-danger   {background:#e74c3c;}
+.alert-info         {background:#3498db!important;}
+.alert-success  {background:#2ecc71!important;}
+.alert-warning  {background:#f1c40f!important;}
+.alert-danger   {background:#e74c3c!important;}
 
 p.drop-cap::first-letter {color:#F4716A;font:74px Georgia,serif;margin:8px 10px 0 0;float:left;}
 p.drop-cap.secondary::first-letter  {background:#F4716A;color:#fff;padding:7px;margin-top:4px;}
@@ -550,7 +550,7 @@ dl          {display:inline-block;width:100%;margin:0 0 22px;}
 fieldset                            {display:inline-block;width:100%;}
 label                           {display:inline-block;cursor: pointer;color:#666;position:relative;}
 input,textarea                      {outline: none;}
-button, input, select, textarea         {font-family:'Raleway',Arial,Helvetica,sans-serif;margin: 0; vertical-align: baseline; *vertical-align: middle;outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; -webkit-transition:all 0.2s ease-in;-moz-transition:all 0.2s ease-in;-o-transition:all 0.2s ease-in;-ms-transition:all 0.2s ease-in;transition:all 0.2s ease-in;}
+button, input, select, textarea         {font-family: 'Montserrat Alternates', sans-serif;margin: 0; vertical-align: baseline; *vertical-align: middle;outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; -webkit-transition:all 0.2s ease-in;-moz-transition:all 0.2s ease-in;-o-transition:all 0.2s ease-in;-ms-transition:all 0.2s ease-in;transition:all 0.2s ease-in;}
 button, input[type="button"], input[type="reset"], input[type="submit"] {border:none; cursor: pointer; text-transform:uppercase;-webkit-appearance: button; background:#FF7B74;color:#fff;text-align:center;font-size:13px;font-weight:700;padding:11px 14px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover,
 button:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus {background:#F4716A;}

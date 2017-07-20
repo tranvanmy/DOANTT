@@ -30,17 +30,17 @@
 									<h4 class="page-header">{{ trans('sites.base_info') }}</h4>
 									<div class="form-group">
 										<label for="checkout-username">{{ trans('sites.name_cooking') }}</label>
-										<input v-model="cooking.name" type="text" id="checkout-username" name="checkout-username" class="form-control" placeholder="Your username..">
+										<input v-model="cooking.name" type="text" id="checkout-username" name="checkout-username" class="form-control">
 										<span class="text-danger" v-for="error in cookingError.name">@{{ error }}</span>
 									</div>
 									<div class="form-group">
 										<label for="time">{{ trans('sites.time') }}</label>
-										<input v-model="cooking.time" type="number" min="0" id="time" name="time" class="form-control" placeholder="Your username..">
+										<input v-model="cooking.time" type="number" min="0" id="time" name="time" class="form-control">
 										<span class="text-danger" v-for="error in cookingError.time">@{{ error }}</span>
 									</div>
 									<div class="form-group">
 										<label for="ration">{{ trans('sites.ration') }}</label>
-										<input v-model="cooking.ration" type="number" min="1" id="ration" name="ration" class="form-control" placeholder="Your username..">
+										<input v-model="cooking.ration" type="number" min="1" id="ration" name="ration" class="form-control">
 										<span class="text-danger" v-for="error in cookingError.ration">@{{ error }}</span>
 									</div>
 									<div class="form-group">
@@ -53,7 +53,7 @@
 										<span class="text-danger clearfix" v-for="error in cookingError.level_id">@{{ error }}</span>
 									</div>
 									<div class="form-group">
-										<label for="description">{{ trans('site.level_cooking') }}</label>
+										<label for="description">{{ trans('site.description') }}</label>
 										<textarea v-model="cooking.description" name="description" id="" cols="30" rows="10"></textarea>
 									</div>
 								</div>
@@ -84,7 +84,7 @@
 									 <h4 class="page-header"><i class="fa fa-credit-card"></i> {{ trans('sites.input_ingredient') }}</h4>
 									<div class="form-group">
 										<span for="">{{ trans('sites.ingredient_name') }}</span>
-										<input v-model="cookingIngredient.ingredientName" type="text" placeholder="" v-on:keyup="search">
+										<input v-model="cookingIngredient.ingredientName" type="text" v-on:keyup="search">
 										<span class="text-danger" v-for="error in cookingIngredientError.ingredientName">@{{ error }}</span><br>
 										<ul v-if="ingredients" class="list-group position-absolute" id="result" v-on:click="hideResult">
 											<li v-for="ingredient in ingredients" v-on:click="cookingIngredient.ingredientName = ingredient.name;

@@ -3,10 +3,10 @@
 </div>
 <header class="head" role="banner">
     <div class="wrap clearfix">
-        <a href="" class="logo"><img src="{{ asset('images/ok.png') }}" style="margin-top: -29px;" /></a>
+        <a href="{{ route('home') }}" class="logo"><img src="{{ asset('images/ok.png') }}" style="margin-top: -29px;" /></a>
         <nav class="main-nav" role="navigation" id="menu">
             <ul>
-                <li class="current-menu-item"><a href="{{ asset('/') }}" title="{{ trans('sites.home') }}"><span>{{ trans('sites.home') }}</span></a></li>
+                <li><a href="{{ route('home') }}" title="{{ trans('sites.home') }}"><span>{{ trans('sites.home') }}</span></a></li>
                 <li>
                     <a href="/site/cooking" title="{{ trans('sites.recipes') }}">
                         <span>{{ trans('sites.recipes') }}</span>
@@ -68,7 +68,6 @@
                         </a>
                     @endif
                     </li>
-            </ul>
             </ul>
         </nav>
     </div>

@@ -11,8 +11,7 @@
     {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
     {{ Html::style('bower/sweetalert/dist/sweetalert.css') }}
     {{ Html::style('bower/toastr/toastr.min.css') }}
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300&amp;subset=vietnamese" rel="stylesheet">    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
     @yield('style')
 
 </head>

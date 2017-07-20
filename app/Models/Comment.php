@@ -15,5 +15,6 @@ class Comment extends Model
         'comment_table_id',
         'comment_table_type',
         'content',
+        'parent_id'
     ];
 }
