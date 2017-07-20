@@ -1,6 +1,6 @@
 
 body {
-    font-family: 'Raleway', sans-serif!important;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .not-home {
@@ -43,7 +43,6 @@ body {
 .two-third {
     float: left;
     width: 74%;
-    padding: 0 15px 30px;
     max-width: 100%;
 }
 
@@ -76,4 +75,36 @@ body {
 
 .user dd a {
     text-decoration: none;
+}
+
+.comments li {
+    margin: 0 0 15px;
+}
+
+.comments .depth-2 {
+    width: 100%;
+}
+
+.comment-content {
+    width: 100%;
+}
+
+.reply-content {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.rating {
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.star-rating .rating-text {
+    margin-top: -5px !important;
+}
+
+.rating span {
+    display: inline-block;
+
 }

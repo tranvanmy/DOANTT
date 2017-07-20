@@ -37,6 +37,14 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\CookingRepository::class,
             \App\Repositories\Eloquents\CookingEloquentRepository::class,
         ],
+        'comment' => [
+            \App\Contracts\Repositories\CommentRepository::class,
+            \App\Repositories\Eloquents\CommentEloquentRepository::class,
+        ],
+        'rate' => [
+            \App\Contracts\Repositories\RateRepository::class,
+            \App\Repositories\Eloquents\RateEloquentRepository::class,
+        ],    
         'follow' => [
             \App\Contracts\Repositories\FollowRepository::class,
             \App\Repositories\Eloquents\FollowEloquentRepository::class,
