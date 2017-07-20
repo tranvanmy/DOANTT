@@ -75,7 +75,6 @@ var followView = new Vue({
         },
         follow: function(id) {
             axios.post('/site/follow', {'id': id}).then((response) => {
-
                 if(response.data) {
                     this.statusFollow = response.data.statusFlow;
                     toastr.success(response.data.message, response.data.action, {timeOut: 5000});

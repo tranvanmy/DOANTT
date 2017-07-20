@@ -10,6 +10,8 @@ interface CookingRepository extends AbstractRepository
 
     public function takeListCooking($id, $paginate);
 
+    public function takeListCookingStatus($id, $paginate);
+
     public function getCookingCreating($user);
 
     public function storeCookingCategories($cooking_id, $data);

@@ -72,7 +72,7 @@ class UserController extends Controller
                 0 => trans('admin.customer'),
                 1 => trans('admin.admin'),
                 2 => trans('admin.user_disable')
-        ]);
+            ]);
         $chartOrder = Charts::database(Order::all(), 'bar', 'highcharts')
             ->title(trans('admin.order'))
             ->elementLabel(trans('admin.total'))
@@ -82,7 +82,7 @@ class UserController extends Controller
                 0 => trans('admin.order_pending'),
                 1 => trans('admin.order_success'),
                 2 => trans('admin.order_cancel')
-        ]);
+            ]);
         $chartPost = Charts::database(Post::all(), 'line', 'highcharts')
             ->title(trans('admin.post'))
             ->elementLabel(trans('admin.total'))
@@ -99,7 +99,7 @@ class UserController extends Controller
                 1 => trans('admin.recipe_show'),
                 2 => trans('admin.recipe_editing'),
                 3 => trans('admin.recipe_order')
-        ]);
+            ]);
 
         $sumPost = $this->post->countAll();
         $sumOrder = $this->order->countAll();

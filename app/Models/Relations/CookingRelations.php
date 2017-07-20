@@ -9,6 +9,7 @@ use App\Models\Level;
 use App\Models\Category;
 use App\Models\CookingIngredient;
 use App\Models\CookingStep;
+use App\Models\Wishlish;
 
 trait CookingRelations
 {
@@ -45,5 +46,10 @@ trait CookingRelations
     public function level()
     {
         return $this->belongsTo(Level::class, 'level_id');
+    }
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlish::class, 'cooking_id');
     }
 }

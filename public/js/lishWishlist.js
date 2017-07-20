@@ -1,7 +1,7 @@
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-new Vue({
-    el: '#blog',
+var lishWish = new Vue({
+    el: '#listWishlist',
     data: {
         items: [],
         pagination: {
@@ -11,30 +11,19 @@ new Vue({
             to: 0,
             current_page: 1
         },
+        wishlishstatus: 0,
         offset: 4,
-        newItem: {'user_id': '',
-                    'title': '',
-                    'image': '',
-                    'description': '',
-                    'content': '',
-                    'status': '',
-                    'user-name': '',
-                    'user-id': '',
-                    'user-avatar': '',
-                    'created_at': ''
-                },
-        fillItem: {id:'',
+        newItem: {
             'user_id': '',
-            'title': '',
+            'name': '',
+            'time': '',
+            'ration': '',
             'image': '',
+            'rate_point': '', 
             'description': '',
-            'content': '',
-            'status': '',
-            'user-name': '',
-            'user-id': '',
-            'user-avatar': ''
+            'wishlist_status': '',
         },
-        deleteItem: {'name':'','id':''}
+
     },
         computed: {
             isActived: function () {
@@ -62,18 +51,34 @@ new Vue({
         },
         mounted : function(){
             this.showInfor(this.pagination.current_page);
+            console.log(this.items);
         },
         methods: {
             showInfor: function(page) {
-                axios.get('/site/blog?page='+ page).then(response => {
+                id = $('#iduser').val();
+                var $param = {page: page};
+                axios.get('/site/wislish/' + id, {params: $param }).then(response => {
                     this.$set(this, 'items', response.data.data.data);
                     this.$set(this, 'pagination', response.data.pagination);
                 })
             },
-
-            comfirmDeleteItem: function(item) {
-        },
-
+            initData: function(status)
+            {
+                this.wishlishstatus = status;
+            },
+            wishlist: function(id)
+            {
+                axios.put('/site/wislish/' + id).then((response) => {
+                    if (response.data.status == 'error') {
+                        this.wishlishstatus = response.data.wishlishstatus;
+                        toastr.warning(response.data.message, response.data.action, {timeOut: 5000});
+                    } else {
+                        this.wishlishstatus = response.data.wishlishstatus;
+                        toastr.success(response.data.message, '', {timeOut: 5000});
+                    }
+                    this.showInfor(this.pagination.current_page);
+                });
+            },
             changePage: function (page) {
                 this.pagination.current_page = page;
                 this.showInfor(page);

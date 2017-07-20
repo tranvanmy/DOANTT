@@ -5,14 +5,18 @@ namespace App\Http\Controllers\Sites;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\CookingRepository;
+use App\Contracts\Repositories\WishlishRepository;
+use Auth;
 
 class CookingController extends Controller
 {
     protected $cooking;
+    protected $wishlish;
 
-    public function __construct(CookingRepository $cooking)
+    public function __construct(CookingRepository $cooking, WishlishRepository $wishlish)
     {
         $this->cooking = $cooking;
+        $this->wishlish = $wishlish;
     }
     /**
      * Display a listing of the resource.
@@ -65,7 +69,13 @@ class CookingController extends Controller
     public function showCooking($id, Request $request)
     {
         if ($request->ajax()) {
-            $allData = $this->cooking->takeListCooking($id, '1');
+            if (Auth::check()) {
+                if($id == (Auth::user()->id))
+                    $allData = $this->cooking->takeListCooking($id, '10');
+                else {
+                    $allData = $this->cooking->takeListCookingStatus($id, '10');
+                }
+            }
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),
@@ -97,10 +107,19 @@ class CookingController extends Controller
             'comments',
             'cookingIngredients.ingredient',
             'cookingIngredients.unit',
-            'steps'
+            'steps',
             ]);
 
-        return view('sites._components.cooking_detail', compact('cooking'));
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+            $wishlish = null;
+            
+            if ($userId) {
+                $wishlish = $this->wishlish->findWishlist($userId, $id);
+            }
+        }
+        
+        return view('sites._components.cooking_detail', compact('cooking', 'wishlish'));
     }
 
     /**

@@ -28,11 +28,17 @@
                     </a>
                 </li>
                 @if(Auth::check())
-                    <li class="current-menu-item"><a href="#"><span>{{ Auth::user()->name }}</span></a>
+                    <li class="current-menu-item" style="margin-left: 100px;">
+                            <img src="{{ Auth::user()->avatar }}" alt="" style="width: 90px;">
                         <ul>
                             <li>
                                 <a href="{{ asset('site/profile/user/' . Auth::user()->id) }}">
-                                    {{ trans('site.profile') }}
+                                    {{ trans('sites.profile') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ asset('site/wislish/'.Auth::user()->id) }}">
+                                    <span>{{ trans('sites.listwishlish') }}</span>
                                 </a>
                             </li>
                             <li>
@@ -54,6 +60,15 @@
                 @endif
                     <li class="light"><a href="" title="{{ trans('sites.search') }}"><i class="ico i-search"></i> <span>{{ trans('sites.search') }}</span></a></li>
                     <li class="dark"><a href="" title="{{ trans('sites.submitRepice') }}"><i class="ico i-submitrecipe"></i> <span>{{ trans('sites.submitRepice') }}</span></a></li>
+                    <li class="light">
+                    @if(Auth::check())
+                        <a href="">
+                            <i class="fa fa-cart-arrow-down fa-4x wishlishead" aria-hidden="true"></i>
+                            <span>{{ trans('sites.cart') }}</span>
+                        </a>
+                    @endif
+                    </li>
+            </ul>
             </ul>
         </nav>
     </div>

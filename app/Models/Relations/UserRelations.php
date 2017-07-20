@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\Rate;
 use App\Models\Follow;
 use App\Models\Comment;
+use App\Models\Wishlish;
 
 trait UserRelations
 {
@@ -47,5 +48,9 @@ trait UserRelations
     public function followBys()
     {
         return $this->hasMany(Follow::class, 'user_id_follow');
+    }
+    public function wishlish()
+    {
+        return $this->hasMany(Wishlish::class, 'user_id');
     }
 }
