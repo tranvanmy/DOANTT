@@ -7,6 +7,19 @@
 @section('style')
     {!! Html::style('admin/css/category.css') !!}
 @endsection
+
+@section('breadcrumb')
+    <h1>{{ trans('admin.ingredient') }}</h1>
+    <ul class="breadcrumb">
+        <i class="ti-server panel-title"></i>
+        <li class="next">
+            <a href="{{ route('admin.report') }}">{{ trans('admin.dashboard') }}</a>
+        </li>
+        <li class="next">
+            <a>{{ trans('admin.category') }}</a>
+    </ul>
+@endsection
+
 @section('content')
     <div class="container" id="manage-vue">
         <div class="row">

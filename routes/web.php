@@ -22,7 +22,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('category', 'Admins\CategoryController');
     Route::resource('ingredient', 'Admins\IngredientController');
     Route::resource('post', 'Admins\PostController');
-    // Route::resource('order', 'OrderController');
+    Route::resource('cooking', 'Admins\CookingController');
+    Route::resource('order', 'Admins\OrderController');
     // Route::resource('comment', 'CommentController');
     // Route::get('rate', 'RateController@index')->name('rate');
 });

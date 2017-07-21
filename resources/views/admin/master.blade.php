@@ -18,6 +18,7 @@
         {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
         {{ Html::style('bower/bootstrap-select/dist/css/bootstrap-select.min.css') }}
         {{ Html::style('bower/toastr/toastr.min.css') }}
+        {{ Html::style('admin/css/customAdmin.css') }}
         <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
          {!! Charts::assets() !!}
         @yield('style')
@@ -212,6 +213,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('admin.cooking.index') }}">
+                                    <i class="menu-icon ti-files"></i>
+                                    <span>{{ trans('admin.cooking') }}</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('admin.category.index') }}">
                                     <i class="menu-icon ti-view-list"></i>
                                     <span>{{ trans('admin.category') }}</span>
@@ -230,7 +237,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)">
+                                <a href="{{ route('admin.order.index') }}">
                                     <i class="menu-icon ti-check-box"></i>
                                     <span>{{ trans('admin.order') }}</span>
                                 </a>
