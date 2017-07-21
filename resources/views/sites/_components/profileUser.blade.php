@@ -30,6 +30,7 @@
                     </div>
                     &nbsp;&nbsp;
                     <div class="profile_user text-center">
+                    @if(Auth::check())
                         @if((Auth::user()->id) == $allData['id'])
                         <a v-on:click="editItem({{ $allData['id'] }})" type="button" class="btn btn-default btn-sm ">
                             <span class="text-danger editPostSpan">
@@ -56,6 +57,7 @@
                             </div>
                         </div>
                         @endif
+                    @endif
                     </div>
                 </div>
                 {{-- edit account --}}
@@ -228,6 +230,7 @@
                                 <dd>{{ $totalCookings }}</dd>
                             </dl>
                         </div>
+                    @if(Auth::check())
                          @if((Auth::user()->id) == $allData['id'])
                         <div class="col-md-4">
                             <div class="panel panel-info">
@@ -245,13 +248,13 @@
                             </div>
                         </div>
                         @endif
+                    @endif
                     </div>
                 </div>
                 <!--my recipes-->
                 <div class="tab-content" id="recipes">
                     <div class="entries row">
                         @foreach($allData->cookings as $cooking)
-                            @if((Auth::user()->id) == $allData['id'])
                                 <div class="entry one-third">
                                     <figure>
                                         <img src="{{ $cooking->image }}" alt=""/>
@@ -276,6 +279,8 @@
                                                         {{ $cooking->rate_point }}
                                                 </div>
                                             </div>
+                                        @if(Auth::check())
+                                            @if((Auth::user()->id) == $allData['id'])
                                                 @if( ($cooking->status) == 0 )
                                                 <div class="rate">
                                                     <span class="label label-danger">{{ trans('admin.recipe_pending') }}</span>
@@ -297,38 +302,11 @@
                                                     <span class="label label-success">{{ trans('admin.recipe_order') }}</span>
                                                     </div>
                                                 @endif
+                                            @endif
+                                        @endif
                                         </div>
                                     </div>
                                 </div>
-                            @elseif(($cooking->status) == 1)
-                                <div class="entry one-third">
-                                    <figure>
-                                        <img src="{{ $cooking->image }}" alt=""/>
-                                        <figcaption>
-                                            <a href="{{ $cooking->id }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="container">
-                                        <h2><a href=""> {{ $cooking->name }}</a></h2>
-                                        <div class="actions">
-                                            <div>
-                                                <div class="difficulty">
-                                                    <i class="ico i-hard"></i>
-                                                    {{ $cooking->level->name }}
-                                                </div>
-                                                <div class="time">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                    {{ $cooking->time }}
-                                                </div>
-                                                <div class="rate">
-                                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                                    {{ $cooking->rate_point }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
                         @endforeach
                     </div>
                     <div>
@@ -343,7 +321,6 @@
                     <div class="entries row">
                         <!--item-->
                         @foreach($allData->posts as $post)
-                            @if((Auth::user()->id) == $allData['id'])
                                 <div class="entry one-third">
                                     <figure>
                                         <img src="{{ $post->image }}"/>
@@ -356,57 +333,25 @@
                                                 <div class="date">
                                                     <i class="ico i-date"></i>{{ $post->created_at }}</a>
                                                 </div>
-                                                @if(($post->status) == 1)
-                                                    <div class="prouser">
-                                                        <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                                        <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
-                                                    </div>
-                                                @else
-                                                    <div class="prouser">
-                                                        <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
-                                                        <span class="label label-success">{{ trans('sites.approved') }}</span>
-                                                    </div>
-                                                @endif
+                                                    @if(Auth::check())
+                                                        @if((Auth::user()->id) == $allData['id'])
+                                                            @if(($post->status) == 1)
+                                                                <div class="prouser">
+                                                                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                                                                    <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
+                                                                </div>
+                                                            @else
+                                                                <div class="prouser">
+                                                                    <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
+                                                                    <span class="label label-success">{{ trans('sites.approved') }}</span>
+                                                                </div>
+                                                            @endif
+                                                        @endif
+                                                    @endif 
                                             </div>
                                         </div>
                                     </div>
                                 </div> 
-                            @elseif(($post->status) != 1)
-                                <div class="entry one-third">
-                                    <figure>
-                                        <img src="{{ $post->image }}"/>
-                                        <figcaption>
-                                            <a href="{{ route('site.blog.show', [$post->id] ) }}">
-                                                <i class="ico i-view"></i>
-                                                <span>{{ trans('sites.view') }}</span>
-                                            </a>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="container">
-                                        <h2><a href="{{ route('site.blog.show', [$post->id] ) }}">{{ $post->title }}</a></h2>
-                                        <div class="actions">
-                                            <div class="excerpt">
-                                                <div class="date">
-                                                    <i class="ico i-date"></i>{{ $post->created_at }}</a>
-                                                </div>
-                                                @if((Auth::user()->id) == $allData['id'])
-                                                    @if(($post->status) == 1)
-                                                        <div class="prouser">
-                                                            <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                                            <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
-                                                        </div>
-                                                    @else
-                                                        <div class="prouser">
-                                                            <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
-                                                            <span class="label label-success">{{ trans('sites.approved') }}</span>
-                                                        </div>
-                                                    @endif
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
                         @endforeach
                         <!--item-->
                     </div>
@@ -501,7 +446,9 @@
         filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
     };
     </script>
-    <script>
-        followView.statusFollow = {{ $statusfollow ? 1 : 0 }};
-    </script>
+        @if(Auth::check())
+            <script>
+                followView.statusFollow = {{ $statusfollow ? 1 : 0 }};
+            </script>
+        @endif
     @endsection

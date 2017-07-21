@@ -61,7 +61,7 @@ return [
     'viewPost' => 'Xem bài viết',
     'day' => '22 Dec 2017',
     'morePost' => 'Xem nhiều bài viết khác',
-    'topChef' => 'Top đầu bếp',
+    'topChef' => 'Đầu Bếp',
     'totalRecipes' => '145 Công thức',
     'moreMaster' => 'Xem thêm top',
     'home' => 'Trang Chủ',

@@ -61,5 +61,4 @@ abstract class AbstractEloquentRepository
             ->take($number)
             ->get();
     }
-
 }

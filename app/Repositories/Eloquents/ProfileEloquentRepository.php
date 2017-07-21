@@ -79,6 +79,21 @@ class ProfileEloquentRepository extends AbstractEloquentRepository implements Pr
         return $users;
     }
 
+    public function publicPost($id)
+    {
+        $users = $this->model->with(['cookings' => function ($query) {
+            $query->with('level')->where('status', 1)->orderBy('rate_point', 'DESC')->take('3');
+        }, 'follows.userFollow' => function ($query) {
+            $query->orderBy('id', 'DESC')->take('3');
+        },'followBys.user' => function ($query) {
+            $query->orderBy('id', 'DESC')->take('3');
+        }, 'posts' => function ($query) {
+            $query->where('status', 2)->orderBy('id', 'DESC')->take('3');
+        }])->where('id', $id)->first();
+
+        return $users;
+    }
+
 
     public function inforFollow($id)
     {
@@ -89,9 +104,7 @@ class ProfileEloquentRepository extends AbstractEloquentRepository implements Pr
 
     public function takeMaster($paginate, $with = [], $select = null)
     {
-        $post = $this->model->with(['level' => function ($query) {
-            $query->orderBy('id', 'DESC');
-        }])->paginate($paginate);
+        $post = $this->model->with(['level'])->orderBy('id', 'DESC')->paginate($paginate);
  
         return $post;
     }

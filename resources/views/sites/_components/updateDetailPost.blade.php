@@ -1,8 +1,8 @@
 @extends('sites.master')
 @section('content')
 @include('sites._sections.header')
-    <input type="hidden" id="post" value="{{ $detailPost->id }}">
-    <input type="hidden" id="post_type" value="posts">
+ <input type="" id="post" value="{{ $detailPost->id }}">
+         <input type="" id="post_type" value="posts">
 <main class="main login" role="main">
     <div class="wrap clearfix" id="Detailblog">
         <nav class="breadcrumbs">
@@ -32,6 +32,9 @@
                     <div class="container">
                         <div class="entry-featured"><a href="#"><img src="{{ $detailPost->image }}" alt="" /></a></div>
                         <div class="entry-content">
+                            {!! $detailPost->description !!}
+                        </div>
+                        <div class="entry-content">
                             {!! $detailPost->content !!}
                         </div>
                     </div>
@@ -53,7 +56,7 @@
                     @endif
               </article>
               <!--comments-->
-              @include('sites._components.comments')
+              {{-- @include('sites._components.comments') --}}
           </section>
           <!--right sidebar-->
           @include('sites._sections.sidebar')
@@ -129,7 +132,7 @@
                             <br/>
                             <div class="form-group col-md-12" >
                                 <label for="name">{{ trans('sites.description') }}</label>
-                                <textarea type="text" name="description" class="form-control" cols="10"></textarea>
+                                <textarea type="text" name="description" class="form-control" v-model="fillPost.description"  cols="10"></textarea>
                                 <span v-if="formPostErrors['description']" class="error text-danger">@{{ formPostErrors['description'][0] }}</span>
                                 <br/>
                             </div>

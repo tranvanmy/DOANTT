@@ -37,13 +37,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_top_1 = $this->user->getbyNumber('1', 0, ['level', 'cookings'],'id');
-        $users_top_3 = $this->user->getbyNumber('3', 0, ['level', 'cookings'],'id');
-        $users_top_6 = $this->user->getbyNumber('6', 0, ['level'],'id');
+
+        $user_top_1 = $this->user->getbyNumber('1', 0, ['level', 'cookings'], 'id');
+        $users_top_3 = $this->user->getbyNumber('3', 0, ['level', 'cookings'], 'id');
+        $users_top_6 = $this->user->getbyNumber('6', 0, ['level'], 'id');
         $cookings = $this->cooking->getbyNumber('6', 1, ['level', 'comments'], 'id');
         $cooking_top_1 = $this->cooking->getbyNumber('1', 1, ['level', 'comments'], 'id');
         $categories = $this->category->status(config('category.in_home_page'));
-        $posts = $this->post->getbyNumber('6', 2, [],'id');
+        $posts = $this->post->getbyNumber('6', 2, [], 'id');
 
         return view('sites.home.index', compact([
             'users_top_6',
@@ -54,5 +55,12 @@ class HomeController extends Controller
             'categories',
             'posts'
         ]));
+    }
+
+    public function showCategory($id)
+    {
+        $listCookings = $this->category->getCategory($id, ['level'], 1);
+
+        return view('sites._components.listCategory', compact('listCookings'));
     }
 }

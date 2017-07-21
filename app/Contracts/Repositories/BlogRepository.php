@@ -9,4 +9,6 @@ interface BlogRepository extends AbstractRepository
     public function paginagePost($paginate, $with = [], $select = null);
 
     public function takeListPost($id, $paginate);
+
+    public function takeListPostStatus($id, $paginate);
 }

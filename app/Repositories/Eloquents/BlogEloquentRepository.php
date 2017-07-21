@@ -29,4 +29,16 @@ class BlogEloquentRepository extends AbstractEloquentRepository implements BlogR
         
         return $post;
     }
+
+    public function takeListPostStatus($id, $paginate)
+    {
+        $post = $this->model
+            ->with(['user'])
+            ->where('status', 2)
+            ->orderBy('id', 'DESC')
+            ->where('user_id', $id)
+            ->paginate($paginate);
+        
+        return $post;
+    }
 }

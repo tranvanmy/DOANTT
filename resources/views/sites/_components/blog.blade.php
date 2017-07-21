@@ -73,7 +73,7 @@
         </section>
         <!--//content-->
         <!--right sidebar-->
-        @include('sites._components.category_component')
+        @include('sites._sections.sidebar')
     </div>
 </div>
 </main>

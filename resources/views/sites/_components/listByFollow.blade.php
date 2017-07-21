@@ -26,12 +26,12 @@
                                 <h2><i class="fa fa-user-md" aria-hidden="true"></i> <a v-bind:href="'/site/profile/user/'+ item.user.id">@{{ item.user.name }}</a></h2>
                                 <p><i class="fa fa-address-book" aria-hidden="true"></i> @{{item.user.email}}</p>
                             </div>
-                        </div>                      
+                        </div>
                     </div>
                 </div>
-            </section>              
+            </section>
             <!--right sidebar-->
-            @include('sites._components.category_component')
+            @include('sites._sections.sidebar')
         </div>
         <nav>
             <ul class="pagination">

@@ -45,8 +45,10 @@ new Vue({
         methods: {
             showInfor: function(page) {
                 axios.get('?page='+ page).then(response => {
+                    console.log(response);
                     this.$set(this, 'items', response.data.data.data);
                     this.$set(this, 'pagination', response.data.pagination);
+                    console.log(this.items);
                 })
             },
             changePage: function (page) {
