@@ -90,4 +90,11 @@ class CookingEloquentRepository extends AbstractEloquentRepository implements Co
             return false;
         }
     }
+
+    public function getPaginateCooking($paginate, $with = [], $select = null)
+    {
+        $cooking = $this->model->with($with)->orderBy('id', 'DESC')->paginate($paginate);
+
+        return $cooking;
+    }
 }

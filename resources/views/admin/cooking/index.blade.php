@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    {{ trans('admin.post_manage') }}
+    {{ trans('admin.cooking_manage') }}
 @endsection
 
 @section('style')
@@ -10,14 +10,14 @@
     <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
 @endsection
 @section('breadcrumb')
-    <h1>{{ trans('admin.post') }}</h1>
+    <h1>{{ trans('admin.cooking') }}</h1>
     <ul class="breadcrumb">
         <i class="ti-server panel-title"></i>
         <li class="next">
             <a href="{{ route('admin.report') }}">{{ trans('admin.dashboard') }}</a>
         </li>
         <li class="next">
-            <a>{{ trans('admin.post') }}</a>
+            <a>{{ trans('admin.cooking') }}</a>
     </ul>
 @endsection
 
@@ -28,46 +28,50 @@
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-heading">
+                        </button>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div id="table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <table class="table table-bordered dataTable no-footer" id="table" role="grid">
+                                        <table class="table table-bordered dataTable no-footer" id="table" role="grid" aria-describedby="table_info">
                                             <thead>
                                                 <tr class="filters" role="row">
                                                 <th class="col-md-1">{{ trans('admin.id') }}</th>
-                                                <th class="col-md-3">{{ trans('admin.title') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.author') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.description') }}</th>
+                                                <th class="col-md-3">{{ trans('admin.name') }}</th>
+                                                <th class="col-md-3">{{ trans('admin.description') }}</th>
+                                                <th class="col-md-1">{{ trans('admin.image') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.category') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.status') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.action') }}</th>
                                             </thead>
                                             <tbody>                       
-                                                <tr role="row" v-for="item in items">
-                                                    <td>@{{ item.id }}</td>
-                                                    <td><a data-toggle="modal" v-on:click="showItem(item)" type="button">@{{ item.title }}</a></td>
+                                                <tr role="row" v-for="cooking in cookings">
+                                                    <td>@{{ cooking.id }}</td>
+                                                    <td><a data-toggle="modal" v-on:click="showCooking(cooking)" type="button">@{{ cooking.name }}</a></td>
+                                                    <td><p class="ellipis">@{{ cooking.description }}</p></td>
+                                                    <td><img class="icon-ingredient" v-bind:src="'/' + cooking.image" alt="" height="100px"></td>
                                                     <td>
-                                                    <a v-bind:href="'/admin/user/' + item.user.id">@{{ item.user.name }}</a></td>
-                                                    <td>@{{ item.description }}</td>
-                                                    <td>
-                                                        <span v-for="category in item.categories" class="label label-primary">@{{ category.name }}</span>
-
+                                                        <span v-for="category in cooking.categories" class="label label-primary">@{{ category.name }}</span>
                                                     </td>
-                                                    <td v-if="item.status == null || item.status == 1">
+                                                    <td v-if="cooking.status == 0">
                                                         <span class="">
-                                                            <i class=" fa fa-eye-slash text-danger" aria-hidden="true" title="{{ trans('admin.not_show') }}"></i>
+                                                            <i class=" fa fa-pause text-danger" aria-hidden="true" title="{{ trans('admin.pending') }}"></i>
                                                         </span>
                                                     </td>
-                                                    <td v-if="item.status == 2">
+                                                    <td v-if="cooking.status == 1">
                                                         <span class="">
-                                                            <i class="fa fa-eye text-primary" aria-hidden="true" title="{{ trans('admin.show') }}"></i>
+                                                            <i class="fa fa-check text-success" aria-hidden="true" title="{{ trans('admin.passed') }}"></i>
+                                                        </span>
+                                                    </td>
+                                                    <td v-if="cooking.status == 2">
+                                                        <span class="">
+                                                            <i class="fa fa-pencil-square-o text-default" aria-hidden="true" title="{{ trans('admin.editing') }}"></i>
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span class="" v-on:click="editItem(item)">
+                                                        <span class="" v-on:click="editCooking(cooking)">
                                                             <i class="fa fa-fw ti-pencil text-primary actions_icon" title="{{ trans('admin.edit') }}"></i>
                                                         </span>
                                                     </td>
@@ -110,19 +114,19 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{{ trans('admin.post_edit') }}: @{{ fillItem.title}}</h4>
+                        <h4 class="modal-title" id="myModalLabel">{{ trans('admin.cooking_edit') }}: @{{ fillItem.name}}</h4>
                     </div>
                     <div class="modal-body">
                         <form method="PUT" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
                             <div class="form-group">
                                 <label for="status">{{trans('admin.status') }}</label>
                                 <select  name="status" class="input-sm" id="" v-model="fillItem.status" >
-                                    <option value="2">{{ trans('admin.show') }}</option>
-                                    <option value="1">{{ trans('admin.not_show') }}</option>
+                                    <option value="1">{{ trans('admin.pass') }}</option>
+                                    <option value="0">{{ trans('admin.pending') }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">{{ trans('admin.post_update') }}</button>
+                                <button type="submit" class="btn btn-success">{{ trans('admin.cooking_update') }}</button>
                             </div>
                         </form>
                     </div>
@@ -135,11 +139,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title col-md-3">@{{ show.title }}</h4>
-                        <img :src="show.image" height="50px">
+                        <h4 class="modal-title col-md-3">@{{ show.name }}</h4>
+                        <img :src="'/' + show.image" height="50px">
                     </div>
                     <div class="modal-body">
-                        <p v-html="show.content"></p>
+                        <ol>
+                            <li v-for="step in show.steps">
+                            @{{ step.content }}
+                            <img :src="'/' + step.image" width="750px">
+                            </li>
+                        </ol>
                     </div>
                     <div class="modal-footer">
                     </div>
@@ -149,9 +158,9 @@
     </section>
 @endsection
 @section('script')
-    {{-- <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script> --}}
-    {{-- {{ Html::script('bower/ckeditor/ckeditor.js') }} --}}
-    {{-- {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }} --}}
-    {{ Html::script('admin/post.js') }}
+    <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
+    {{ Html::script('bower/ckeditor/ckeditor.js') }}
+    {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}
+    {{ Html::script('admin/cooking.js') }}
 
 @endsection

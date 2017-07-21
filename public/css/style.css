@@ -68,7 +68,7 @@ h3 {font-size:21px;font-weight:700;padding:13px 0 18px;}
 h4 {font-size:18px;font-weight:500;padding:18px 0;}
 h5 {font-size:15px;font-weight:500;padding:20px 0 19px;}
 h6 {font-size:14px;font-weight:600;padding:20px 0;}
-a { text-decoration: none; }
+a { text-decoration: none!important; }
 a:hover{text-decoration: none;}
 .s-title > h1    {font-size:40px;line-height:1.2;font-weight:300;padding:0 15px 60px;margin-top:-10px;display:inline-block;width:100%;}
 p           {padding:0 0 18px;line-height:1.6;}
@@ -1061,3 +1061,13 @@ h2.large        {background-size:100% 123px;font-size:24px;}
 }
 
 .wishlishead { margin-top: 8px !important; }
+
+.ellipis {
+    overflow: hidden!important;
+    -ms-text-overflow: ellipsis!important;
+    -o-text-overflow: ellipsis!important;
+    text-overflow: ellipsis!important;
+    display: block!important;
+    white-space: nowrap!important;
+    width: 12em!important;
+}

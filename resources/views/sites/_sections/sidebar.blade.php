@@ -10,46 +10,32 @@
                 <li class="dark"><a href="" title="{{ $category['name'] }}"><img class="ico" src="https://maxcdn.icons8.com/Share/icon/Animals//chicken1600.png" alt=""><span>{{ $category['name'] }}</span></a></li>
             @endif
         @endforeach
-           {{--  <li class="light"><a href="" title="{{ trans('sites.piza') }}"><i class="ico i-appetizers"></i> <span>{{ trans('sites.piza') }}</span></a></li>
-            <li class="medium"><a href="" title="{{ trans('sites.cocktails') }}"><i class="ico i-cocktails"></i> <span>{{ trans('sites.cocktails') }}</span></a></li>
-            <li class="dark"><a href="" title="{{ trans('sites.deserts') }}"><i class="ico i-deserts"></i> <span>{{ trans('sites.deserts') }}</span></a></li> --}}
         </ul>
     </div>
     <div class="widget wow fadeInRight" data-wow-delay=".2s">
         <h3>{{ trans('sites.tips')}}</h3>
         <ul class="articles_latest">
+        @foreach($posts as $post)
             <li>
-                <a href="">
-                    <img src="{{ asset('images/img9.jpg') }}" alt="" />
-                    <h6>{{ trans('sites.howTo') }}</h6>
+                <a href="{{ route('site.blog.show', [$post->id]) }}">
+                    <img src="{{ $post->image }}" alt="{{ $post->title }}" />
+                    <h6 class="ellipis">{{ $post->description }}</h6>
                 </a>
             </li>
+        @endforeach
         </ul>
     </div>
     <div class="widget members wow fadeInRight" data-wow-delay=".4s">
         <h3>{{ trans('sites.ourMember') }}</h3>
         <div id="members-list-options" class="item-options">
-            <a href="#">{{ trans('sites.newest') }}</a>
-            <a class="selected" href="#">{{ trans('sites.active') }}</a>
-            <a href="#">{{ trans('sites.popular') }}</a>
+            <a class="active" href="#">{{ trans('sites.newest') }}</a>
+            <a class="active" href="#">{{ trans('sites.active') }}</a>
+            <a class="active" href="#">{{ trans('sites.popular') }}</a>
         </div>
         <ul class="boxed">
-            <li><div class="avatar"><a href=""><img src="{{ asset('images/avatar1.jpg') }}" alt="" /><span>{{ trans('sites.name') }}</span></a></div></li>
+        @foreach($users_top_3 as $user)
+            <li><div class="avatar"><a href="{{ route('site.user.show', [$user->id]) }}"><img src="{{ $user->avatar }}" alt="" /><span>{{ $user->name }}</span></a></div></li>
+        @endforeach
         </ul>
-    </div>
-    <div class="widget wow fadeInRight" data-wow-delay=".2s">
-        <h3>{{ trans('sites.topRating') }}</h3>
-        <ul class="articles_latest">
-            <li>
-                <a href="blog_single.html">
-                    <img src="{{ asset('images/img9.jpg') }}" alt="" />
-                    <h6>{{ trans('sites.howTo') }}</h6>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="widget wow fadeInRight" data-wow-delay=".6s">
-        <h3>{{ trans('sites.ads')}}</h3>
-        <a href="#"><img src="{{ asset('images/advertisment.jpg') }}" alt="" /></a>
     </div>
 </aside>

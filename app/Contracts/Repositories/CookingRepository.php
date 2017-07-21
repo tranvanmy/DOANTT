@@ -19,4 +19,6 @@ interface CookingRepository extends AbstractRepository
     public function storeCookingCategories($cooking_id, $data);
 
     public function deleteCoking($id);
+
+    public function getPaginateCooking($paginate, $with = [], $select = null);
 }

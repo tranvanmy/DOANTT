@@ -7,7 +7,7 @@
     <ul class="breadcrumb">
         <i class="ti-server panel-title"></i>
         <li class="next">
-            <a href="{{ route('admin.') }}">{{ trans('admin.dashboard') }}</a>
+            <a href="{{ route('admin.report') }}">{{ trans('admin.dashboard') }}</a>
         </li>
     </ul>
 @endsection

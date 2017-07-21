@@ -52,4 +52,14 @@ abstract class AbstractEloquentRepository
         return $this->model->all()->count();
     }
 
+    public function getbyNumber($number, $status, $with, $orderBy)
+    {
+        return $this->model
+            ->where('status', $status)
+            ->with($with)
+            ->orderBy($orderBy, 'desc')
+            ->take($number)
+            ->get();
+    }
+
 }

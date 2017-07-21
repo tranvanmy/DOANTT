@@ -19,4 +19,6 @@ interface AbstractRepository
     public function delete($id);
 
     public function countAll();
+
+    public function getbyNumber($number, $status, $with, $orderBy);
 }

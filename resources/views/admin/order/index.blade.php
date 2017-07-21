@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    {{ trans('admin.post_manage') }}
+    {{ trans('admin.order_manage') }}
 @endsection
 
 @section('style')
@@ -10,14 +10,14 @@
     <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
 @endsection
 @section('breadcrumb')
-    <h1>{{ trans('admin.post') }}</h1>
+    <h1>{{ trans('admin.order') }}</h1>
     <ul class="breadcrumb">
         <i class="ti-server panel-title"></i>
         <li class="next">
             <a href="{{ route('admin.report') }}">{{ trans('admin.dashboard') }}</a>
         </li>
         <li class="next">
-            <a>{{ trans('admin.post') }}</a>
+            <a>{{ trans('admin.order') }}</a>
     </ul>
 @endsection
 
@@ -38,12 +38,10 @@
                                             <thead>
                                                 <tr class="filters" role="row">
                                                 <th class="col-md-1">{{ trans('admin.id') }}</th>
-                                                <th class="col-md-3">{{ trans('admin.title') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.author') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.description') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.category') }}</th>
+                                                <th class="col-md-3">{{ trans('admin.user') }}</th>
+                                                <th class="col-md-1">{{ trans('admin.seller') }}</th>
+                                                <th class="col-md-1">{{ trans('admin.note') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.status') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.action') }}</th>
                                             </thead>
                                             <tbody>                       
                                                 <tr role="row" v-for="item in items">
