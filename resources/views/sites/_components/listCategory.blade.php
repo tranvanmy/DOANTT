@@ -16,60 +16,44 @@
             <section class="content three-fourth wow fadeInUp">
                 <div class="entries row">
                     <!--item-->
-                <div v-for="item in items">
-                    <div v-if="item.status == '1'">
+                    <div>
+                    @foreach( $listCookings as $listCooking)
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
-                                <img v-bind:src="item.image" alt="" />
-                                <figcaption><a v-bind:href="'/site/cooking/'+ item.id"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                                <img src="{{ $listCooking->image }}" alt="" />
+                                <figcaption><a href=""><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">
-                                <h2><a v-bind:href="'/site/cooking/'+ item.id">@{{ item.name }}</a></h2> 
+                                <h2><a href="">{{ $listCooking->name }}</a></h2> 
                                 <div class="actions">
                                     <div>
                                         <div class="difficulty">
                                             <i class="ico i-medium"></i>
-                                            <a v-bind:href="'/site/cooking/'+ item.id"> @{{ item.level.name }}</a>
+                                            <a v-bind:href="'/site/cooking/'+ item.id"> {{ $listCooking->level->name }}</a>
                                         </div>
                                         <div class="likes">
-                                            <i class="fa fa-calendar" aria-hidden="true"></i> @{{ item.time }}
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>{{ $listCooking->time }}
                                         </div>
                                         <div class="comments">
-                                            <i class="fa fa-star-half-o" aria-hidden="true"></i> @{{ item.rate_point}}
+                                            <i class="fa fa-star-half-o" aria-hidden="true"></i>{{ $listCooking->rate_point }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>                      
+                        </div>
+                    @endforeach                      
                     </div>
-                </div>
                 </div>
             </section>              
             <!--right sidebar-->
             @include('sites._sections.sidebar')
         </div>
-            <nav>
-                <ul class="pagination">
-                    <li v-if="pagination.current_page > 1">
-                        <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
-                            <span aria-hidden="true">«</span>
-                        </a>
-                    </li>
-                    <li v-for="page in pagesNumber"
-                    v-bind:class="[ page == isActived ? 'active' : '']">
-                    <a href="#" @click.prevent="changePage(page)">@{{ page }}</a>
-                    </li>
-                    <li v-if="pagination.current_page < pagination.last_page">
-                        <a href="#" @click.prevent="changePage(pagination.current_page + 1)"> <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+           {{ $listCookings->links() }}
         </div>
     </main>
 <!--//wrap-->
 @include('sites._sections.footer')
 @endsection
 @section('script')
-{{ Html::script('js/recipes.js') }}  
+{{-- {{ Html::script('js/recipes.js') }}   --}}
 @endsection

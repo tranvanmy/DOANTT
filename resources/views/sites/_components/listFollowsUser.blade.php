@@ -31,7 +31,7 @@
                 </div>
             </section>              
             <!--right sidebar-->
-            @include('sites._components.category_component')
+            @include('sites._sections.sidebar')
         </div>
         <nav>
             <ul class="pagination">

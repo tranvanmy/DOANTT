@@ -18,17 +18,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/site/master">
                         <span>{{ trans('sites.topChef') }}</span>
                     </a>
                 </li>
-                <li>
-                    <a href="" title="{{ trans('sites.contact') }}">
-                        <span>{{ trans('sites.contact') }}</span>
-                    </a>
-                </li>
                 @if(Auth::check())
-                    <li class="current-menu-item" style="margin-left: 100px;">
+                    <li class="current-menu-item" id="liHead">
                             <img src="{{ Auth::user()->avatar }}" alt="" style="width: 90px;">
                         <ul>
                             <li>

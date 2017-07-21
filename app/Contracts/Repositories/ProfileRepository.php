@@ -21,4 +21,6 @@ interface ProfileRepository extends AbstractRepository
     public function takeMaster($paginate, $with = [], $select = null);
 
     public function inforFollow($id);
+
+    public function publicPost($id);
 }

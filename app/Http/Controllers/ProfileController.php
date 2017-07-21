@@ -69,6 +69,28 @@ class ProfileController extends Controller
 
         return response()->json($response);
     }
+
+    public function showMater(Request $request)
+    {
+        if ($request->ajax()) {
+                $allData = $this->user->takeMaster('10', ['level']);
+            $response = [
+                'pagination' => [
+                'total'        => $allData->total(),
+                'per_page'     => $allData->perPage(),
+                'current_page' => $allData->currentPage(),
+                'last_page'    => $allData->lastPage(),
+                'from'         => $allData->firstItem(),
+                'to'           => $allData->lastItem()
+                ],
+                'data' => $allData
+            ];
+
+            return response()->json($response);
+        }
+
+        return view('sites._components.topCheft');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -115,24 +137,7 @@ class ProfileController extends Controller
 
     public function showList($id, Request $request)
     {
-        if ($request->ajax()) {
-            $allData = $this->user->takeListPost($id, '4');
-            $response = [
-                'pagination' => [
-                'total'        => $allData->total(),
-                'per_page'     => $allData->perPage(),
-                'current_page' => $allData->currentPage(),
-                'last_page'    => $allData->lastPage(),
-                'from'         => $allData->firstItem(),
-                'to'           => $allData->lastItem()
-                ],
-                'data' => $allData
-            ];
-
-            return response()->json($response);
-        }
-
-        return view('sites._components.listPostUser');
+        //
     }
     /**
      * Display the specified resource.
@@ -142,11 +147,25 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $user_id = Auth::user()->id;
+        if (Auth::check()) {
+            if ($id == (Auth::user()->id)) {
+                $user_id = Auth::user()->id;
+                $statusfollow = $this->follow->findFollow($user_id, $id);
+                $allData = $this->user->takeAll($id);
+            } else {
+                $allData = $this->user->publicPost($id);
+            }
+        } else {
+            $allData = $this->user->publicPost($id);
+        }
+
+        if (Auth::check()) {
+             $user_id = Auth::user()->id;
+            $statusfollow = $this->follow->findFollow($user_id, $id);
+        }
+
         $totalPost = $this->user->total($id, ['posts']);
         $totalCookings = $this->user->totalCooking($id, ['cookings']);
-        $allData = $this->user->takeAll($id);
-        $statusfollow = $this->follow->findFollow($user_id, $id);
 
         return view('sites._components.profileUser', compact('totalPost', 'totalCookings', 'allData', 'statusfollow'));
     }

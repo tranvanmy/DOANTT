@@ -15,7 +15,6 @@
                     <h1>{{ trans('sites.listPost') }}</h1>
                 </header>
                 <div  v-for="item in items">
-                    <div v-if="item.user_id == {{ Auth::user()->id }}">
                         <div class="full-width">
                             <div class="container box">
                                 <div class="col-md-3 text-center">
@@ -26,51 +25,28 @@
                                    <p>@{{ item.description }}</p>
                                </div>
                                <div class="clearfix"></div>
-                               <div v-if="item.status == 1">
-                                <div class="col-md-offset-2 approve">
-                                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                    <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
-                                    | <i class="fa fa-book" aria-hidden="true"></i>
-                                    <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
-                                </div> 
-                            </div>
-                            <div v-if="item.status != 1">
-                                <div class="col-md-offset-2 approve">
-                                    <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
-                                    <span class="label label-success">{{ trans('sites.approved') }}</span>
-                                    | <i class="fa fa-book" aria-hidden="true"></i> <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
-                                </div> 
-                            </div>
+                            @if(Auth::check())
+                                <div v-if="(item.user.id) == {{ Auth::user()->id }}">
+                                   <div v-if="item.status == 1">
+                                        <div class="col-md-offset-2 approve">
+                                            <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                                            <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
+                                            | <i class="fa fa-book" aria-hidden="true"></i>
+                                            <a v-bind:href="'/site/showDetail/' + item.id">{{ trans('sites.read_more') }}</a>
+                                        </div> 
+                                    </div>
+                                    <div v-if="item.status != 1">
+                                        <div class="col-md-offset-2 approve">
+                                            <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
+                                            <span class="label label-success">{{ trans('sites.approved') }}</span>
+                                            | <i class="fa fa-book" aria-hidden="true"></i><a v-bind:href="'/site/showDetail/' + item.id">{{ trans('sites.read_more') }}</a>
+                                        </div> 
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div v-if="item.status != 1">
-                    <div class="full-width">
-                        <div class="container box">
-                            <div class="col-md-3 text-center">
-                               <img v-bind:src="item.image" alt="" class="left  wow bounce" data-wow-delay=".4s" data-wow-duration="1s">
-                           </div>
-                           <div class="col-md-3 cod-md-offset-2">
-                               <h2><a v-bind:href="'/site/blog/' + item.id">@{{ item.title }}</a></h2>
-                               <p>@{{ item.description }}</p>
-                           </div>
-                           <div class="clearfix"></div>
-                           <div v-if="item.status == 1">
-                            <div class="col-md-offset-2 approve">
-                                <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                <span class="label label-danger">{{ trans('sites.unapproved') }}</span>
-                                | <i class="fa fa-book" aria-hidden="true"></i>
-                                <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
-                            </div> 
-                        </div>
-                        <div class="col-md-offset-2 approve">
-                            <i class="fa fa-hand-pointer-o" aria-hidden="true"></i> 
-                            <span class="label label-success">{{ trans('sites.approved') }}</span>
-                            | <i class="fa fa-book" aria-hidden="true"></i> <a v-bind:href="'/site/blog/' + item.id">{{ trans('sites.read_more') }}</a>
-                        </div> 
-                    </div>
-                </div>
-            </div>
             {{-- @endif --}}
         </div>
     </div>

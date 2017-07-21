@@ -9,6 +9,7 @@ use App\Contracts\Repositories\CookingRepository;
 use App\Contracts\Repositories\CommentRepository;
 use App\Contracts\Repositories\RateRepository;
 use App\Contracts\Repositories\WishlishRepository;
+use App\Http\Controllers\Sites\Comment;
 use Auth;
 
 class CookingController extends Controller
@@ -81,11 +82,13 @@ class CookingController extends Controller
     {
         if ($request->ajax()) {
             if (Auth::check()) {
-                if($id == (Auth::user()->id))
+                if ($id == (Auth::user()->id)) {
                     $allData = $this->cooking->takeListCooking($id, '10');
-                else {
+                } else {
                     $allData = $this->cooking->takeListCookingStatus($id, '10');
                 }
+            } else {
+                    $allData = $this->cooking->takeListCookingStatus($id, '10');
             }
             $response = [
                 'pagination' => [
@@ -125,23 +128,18 @@ class CookingController extends Controller
         if ($cooking && $request->ajax()) {
             if ($cooking->status == 0) {
                 if (Auth::check() && Auth::user()->id == $cooking->user->id) {
-        
                     return response()->json($cooking);
                 }
             } elseif ($cooking->status == 1) {
-
                 return response()->json($cooking);
             }
-
         }
         if ($cooking) {
             $cooking_id = $cooking->id;
             $cooking_user_id = $cooking->user->id;
-
         } else {
             $cooking_id = null;
             $cooking_user_id = null;
-
         }
 
         if (Auth::check()) {
@@ -153,7 +151,7 @@ class CookingController extends Controller
             }
         }
         
-        return view('sites._components.cooking_detail', compact('cooking_id', 'cooking_user_id', 'wishlish'));        
+        return view('sites._components.cooking_detail', compact('cooking_id', 'cooking_user_id', 'wishlish'));
     }
 
     /**
@@ -193,7 +191,12 @@ class CookingController extends Controller
     public function showComment($id, Request $request)
     {
         if ($request->ajax()) {
-            $comments = $this->comments->getComments($id, 'cookings');
+            if ($request->type) {
+                $comments = $this->comments->getComments($id, 'posts');
+            } else {
+                $comments = $this->comments->getComments($id, 'cookings');
+            }
+            
             $response['comments'] = $comments;
             $response['user_id'] = Auth::check() ? Auth::user()->id : null;
             $response['pagination'] = [
@@ -219,19 +222,18 @@ class CookingController extends Controller
         $comments = $this->comments->getComments($request->comment_table_id, 'cookings');
 
         return $comments;
-        
     }
 
     public function deleteComment($id)
     {
-        if (Comment::destroy($id)){
+        if ($this->comments->delete($id)) {
             return 1;
         }
 
         return 0;
     }
 
-    public function showRate ($id, Request $request)
+    public function showRate($id, Request $request)
     {
         return $this->cooking->getCooking($id);
     }

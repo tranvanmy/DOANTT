@@ -14,6 +14,29 @@ new Vue({
         offset: 4,
         formPostErrors: {},
         imageData: "",
+
+        comments: {
+            'id': '',
+            'user_id': '',
+            'content': '',
+            'comment_table_id': '',
+            'comment_table_type': 'posts',
+            'created_at': '',
+            'updated_at': '',
+            'parent_id': ''
+        },
+
+        newComment: {
+            'id': '',
+            'user_id': '',
+            'content': '',
+            'comment_table_id': '',
+            'comment_table_type': 'posts',
+            'created_at': '',
+            'updated_at': '',
+            'parent_id': ''
+        },
+
         newItem: {'user_id': '',
                     'title': '',
                     'image': '',
@@ -64,31 +87,38 @@ new Vue({
             }
         },
         mounted : function(){
-            this.showInfor(this.pagination.current_page);
+            this.newComment.comment_table_id = $('#post').val();
+            this.newComment.comment_table_type = $('#post_type').val();
+            this.showComments(this.pagination.current_page);
         },
         methods: {
+            showComments: function (page) {
+            id = $('#post').val();
+            axios.get('/site/comment/' +  id + '?page=' + page + '&type=posts').then((response) => {
+                console.log(response)
+                this.$set(this, 'comments', response.data.comments.data);
+                this.current_user_id = response.data.user_id;
+                this.newComment.comment_table_id = response.data.comments.data[0].comment_table_id;
+                this.pagination = response.data.pagination;
+                console.log(this.comments)
+            })
+        },
             previewImage: function(event) {
             // Reference to the DOM input element
-            var input = event.target;
-            // Ensure that you have a file before attempting to read it
-            if (input.files && input.files[0]) {
-                // create a new FileReader to read this image and convert to base64 format
-                var reader = new FileReader();
-                // Define a callback function to run, when FileReader finishes its job
-                reader.onload = (e) => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
+                var input = event.target;
+                // Ensure that you have a file before attempting to read it
+                if (input.files && input.files[0]) {
+                    // create a new FileReader to read this image and convert to base64 format
+                    var reader = new FileReader();
+                    // Define a callback function to run, when FileReader finishes its job
+                    reader.onload = (e) => {
+                        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                        // Read image as base64 and set to imageData
+                        this.imageData = e.target.result;
+                    }
+                    // Start the reader job - read file as a data url (base64 format)
+                    reader.readAsDataURL(input.files[0]);
                 }
-                // Start the reader job - read file as a data url (base64 format)
-                reader.readAsDataURL(input.files[0]);
-            }
-        },
-            showInfor: function(page) {
-                axios.get('/site/blog?page='+ page).then(response => {
-                    this.$set(this, 'items', response.data.data.data);
-                    this.$set(this, 'pagination', response.data.pagination);
-                })
             },
 
             comfirmDeleteItem: function(item) {
@@ -130,14 +160,91 @@ new Vue({
                 axios.put('/site/profile/updatePost/' + id, input).then((response) => {
                     $("#updatePost").modal('hide');
                     if(response.data) {
-                        window.location = '/site/blog/' + id;
+                        window.location = '/site/showDetail/' + id;
                         toastr.success(response.data.message, response.data.action, {timeOut: 10000});
                     }
                 });
             },
-            changePage: function (page) {
-                this.pagination.current_page = page;
-                this.showInfor(page);
+
+            //comment
+              //comment method
+
+        submitComment: function (page) {
+            this.newComment.comment_table_id = $('#post').val();
+            this.newComment.comment_table_type = $('#post_type').val();
+            var input = this.newComment;
+            input.user_id = this.current_user_id;
+            console.log(input);
+            axios.post('/site/comment' + '?page=' + page, input).then((response) => {
+                console.log(response)
+                this.comments = response.data.data;
+                this.newComment.content = '';
+                $('#submit_content').val('');
+                this.showComments(this.pagination.current_page);
+            })
+        },
+
+        clickReply: function (id) {
+            $('#' + id).show();
+        },
+
+        closeReply: function (id) {
+            $('#' + id).hide();
+        },
+
+        submitReply: function (parent_id) {
+            this.newComment.content = $('#' + parent_id + ' form div input').val();
+            this.newComment.parent_id = parent_id;
+            this.newComment.user_id = this.current_user_id;
+            axios.post('/site/comment' + '?page=' + this.pagination.current_page, this.newComment + '&type=posts').then((response) => {
+                this.comments = response.data.data;
+                this.newComment.content = '';
+                $('#' + parent_id + ' form div input').val('');
+                $('#' + parent_id).hide();
+            })
+        },
+
+        editComment: function (id) {
+            $('div[editId$=' + id + ']').show();
+            console.log($('div[editId$=' + id + ']' + ' form div input').val());
+        },
+
+        updateComment: function (id, parent_id) {
+            this.newComment.content = $('div[editId$=' + id + ']' + ' form div input').val();
+            this.newComment.id = id;
+            this.newComment.parent_id = parent_id;
+            this.newComment.user_id = this.current_user_id;
+            axios.put('/site/comment', this.newComment).then((response) => {
+                console.log('ok', response)
+                this.comments = response.data.data;
+                this.showComments(this.pagination.current_page);
+                this.newComment.content = '';
+                $('div[editId$=' + id + ']' + ' form div input').val('');
+                $('div[editId$=' + id + ']').hide();
+            })
+        },
+        
+        confirmDeleteComment: function (id) {
+            if (confirm('xoa khong dmm?')) {
+                this.deleteComment(id);
             }
+        },
+        
+        deleteComment: function (id) {
+            axios.delete('/site/comment/' + id).then((response) => {
+                this.comments = response.data.data;
+                this.showComments(this.pagination.current_page);
+            })
+        },
+        initFilemanager: function() {
+            this.$nextTick(function() {
+                $('#edit-image').filemanager('image');
+                $('#new-image').filemanager('image');
+            });
+        },
+        changePage: function (page) {
+            this.pagination.current_page = page;
+            this.showInfor(page);
         }
+    }
     });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\BlogRepository;
+use Auth;
 
 class BlogController extends Controller
 {
@@ -49,6 +50,13 @@ class BlogController extends Controller
         //
     }
 
+    public function showDetail($id)
+    {
+        $detailPost = $this->post->find($id, 'user');
+   
+        return view('sites._components.updateDetailPost', compact('detailPost'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -63,7 +71,15 @@ class BlogController extends Controller
     public function showList($id, Request $request)
     {
         if ($request->ajax()) {
-            $allData = $this->post->takeListPost($id, '9');
+            if (Auth::check()) {
+                if ($id == (Auth::user()->id)) {
+                    $allData = $this->post->takeListPost($id, '10');
+                } else {
+                    $allData = $this->post->takeListPostStatus($id, '10');
+                }
+            } else {
+                $allData = $this->post->takeListPostStatus($id, '10');
+            }
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),
@@ -75,8 +91,10 @@ class BlogController extends Controller
                 ],
                 'data' => $allData
             ];
+
             return response()->json($response);
         }
+
         return view('sites._components.listPostUser');
     }
     /**
@@ -88,7 +106,7 @@ class BlogController extends Controller
     public function show($id)
     {
         $detailPost = $this->post->find($id, 'user');
-    
+   
         return view('sites._components.detailBlog', compact('detailPost'));
     }
 

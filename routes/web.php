@@ -31,16 +31,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 
 Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('profile/user', 'ProfileController');
+    Route::get('master', 'ProfileController@showMaster')->name('master');
     Route::get('cooking/{id}', 'Sites\CookingController@show');
 
     Route::get('comment/{id}', 'Sites\CookingController@showComment');
     Route::post('comment', 'Sites\CookingController@submitComment');
     Route::put('comment', 'Sites\CookingController@submitComment');
     Route::delete('comment/{id}', 'Sites\CookingController@deleteComment');
-
     Route::get('rate/{id}', 'Sites\CookingController@showRate');
     Route::resource('blog', 'BlogController');
+    Route::get('showDetail/{id}', 'BlogController@showDetail');
     Route::resource('cooking', 'Sites\CookingController');
+    Route::get('showCategory/{id}', 'HomeController@showCategory')->name('showCategory');
+
     Route::resource('follow', 'FollowController');
     Route::resource('wislish', 'WishlishController');
     Route::post('subcrice', 'ProfileController@subcrice');
