@@ -44,7 +44,7 @@ class RepositoryServiceProvider extends ServiceProvider
         'rate' => [
             \App\Contracts\Repositories\RateRepository::class,
             \App\Repositories\Eloquents\RateEloquentRepository::class,
-        ],    
+        ],
         'follow' => [
             \App\Contracts\Repositories\FollowRepository::class,
             \App\Repositories\Eloquents\FollowEloquentRepository::class,
@@ -72,6 +72,10 @@ class RepositoryServiceProvider extends ServiceProvider
         'order' => [
             \App\Contracts\Repositories\OrderRepository::class,
             \App\Repositories\Eloquents\OrderEloquentRepository::class,
+        ],
+        'orderDetail' => [
+            \App\Contracts\Repositories\OrderDetailRepository::class,
+            \App\Repositories\Eloquents\OrderDetailEloquentRepository::class,
         ],
     ];
 

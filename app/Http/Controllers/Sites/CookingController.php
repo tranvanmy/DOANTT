@@ -124,7 +124,7 @@ class CookingController extends Controller
             'cookingIngredients.unit',
             'steps'
         ]);
-        
+
         if ($cooking && $request->ajax()) {
             if ($cooking->status == 0) {
                 if (Auth::check() && Auth::user()->id == $cooking->user->id) {
@@ -145,12 +145,12 @@ class CookingController extends Controller
         if (Auth::check()) {
             $userId = Auth::user()->id;
             $wishlish = null;
-            
+
             if ($userId) {
                 $wishlish = $this->wishlish->findWishlist($userId, $id);
             }
         }
-        
+
         return view('sites._components.cooking_detail', compact('cooking_id', 'cooking_user_id', 'wishlish'));
     }
 
@@ -196,7 +196,7 @@ class CookingController extends Controller
             } else {
                 $comments = $this->comments->getComments($id, 'cookings');
             }
-            
+
             $response['comments'] = $comments;
             $response['user_id'] = Auth::check() ? Auth::user()->id : null;
             $response['pagination'] = [

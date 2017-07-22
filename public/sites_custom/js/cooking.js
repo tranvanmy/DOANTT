@@ -60,7 +60,8 @@ var wishlish = new Vue({
             'user_id': '',
             'cooking_id': '',
             'status': ''
-        }
+        },
+        inCart: '',
     },
 
     computed: {
@@ -93,6 +94,7 @@ var wishlish = new Vue({
         this.showComments(this.pagination.current_page);
         this.showRate();
         this.newComment.comment_table_id = $('#cooking_id').val();
+        this.getCart();
     },
 
     methods: {
@@ -172,13 +174,13 @@ var wishlish = new Vue({
                 $('div[editId$=' + id + ']').hide();
             })
         },
-        
+
         confirmDeleteComment: function (id) {
             if (confirm('Bạn có muốn xóa không?')) {
                 this.deleteComment(id);
             }
         },
-        
+
         deleteComment: function (id) {
             axios.delete('/site/comment/' + id).then((response) => {
                 // this.comments = response.data.data;
@@ -214,6 +216,49 @@ var wishlish = new Vue({
                     this.wishlishstatus = response.data.wishlishstatus;
                     toastr.success(response.data.message, '', {timeOut: 5000});
                 }
+            });
+        },
+
+        addToCart: function(id) {
+            var cooking = {'cooking': id};
+            axios.post('/cart', cooking).then((response) => {
+                var cart = Object.keys(response.data)
+                if (cart.indexOf(id.toString()) == -1) {
+                    this.inCart = 0;
+                } else {
+                    this.inCart = 1;
+                }
+
+                console.log(this.inCart)
+                var count =  cart.length;
+                $('#cart_number').text('(' + count + ')')
+            });
+        },
+        removeToCart: function(id) {
+            axios.delete('/cart/' + id).then((response) => {
+                var cart = Object.keys(response.data['cart'])
+                if (cart.indexOf(id.toString()) == -1) {
+                    this.inCart = 0;
+                } else {
+                    this.inCart = 1;
+                }
+                console.log(this.inCart)
+                var count =  cart.length;
+                $('#cart_number').text('(' + count + ')')
+            });
+        },
+
+        getCart: function() {
+            axios.get('/cart').then((response) => {
+                var cart = Object.keys(response.data)
+                if (cart.indexOf(id.toString()) == -1) {
+                    this.inCart = 0;
+                } else {
+                    this.inCart = 1;
+                }
+                console.log(this.inCart)
+                var count =  cart.length;
+                $('#cart_number').text('(' + count + ')')
             });
         }
     }

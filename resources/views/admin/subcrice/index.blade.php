@@ -42,7 +42,7 @@
                                                 <th class="col-md-3">{{ trans('admin.gmail') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.action') }}</th>
                                             </thead>
-                                            <tbody>                       
+                                            <tbody>
                                                 <tr role="row" v-for="item in items">
                                                     <td>@{{ item.id }}</td>
                                                     <td>
