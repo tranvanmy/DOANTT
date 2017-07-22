@@ -19,5 +19,6 @@ class Order extends Model
         'user_id',
         'total',
         'status',
+        'seller',
     ];
 }

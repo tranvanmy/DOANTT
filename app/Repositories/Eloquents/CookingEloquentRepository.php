@@ -14,17 +14,19 @@ use DB;
 class CookingEloquentRepository extends AbstractEloquentRepository implements CookingRepository
 {
     public $model;
+    public $cookingIngredient;
 
-    public function __construct(Cooking $cooking)
+    public function __construct(Cooking $cooking, CookingIngredient $cookingIngredient)
     {
         $this->model = $cooking;
+        $this->cookingIngredient = $cookingIngredient;
     }
 
     public function getCooking($id)
     {
         return $this->model->find($id);
     }
-    
+
     public function paginageCooking($paginate, $with = [], $select = null)
     {
         $cooking = $this->model->with(['level'])->orderBy('id', 'DESC')->paginate($paginate);
@@ -91,10 +93,37 @@ class CookingEloquentRepository extends AbstractEloquentRepository implements Co
         }
     }
 
+    public function searchName($name)
+    {
+        return Cooking::where('name', 'like', '%' . $name . '%')
+            ->where('status', 1)
+            ->get();
+    }
+
     public function getPaginateCooking($paginate, $with = [], $select = null)
     {
         $cooking = $this->model->with($with)->orderBy('id', 'DESC')->paginate($paginate);
 
         return $cooking;
+    }
+
+    public function withArrId($arrId, $with)
+    {
+        return $this->model->whereIn('id', $arrId)->with($with)->get();
+    }
+
+    public function getByArrIngredient($ingredient = [], $with, $paginate)
+    {
+        $cookings = $this->cookingIngredient
+            ->whereIn('ingredient_id', $ingredient)
+            ->distinct(['cooking_id'])
+            ->get(['cooking_id']);
+
+        $cooking_id;
+        foreach ($cookings as $cooking) {
+            $cooking_id[] = $cooking->cooking_id;
+        }
+
+        return $this->model->with($with)->whereIn('id', $cooking_id)->paginate($paginate);
     }
 }

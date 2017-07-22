@@ -37,6 +37,16 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ asset('order') }}">
+                                    <span>{{ trans('sites.order_list') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ asset('order/sell') }}">
+                                    <span>{{ trans('sites.order_list_sell') }}</span>
+                                </a>
+                            </li>
+                            <li>
                                 {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
                                     <a onclick="confirmButtonBeforeSubmit(this)" data-text="{{ trans('sites.sure') }}" >{{ trans('sites.logout') }}
                                     </a>
@@ -53,15 +63,14 @@
                 @else
                     <li class="medium"><a href="{{ route('login') }}" title="{{ trans('sites.login') }}"><i class="ico i-account"></i> <span>{{ trans('sites.login') }}</span></a></li>
                 @endif
-                    <li class="light"><a href="" title="{{ trans('sites.search') }}"><i class="ico i-search"></i> <span>{{ trans('sites.search') }}</span></a></li>
-                    <li class="dark"><a href="" title="{{ trans('sites.submitRepice') }}"><i class="ico i-submitrecipe"></i> <span>{{ trans('sites.submitRepice') }}</span></a></li>
+                    <li class="light"><a href="/search" title="{{ trans('sites.search') }}"><i class="ico i-search"></i> <span>{{ trans('sites.search') }}</span></a></li>
+                    <li class="dark"><a href="/cooking" title="{{ trans('sites.submitRepice') }}"><i class="ico i-submitrecipe"></i> <span>{{ trans('sites.submitRepice') }}</span></a></li>
                     <li class="light">
-                    @if(Auth::check())
-                        <a href="">
-                            <i class="fa fa-cart-arrow-down fa-4x wishlishead" aria-hidden="true"></i>
+                        <a href="/cart">
+                            <i class="fa fa-cart-arrow-down fa-3x wishlishead" aria-hidden="true"></i>
+                            <b id="cart_number"></b>
                             <span>{{ trans('sites.cart') }}</span>
                         </a>
-                    @endif
                     </li>
             </ul>
         </nav>

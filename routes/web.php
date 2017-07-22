@@ -24,8 +24,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('post', 'Admins\PostController');
     Route::resource('cooking', 'Admins\CookingController');
     Route::resource('order', 'Admins\OrderController');
-    // Route::resource('comment', 'CommentController');
-    // Route::get('rate', 'RateController@index')->name('rate');
 });
 
 
@@ -78,3 +76,15 @@ Route::post('step/cooking', 'Sites\SubmitCookingController@addStep');
 Route::delete('step/cooking/{id}', 'Sites\SubmitCookingController@deleteStep');
 Route::get('categories/cooking', 'Sites\SubmitCookingController@getCookingCategories');
 Route::post('categories/cooking', 'Sites\SubmitCookingController@storeCookingCategories');
+
+Route::get('search', 'Sites\SearchController@index');
+Route::get('search/name', 'Sites\SearchController@searchName');
+Route::get('search/ingredient', 'Sites\SearchController@searchIngredient');
+
+Route::resource('cart', 'Sites\CartController');
+Route::get('show/cart', 'Sites\CartController@showCart');
+Route::get('checkout', 'Sites\CartController@checkout')->middleware('auth');
+Route::post('checkout', 'Sites\CartController@storeOrder')->middleware('auth');
+Route::get('order', 'Sites\CartController@showOrder')->middleware('auth');
+Route::get('order/sell', 'Admins\OrderController@orderSell')->middleware('auth');
+Route::get('invoice/{id}', 'Sites\CartController@showInvoice')->middleware('auth');

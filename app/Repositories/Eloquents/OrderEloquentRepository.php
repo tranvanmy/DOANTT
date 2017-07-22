@@ -14,4 +14,19 @@ class OrderEloquentRepository extends AbstractEloquentRepository implements Orde
     {
         $this->model = $order;
     }
+
+    public function getByUser($id, $paginate, $with)
+    {
+        return $this->model->with($with)->where('user_id', $id)->orderBy('id', 'desc')->paginate($paginate);
+    }
+
+    public function get($paginate, $with)
+    {
+        return $this->model->with($with)->orderBy('id', 'desc')->paginate($paginate);
+    }
+
+    public function getWithSeller($paginate, $seller_id, $with)
+    {
+        return $this->model->with($with)->where('seller', $seller_id)->orderBy('id', 'desc')->paginate($paginate);
+    }
 }

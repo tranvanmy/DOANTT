@@ -39,7 +39,7 @@ trait UserRelations
     {
         return $this->hasMany(Rate::class, 'user_id');
     }
-    
+
     public function follows()
     {
         return $this->hasMany(Follow::class, 'user_id');
@@ -49,8 +49,14 @@ trait UserRelations
     {
         return $this->hasMany(Follow::class, 'user_id_follow');
     }
+
     public function wishlish()
     {
         return $this->hasMany(Wishlish::class, 'user_id');
+    }
+
+    public function sellers()
+    {
+        return $this->hasMany(Order::class, 'seller');
     }
 }

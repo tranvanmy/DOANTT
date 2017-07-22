@@ -63,7 +63,7 @@
                                     <figcaption><a href="{{ route('site.cooking.show', [$cooking->id])  }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                                 </figure>
                                 <div class="container">
-                                    <h2><a href="">{{ $cooking->name }}</a></h2> 
+                                    <h2><a href="">{{ $cooking->name }}</a></h2>
                                     <div class="actions">
                                         <div>
                                             <div class="difficulty"><i class="ico i-medium"></i><a href="#">{{ $cooking->level->name }}</a></div>
@@ -91,7 +91,7 @@
                                     <figcaption><a href="{{ route('site.blog.show', [$post->id]) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                                 </figure>
                                 <div class="container">
-                                    <h2><a href="">{{ $post->title }}</a></h2> 
+                                    <h2><a href="">{{ $post->title }}</a></h2>
                                     <div class="actions">
                                         <div>
                                             <div class="date"><i class="fa fa-calendar"></i><a href="#">{{ $post->created_at }}</a></div>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 <section class="content full-width">
                     <div class="icons dynamic-numbers">
                         <header class="s-title wow fadeInDown">
@@ -124,8 +124,8 @@
                                     <figcaption><a href="{{ route('site.user.show', [$user->id]) }}"><i class="ico i-view"></i> <span>{{ trans('sites.viewMember') }}</span></a></figcaption>
                                 </figure>
                                 <div class="container">
-                                    <h2><a href="{{ route('site.user.show', [$user->id]) }}">{{ $user->name }}</a></h2> 
-                                    
+                                    <h2><a href="{{ route('site.user.show', [$user->id]) }}">{{ $user->name }}</a></h2>
+
                                 </div>
                             </div>
                             @endforeach

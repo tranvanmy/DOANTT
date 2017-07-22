@@ -7,6 +7,8 @@ use App\Contracts\Repositories\UserRepository;
 use App\Contracts\Repositories\PostRepository;
 use App\Contracts\Repositories\CookingRepository;
 
+use App\Models\CookingCategory;
+
 class HomeController extends Controller
 {
     protected $category;

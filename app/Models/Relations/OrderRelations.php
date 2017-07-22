@@ -16,4 +16,9 @@ trait OrderRelations
     {
         return $this->hasMany(OrderDetail::class, 'order_id');
     }
+
+    public function sellerr()
+    {
+        return $this->belongsTo(User::class, 'seller');
+    }
 }

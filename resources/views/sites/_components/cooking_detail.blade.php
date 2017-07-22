@@ -61,23 +61,26 @@
 
                                         <!--one-third-->
                                         <article class="one-third wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
-                                            
+
                                             @include('sites._components.rates')
 
                                             <div class="">
-                                                <div class="favourite">
+                                                <div v-if="inCart" class="favourite" v-on:click="removeToCart(cooking.id)">
+                                                    <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.remove_to_cart') }}</span></a>
+                                                </div>
+                                                <div v-else="inCart" class="favourite" v-on:click="addToCart(cooking.id)">
                                                     <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.add_to_cart') }}</span></a>
                                                 </div>
                                             </div>
                                             <dl class="basic">
-                                                <dt>{{ trans('sites.serves') }}</dt>
-                                                <dd><input type="number" name="seres" min="1" max="20" class="input" /></dd>
-                                                <dt>{{ trans('sites.cooking_time') }}</dt>
-                                                <dd>@{{ cooking.time }} {{ trans('sites.mins') }}</dd>
                                                 <dt>{{ trans('sites.difficulty') }}</dt>
                                                 <dd>@{{ cooking.level.name }}</dd>
+                                                <dt>{{ trans('sites.cooking_time') }}</dt>
+                                                <dd>@{{ cooking.time }} {{ trans('sites.mins') }}</dd>
+                                                 <dt>{{ trans('sites.serves') }}</dt>
+                                                <dd><input v-bind:value="cooking.ration" type="number" name="seres" min="1" max="20" class="input" /></dd>
                                             </dl>
-                                            
+
                                             <dl class="ingredients">
                                                 <div v-for=" ingredient in cooking.cooking_ingredients">
                                                     <dt>@{{ ingredient.quantity }} @{{ ingredient.unit.name }}</dt>
@@ -122,7 +125,7 @@
                             <!--//content-->
                         </div>
                         <!--//row-->
-                        
+
                     </div>
                     <!--//wrap-->
             @else

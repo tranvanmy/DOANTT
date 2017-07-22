@@ -86,7 +86,7 @@
 										<span for="">{{ trans('sites.ingredient_name') }}</span>
 										<input v-model="cookingIngredient.ingredientName" type="text" v-on:keyup="search">
 										<span class="text-danger" v-for="error in cookingIngredientError.ingredientName">@{{ error }}</span><br>
-										<ul v-if="ingredients" class="list-group position-absolute" id="result" v-on:click="hideResult">
+										<ul v-if="ingredients" class="list-group position-absolute search-list" id="result" v-on:click="hideResult">
 											<li v-for="ingredient in ingredients" v-on:click="cookingIngredient.ingredientName = ingredient.name;
 											cookingIngredient.ingredient_id = ingredient.id">@{{ ingredient.name }}</li>
 										</ul>

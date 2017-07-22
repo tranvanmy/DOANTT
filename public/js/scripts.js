@@ -8,7 +8,7 @@ function confirmButtonBeforeSubmit(element)
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
     },
-    
+
     function(isConfirm) {
         if (!isConfirm) return false;
         $(element).parent().submit();
@@ -33,7 +33,7 @@ $(document).ready(function () {
     }
 
     function bindDynamicNumbers() {
-        $('.dynamic-number').each(function() {              
+        $('.dynamic-number').each(function() {
             var startNumber = $(this).text();
             var endNumber = $(this).data('dnumber');
             var dynamicNumberControl = $(this);
@@ -41,18 +41,18 @@ $(document).ready(function () {
             $({numberValue: startNumber}).animate({numberValue: endNumber}, {
                 duration: 4000,
                 easing: 'swing',
-                step: function() { 
-                    $(dynamicNumberControl).text(Math.ceil(this.numberValue)); 
+                step: function() {
+                    $(dynamicNumberControl).text(Math.ceil(this.numberValue));
                 }
             });
-        }); 
+        });
     }
     //CUSTOM FORM ELEMENTS
-    $('select, input[type=radio],input[type=checkbox],input[type=file]').uniform();
-    
+    // $('select, input[type=radio],input[type=checkbox],input[type=file]').uniform();
+
     //MOBILE MENU
     $('#menu').slicknav();
-    
+
     //SCROLL TO TOP BUTTON
     $('.scroll-to-top').click(function () {
         $('body,html').animate({
@@ -60,8 +60,8 @@ $(document).ready(function () {
         }, 800);
         return false;
     });
-    
-    //MY PROFILE TABS 
+
+    //MY PROFILE TABS
     $('.tab-content').hide().first().show();
     $('.tabs li:first').addClass("active");
 
@@ -73,18 +73,18 @@ $(document).ready(function () {
 
     var hash = $.trim( window.location.hash );
     if (hash) $('.tab-nav a[href$="'+hash+'"]').trigger('click');
-    
+
     //ALERTS
     $('.close').on('click', function (e) {
         e.preventDefault();
         $(this).closest('.alert').hide(400);
     });
 
-    //CONTACT FORM 
+    //CONTACT FORM
     $('#contactform').submit(function(){
 
         var action = $(this).attr('action');
-        
+
         $("#message").show(400,function() {
             $('#message').hide();
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
             .after('<img src="images/contact-ajax-loader.gif" class="loader" />')
             .attr('disabled','disabled');
 
-            $.post(action, { 
+            $.post(action, {
                 name: $('#name').val(),
                 email: $('#email').val(),
                 phone: $('#phone').val(),
@@ -102,15 +102,15 @@ $(document).ready(function () {
                 document.getElementById('message').innerHTML = data;
                 $('#message').slideDown('slow');
                 $('#contactform img.loader').fadeOut('slow',function(){$(this).remove()});
-                $('#submit').removeAttr('disabled'); 
+                $('#submit').removeAttr('disabled');
                 //if(data.match('success') != null) $('#contactform').slideUp(3000);
-                
+
             }
             );
 
         });
-        
-        return false; 
+
+        return false;
     });
 });
 //PRELOADER

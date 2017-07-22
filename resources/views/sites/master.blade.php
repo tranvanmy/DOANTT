@@ -36,7 +36,7 @@
     {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}
     {{ Html::script('js/profile.js') }}
     {{ Html::script('js/subcrice.js') }}
-    {{-- {{ Html::script('js/listPost.js') }}   --}}
+    {{ Html::script('sites_custom/js/cart.js') }}
     @yield('script')
 
 </body>
