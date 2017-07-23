@@ -97,9 +97,6 @@
                                             <div class="date"><i class="fa fa-calendar"></i><a href="#">{{ $post->created_at }}</a></div>
                                             <div class="comments"><i class="ico i-comments"></i><a href="">{{ $post->comments->count() }}</a></div>
                                         </div>
-                                        <div class="excerpt">
-                                            <p class="ellipis">{{ $post->description }}</p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

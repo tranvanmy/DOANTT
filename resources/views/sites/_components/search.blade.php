@@ -58,12 +58,15 @@
                             <figcaption><a :href="'/site/cooking/' + cooking.id"><i class="icon icon-themeenergy_eye2"></i> <span>View recipe</span></a></figcaption>
                         </figure>
                         <div class="container">
-                            <h2><a href="recipe.html">@{{ cooking.name }}</a></h2>
+                            <h2><a v-bind:href="'/site/cooking/'+ cooking.id">@{{ cooking.name }}</a></h2>
                             <div class="actions">
                                 <div>
-                                    <div class="difficulty"><i class="ico i-medium"></i><a href="#">medium</a></div>
-                                    <div class="likes"><i class="fa fa-heart" aria-hidden="true"></i><a href="#">10</a></div>
-                                    <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a href="recipe.html#comments">27</a></div>
+                                    <div class="likes">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i> @{{ cooking.time }}
+                                    </div>
+                                    <div class="comments">
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i> @{{ cooking.rate_point}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

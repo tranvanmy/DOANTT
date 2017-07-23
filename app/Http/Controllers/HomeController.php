@@ -61,7 +61,7 @@ class HomeController extends Controller
 
     public function showCategory($id)
     {
-        $listCookings = $this->category->getCategory($id, ['level'], 1);
+        $listCookings = $this->category->getCategory($id, ['level'], 10);
 
         return view('sites._components.listCategory', compact('listCookings'));
     }

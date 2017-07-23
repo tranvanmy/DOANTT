@@ -13,7 +13,7 @@
                     </a>
                 </li>
                 <li>
-                    {{ trans('sites.blog') }}
+                    {{ trans('sites.order_list') }}
                 </li>
             </ul>
         </nav>
@@ -38,10 +38,10 @@
             @foreach($invoices as $invoice)
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-heading"> 
                             <h3 class="panel-title col-md-2"><strong class="text-danger"><a href="#"> {{ $invoice->created_at }}</a></strong></h3>
                             <h3 class="panel-title col-md-3"><strong class="text-danger">{{ trans('sites.seller') }}: <a href="/site/profile/user/{{ $invoice->sellerr->id }}">{{ $invoice->sellerr->name }}</a></strong></h3>
-                            <h3 class="panel-title col-md-2"><strong class="text-danger"><a href="/invoice/{{ $invoice->id }}">{{ trans('sites.view') }}</a></strong></h3>
+                            <h3 class="panel-title col-md-2"><strong class="text-danger"><a href="/invoice/{{ $invoice->id }}">{{ trans('sites.viewOrder') }}</a></strong></h3>
 
                             <h3 class="panel-title col-md-2"><strong class="text-danger">{{ trans('sites.total') }}: <a href="#">{{ number_format($invoice->total) }}đ</a></strong></h3>
                             @if($invoice->status == 1)

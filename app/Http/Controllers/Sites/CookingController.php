@@ -37,6 +37,7 @@ class CookingController extends Controller
      */
     public function index(Request $request)
     {
+            
         if ($request->ajax()) {
             $repices = $this->cooking->paginageCooking('10', ['level']);
             $response = [

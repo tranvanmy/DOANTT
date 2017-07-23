@@ -46,11 +46,11 @@ class SubmitCookingController extends Controller
         if ($request->ajax()) {
             $cooking = $this->cooking->getCookingCreating(Auth::user()->id);
 
-            $notification['cooking_not_empty'] = trans('site.cooking_not_empty');
-            $notification['categories_not_empty'] = trans('site.categories_not_empty');
+            $notification['cooking_not_empty'] = trans('sites.cooking_not_empty');
+            $notification['categories_not_empty'] = trans('sites.categories_not_empty');
             $notification['steps_not_empty'] = trans('site.steps_not_empty');
-            $notification['ingredients_not_empty'] = trans('site.ingredient_not_empty');
-            $notification['cooking_success'] = trans('site.cooking_success');
+            $notification['ingredients_not_empty'] = trans('sites.ingredient_not_empty');
+            $notification['cooking_success'] = trans('sites.cooking_success');
 
             $response['cooking'] = $cooking;
             $response['units'] = $this->unit->all();

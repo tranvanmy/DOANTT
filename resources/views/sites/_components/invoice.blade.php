@@ -13,7 +13,7 @@
                     </a>
                 </li>
                 <li>
-                    {{ trans('sites.blog') }}
+                    {{ trans('sites.invoice') }}
                 </li>
             </ul>
         </nav>
@@ -105,7 +105,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button onClick="window.print();" class="btn btn-success col-md-2 col-md-offset-10">{{ trans('sites.print_invoice') }}</button>
+                        <button onClick="window.print();" class="btn btn-success col-md-2 col-md-offset-10">
+                            <i class="fa fa-print" aria-hidden="true"></i>
+                            {{ trans('sites.print_invoice') }}
+                        </button>
                     </div>
                 </div>
             </div>
