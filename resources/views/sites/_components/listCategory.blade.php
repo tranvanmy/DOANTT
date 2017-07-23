@@ -54,6 +54,3 @@
 <!--//wrap-->
 @include('sites._sections.footer')
 @endsection
-@section('script')
-{{-- {{ Html::script('js/recipes.js') }}   --}}
-@endsection

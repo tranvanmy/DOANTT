@@ -16,8 +16,7 @@
             <section class="content three-fourth wow fadeInUp">
                 <div class="entries row">
                     <!--item-->
-                <div v-for="item in items">
-                    <div v-if="item.status == '1'">
+                    <div v-for="item in items">
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
                                 <img v-bind:src="item.image" alt="" />
@@ -43,30 +42,29 @@
                         </div>                      
                     </div>
                 </div>
-                </div>
             </section>              
             <!--right sidebar-->
             @include('sites._sections.sidebar')
         </div>
-            <nav>
-                <ul class="pagination">
-                    <li v-if="pagination.current_page > 1">
-                        <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
-                            <span aria-hidden="true">«</span>
-                        </a>
-                    </li>
-                    <li v-for="page in pagesNumber"
-                    v-bind:class="[ page == isActived ? 'active' : '']">
-                    <a href="#" @click.prevent="changePage(page)">@{{ page }}</a>
-                    </li>
-                    <li v-if="pagination.current_page < pagination.last_page">
-                        <a href="#" @click.prevent="changePage(pagination.current_page + 1)"> <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </main>
+        <nav>
+            <ul class="pagination">
+                <li v-if="pagination.current_page > 1">
+                    <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
+                        <span aria-hidden="true">«</span>
+                    </a>
+                </li>
+                <li v-for="page in pagesNumber"
+                v-bind:class="[ page == isActived ? 'active' : '']">
+                <a href="#" @click.prevent="changePage(page)">@{{ page }}</a>
+            </li>
+            <li v-if="pagination.current_page < pagination.last_page">
+                <a href="#" @click.prevent="changePage(pagination.current_page + 1)"> <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</main>
 <!--//wrap-->
 @include('sites._sections.footer')
 @endsection

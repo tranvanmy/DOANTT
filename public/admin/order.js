@@ -59,7 +59,7 @@ new Vue({
         },
 
         showOrder: function(order) {
-            axios.get('/admin/order/' + order.id).then((response) => {
+            axios.get('/order/show/' + order.id).then((response) => {
                 console.log(response)
                 this.orderDetails = response.data;
                 this.order = order;
@@ -70,7 +70,7 @@ new Vue({
 
         updateStatus: function(order) {
             console.log(order.status)
-            axios.put('/admin/order/' + order.id, {'status': order.status}).then((response) => {
+            axios.put('/order/show/' + order.id, {'status': order.status}).then((response) => {
                 console.log(response)
 
             });

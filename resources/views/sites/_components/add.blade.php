@@ -53,7 +53,7 @@
 										<span class="text-danger clearfix" v-for="error in cookingError.level_id">@{{ error }}</span>
 									</div>
 									<div class="form-group">
-										<label for="description">{{ trans('site.description') }}</label>
+										<label for="description">{{ trans('sites.description') }}</label>
 										<textarea v-model="cooking.description" name="description" id="" cols="30" rows="10"></textarea>
 									</div>
 								</div>

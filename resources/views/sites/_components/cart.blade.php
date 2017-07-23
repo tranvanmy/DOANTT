@@ -27,9 +27,6 @@
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="#">@{{ cooking.name }}</a></h4>
                                 <h5 class="media-heading"> by <a v-bind:href="'/site/profile/user/' + cooking.user.id">@{{ cooking.user.name }}</a></h5>
-                                <span>Status: </span>
-                                <span  v-if="cooking.sell" class="text-success"><strong>{{ trans('sites.selling') }}</strong></span>
-                                <span  v-else="cooking.sell" class="text-warning"><strong>{{ trans('sites.stop_sell') }}</strong></span>
                             </div>
                         </div></td>
                         <td class="col-md-1" style="text-align: center">
