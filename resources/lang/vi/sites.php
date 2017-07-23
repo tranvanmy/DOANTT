@@ -220,4 +220,6 @@ return [
     'comments' => 'Bình luận',
     'reply' => 'Trả lời',
     'cancel' => 'Hủy',
+    'incorrect_username_or_pass' => 'Sai email hoặc mật khẩu',
+    'cooking_pending' => 'Công thức đang được chờ duyệt',
 ];

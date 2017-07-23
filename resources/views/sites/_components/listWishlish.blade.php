@@ -27,7 +27,7 @@
                     <div v-for="item in items">
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
-                                <img v-bind:src="item.cooking.image" alt="" />
+                                <img v-bind:src="'/' + item.cooking.image" alt="" />
                                 <figcaption>`<a v-bind:href="'/site/cooking/'+ item.cooking.id"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">

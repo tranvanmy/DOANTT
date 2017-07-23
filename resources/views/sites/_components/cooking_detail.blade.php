@@ -48,6 +48,7 @@
                                                 <ol>
                                                     <li v-for="step in cooking.steps">
                                                         @{{ step.content }}
+                                                        <img :src="'/' + step.image">
                                                     </li>
                                                 </ol>
                                             </div>
