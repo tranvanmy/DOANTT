@@ -41,7 +41,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $master = $this->user->takeMaster('10', ['level']);
+        $master = $this->user->takeMaster('9', ['level']);
 
         return view('sites._components.top_mater');
     }
@@ -73,7 +73,7 @@ class ProfileController extends Controller
     public function showMater(Request $request)
     {
         if ($request->ajax()) {
-                $allData = $this->user->takeMaster('10', ['level']);
+                $allData = $this->user->takeMaster('9', ['level']);
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),

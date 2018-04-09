@@ -225,7 +225,7 @@ new Vue({
         },
         
         confirmDeleteComment: function (id) {
-            if (confirm('xoa khong dmm?')) {
+            if (confirm('Bạn có muốn xóa không?')) {
                 this.deleteComment(id);
             }
         },

@@ -42,6 +42,9 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('cooking', 'Sites\CookingController');
     Route::get('showCategory/{id}', 'HomeController@showCategory')->name('showCategory');
 
+    Route::post('update/price/{id}', 'Sites\CookingController@updatePrice');
+
+
     Route::resource('follow', 'FollowController');
     Route::resource('wislish', 'WishlishController');
     Route::post('subcrice', 'ProfileController@subcrice');
@@ -65,7 +68,11 @@ Route::get('callback/facebook', 'SocialiteController@callback');
 Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 Route::post('postLogin', ['as' => 'postLogin', 'uses' => 'SocialiteController@postLogin']);
 
-Route::resource('cooking', 'Sites\SubmitCookingController');
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::resource('cooking', 'Sites\SubmitCookingController');
+});
+
 Route::get('/search/cooking', 'Sites\SubmitCookingController@search');
 Route::get('/units/cooking', 'Sites\SubmitCookingController@getUnits');
 Route::post('upload/cooking', 'Sites\SubmitCookingController@uploadImage');

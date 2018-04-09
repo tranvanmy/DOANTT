@@ -20,11 +20,11 @@
                     @foreach( $listCookings as $listCooking)
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
-                                <img src="{{ $listCooking->image }}" alt="" />
-                                <figcaption><a href=""><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                                <img src="/{{ $listCooking->image }}" alt="" />
+                                <figcaption><a  href="/site/cooking/{{ $listCooking->id }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">
-                                <h2><a href="">{{ $listCooking->name }}</a></h2> 
+                                <h2><a href="/site/cooking/{{ $listCooking->id }}">{{ $listCooking->name }}</a></h2> 
                                 <div class="actions">
                                     <div>
                                         <div class="difficulty">

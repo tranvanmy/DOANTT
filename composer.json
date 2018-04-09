@@ -16,7 +16,8 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
-        "unisharp/laravel-filemanager": "^1.8"
+        "unisharp/laravel-filemanager": "^1.8",
+        "aws/aws-sdk-php": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

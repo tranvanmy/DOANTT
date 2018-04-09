@@ -3,7 +3,7 @@
 </div>
 <header class="head" role="banner">
     <div class="wrap clearfix">
-        <a href="{{ route('home') }}" class="logo"><img src="{{ asset('images/ok.png') }}" style="margin-top: -29px;" /></a>
+        <a href="{{ route('home') }}" class="logo"></a>
         <nav class="main-nav" role="navigation" id="menu">
             <ul>
                 <li><a href="{{ route('home') }}" title="{{ trans('sites.home') }}"><span>{{ trans('sites.home') }}</span></a></li>

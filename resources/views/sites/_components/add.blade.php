@@ -46,9 +46,9 @@
 									<div class="form-group">
 										<label for="level">{{ trans('sites.level_cooking') }}</label>
 										<select class="col-md-12" name="" id="" v-model="cooking.level_id">
-											<option value="1">{{ trans('sites.easy') }}</option>
-											<option value="2">{{ trans('sites.normal') }}</option>
-											<option value="3">{{ trans('sites.hard') }}</option>
+											<option value="6">{{ trans('sites.easy') }}</option>
+											<option value="7">{{ trans('sites.normal') }}</option>
+											<option value="8">{{ trans('sites.hard') }}</option>
 										</select>
 										<span class="text-danger clearfix" v-for="error in cookingError.level_id">@{{ error }}</span>
 									</div>

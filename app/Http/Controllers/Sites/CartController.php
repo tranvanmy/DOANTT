@@ -185,7 +185,7 @@ class CartController extends Controller
         session()->forget('cart');
         $invoices = $this->order->paginate(15, ['orderDetail']);
 
-        return redirect('order')->with('message', trans('site.order_success'));
+        return redirect('order')->with('message', trans('sites.order_success'));
     }
 
     public function showOrder($message = null)

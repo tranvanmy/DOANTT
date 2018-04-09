@@ -28,7 +28,6 @@
                         <h3 class="user_name_max">{{ $allData['name'] }}</h3>
                         <p>{{ $allData['email'] }}</p>
                     </div>
-                    &nbsp;&nbsp;
                     <div class="profile_user text-center">
                     @if(Auth::check())
                         @if((Auth::user()->id) == $allData['id'])
@@ -257,7 +256,7 @@
                         @foreach($allData->cookings as $cooking)
                                 <div class="entry one-third">
                                     <figure>
-                                        <img src="{{ $cooking->image }}" alt=""/>
+                                        <img src="/{{ $cooking->image }}" alt=""/>
                                         <figcaption>
                                             <a href="{{ asset('/site/cooking/'.$cooking->id) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
                                         </figcaption>

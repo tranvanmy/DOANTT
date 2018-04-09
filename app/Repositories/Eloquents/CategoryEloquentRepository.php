@@ -49,11 +49,11 @@ class CategoryEloquentRepository extends AbstractEloquentRepository implements C
             ->distinct(['cooking_id'])
             ->get(['cooking_id']);
 
-        $cooking_id;
+        $cooking_id = [];
         foreach ($cookings as $cooking) {
             $cooking_id[] = $cooking->cooking_id;
         }
 
-        return $this->cooking->with($with)->whereIn('id', $cooking_id)->paginate($paginate);
+        return $this->cooking->with($with)->where('status', 1)->whereIn('id', $cooking_id)->paginate($paginate);
     }
 }

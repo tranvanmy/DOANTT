@@ -50,7 +50,7 @@ class SocialiteController extends Controller
             'password' => $request->password,
         ];
 
-        $rememeber = $request->input('Remember');
+        $rememeber = $request->input('Remember');   
 
         if (Auth::attempt($auth, $rememeber)) {
             if ((Auth::user()->status) == 0) {

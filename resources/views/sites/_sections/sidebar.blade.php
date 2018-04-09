@@ -5,9 +5,9 @@
         <ul class="boxed">
         @foreach ($categories as $key => $category)
             @if ($key % 2)
-                <li class="light"><a href="{{ asset('/site/showCategory/'.$category['id']) }}" title="{{ $category['name'] }}"><img class="ico" src="{{ $category['icon'] }}" alt=""> <span>{{ $category['name'] }}</span></a></li>
+                <li class="light"><a href="{{ asset('/site/showCategory/'.$category['id']) }}" title="{{ $category['name'] }}"><img class="ico-none" src="{{ $category['icon'] }}" alt=""> <span>{{ $category['name'] }}</span></a></li>
             @else
-                <li class="dark"><a href="{{ asset('/site/showCategory/'.$category['id']) }}" title="{{ $category['name'] }}"><img class="ico" src="{{ $category['icon'] }}" alt=""><span>{{ $category['name'] }}</span></a></li>
+                <li class="dark"><a href="{{ asset('/site/showCategory/'.$category['id']) }}" title="{{ $category['name'] }}"><img class="ico-none" src="{{ $category['icon'] }}" alt=""><span>{{ $category['name'] }}</span></a></li>
             @endif
         @endforeach
         </ul>

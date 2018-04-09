@@ -34,10 +34,11 @@
                                 </div>
                             </div>
                             <div class="container">
-                                <div class="entry-featured"><a v-bind:href="'/site/blog/' + item.id"><img v-bind:src="item.image" alt="" /></a></div>
+                                <div class="entry-featured"><a v-bind:href="'/site/blog/' + item.id"><img  class="image_blog_cook" v-bind:src="item.image" alt="" /></a></div>
                                 <div class="entry-content">
                                     <h2><a v-bind:href="'/site/blog/' + item.id">@{{ item.title }}</a></h2>
-                                    <p> @{{ item.description }}</p>
+                                    <p  v-if="item.description.length < 50"> @{{ item.description }}</p>
+                                    <p  v-else> @{{ (item.description).slice(1, 100) }} ...</p>
                                 </div>
                                 <div class="actions">
                                     <div>
