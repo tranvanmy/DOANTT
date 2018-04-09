@@ -14,7 +14,7 @@
                                 </header>
                                 <article class="entry">
                                     <figure>
-                                        <img src="{{ $cooking_top_1[0]->image }}" alt="{{ $cooking_top_1[0]->name }}" />
+                                        <img src="{{ $cooking_top_1[0]->image }}" alt="{{ $cooking_top_1[0]->name }}" style="width: 100%;" />
                                         <figcaption><a href=""><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                                     </figure>
                                     <div class="container">
@@ -35,17 +35,12 @@
                                 </header>
                                 <article class="entry">
                                     <figure>
-                                        <img src="{{ $user_top_1[0]->avatar }}" alt="{{ $user_top_1[0]->name }}" />
+                                        <img src="{{ $user_top_1[0]->avatar }}" alt="{{ $user_top_1[0]->name }}" style="width: 100%;" />
                                         <figcaption><a href="{{ route('site.user.show', [$user_top_1[0]->id]) }}"><i class="ico i-view"></i> <span>{{ trans('sites.viewMember') }}</span></a></figcaption>
                                     </figure>
                                     <div class="container">
                                         <h2><a href="{{ route('site.user.show', [$user_top_1[0]->id]) }}">{{ $user_top_1[0]->name }}</a></h2>
                                         <blockquote>{{ trans('sites.maxim') }}</blockquote>
-                                        <div class="actions">
-                                            <div>
-                                                <div class="more"><a href="{{ route('site.user.store')  }}">{{ trans('sites.seeMember') }}</a></div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </article>
                             </div>
@@ -56,23 +51,23 @@
                             <h2 class="ribbon bright">{{ trans('sites.lastRecipes') }}</h2>
                         </header>
                         <div class="entries row">
-                        @foreach($cookings as $cooking)
-                            <div class="entry one-third wow fadeInLeft">
-                                <figure>
-                                    <img src="{{ $cooking->image }}" alt="{{ $cooking->name }}" />
-                                    <figcaption><a href="{{ route('site.cooking.show', [$cooking->id])  }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
-                                </figure>
-                                <div class="container">
-                                    <h2><a href="">{{ $cooking->name }}</a></h2>
-                                    <div class="actions">
-                                        <div>
-                                            <div class="difficulty"><i class="ico i-medium"></i><a href="#">{{ $cooking->level->name }}</a></div>
-                                            <div class="comments"><i class="ico i-comments"></i><a href="">{{ $cooking->comments->count() }}</a></div>
+                                @foreach($cookings as $cooking)
+                                    <div class="entry one-third wow fadeInLeft">
+                                        <figure>
+                                            <img src="{{ $cooking->image }}" alt="{{ $cooking->name }}" />
+                                            <figcaption><a href="{{ route('site.cooking.show', [$cooking->id])  }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                                        </figure>
+                                        <div class="container">
+                                            <h2 class="ellipis"><a href="{{ route('site.cooking.show', [$cooking->id])  }}">{{ $cooking->name }}</a></h2>
+                                            <div class="actions">
+                                                <div>
+                                                    <div class="difficulty"><i class="ico i-medium"></i><a href="#">{{ $cooking->level->name }}</a></div>
+                                                    <div class="comments"><i class="ico i-comments"></i><a href="">{{ $cooking->comments->count() }}</a></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        @endforeach
+                                @endforeach 
                             <div class="quicklinks">
                                 <a href="{{ route('site.cooking.store') }}" class="button">{{ trans('sites.moreRecipes') }}</a>
                                 <a href="javascript:void(0)" class="button scroll-to-top">{{ trans('sites.backToTop') }}</a>
@@ -87,11 +82,11 @@
                         @foreach($posts as $post)
                             <div class="entry one-third wow fadeInLeft">
                                 <figure>
-                                    <img src="{{ $post->image }}" alt="{{ $post->title }}" />
+                                    <img src="{{ $post->image }}" alt="{{ $post->title }}" style="width:100%; height: 200px;" />
                                     <figcaption><a href="{{ route('site.blog.show', [$post->id]) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                                 </figure>
                                 <div class="container">
-                                    <h2><a href="">{{ $post->title }}</a></h2>
+                                    <h2 class="ellipis"><a href="{{ route('site.blog.show', [$post->id]) }}">{{ $post->title }}</a></h2>
                                     <div class="actions">
                                         <div>
                                             <div class="date"><i class="fa fa-calendar"></i><a href="#">{{ $post->created_at }}</a></div>
@@ -117,17 +112,17 @@
                         @foreach( $users_top_3 as $user)
                             <div class="entry one-third wow fadeInLeft">
                                 <figure>
-                                    <img src="{{ $user->avatar }}" alt="" />
+                                    <img src="{{ $user->avatar }}" alt="" style="height: 260px;" />
                                     <figcaption><a href="{{ route('site.user.show', [$user->id]) }}"><i class="ico i-view"></i> <span>{{ trans('sites.viewMember') }}</span></a></figcaption>
                                 </figure>
                                 <div class="container">
-                                    <h2><a href="{{ route('site.user.show', [$user->id]) }}">{{ $user->name }}</a></h2>
+                                    <h4><a href="{{ route('site.user.show', [$user->id]) }}">{{ $user->name }}</a></h4>
 
                                 </div>
                             </div>
                             @endforeach
                             <div class="quicklinks">
-                                <a href="{{ route('site.user.store') }}" class="button">{{ trans('sites.moreMaster') }}</a>
+                                <a href="{{ route('site.master') }}" class="button">{{ trans('sites.moreMaster') }}</a>
                                 <a href="javascript:void(0)" class="button scroll-to-top">{{ trans('sites.backToTop') }}</a>
                             </div>
                         </div>

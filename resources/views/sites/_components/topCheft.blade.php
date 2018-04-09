@@ -19,17 +19,14 @@
                 <div v-for="item in items">
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
-                                <img v-bind:src="item.avatar" alt="" />
+                                <img v-bind:src="item.avatar" alt=""  style="width: 100%; height: 260px;"/>
                                 <figcaption><a v-bind:href="'/site/profile/user/'+ item.id"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">
-                                <h2><a v-bind:href="'/site/profile/user/'+ item.id">@{{ item.phone }}</a></h2> 
+                                <h2><a v-bind:href="'/site/profile/user/'+ item.id">@{{ item.name }}</a></h2> 
                                 <div class="actions">
                                     <div>
-                                        <div class="difficulty">
-                                            <i class="ico i-medium"></i>
-                                            <a v-bind:href="'/site/profile/user/'+ item.id"> @{{ item.level.name }}</a>
-                                        </div>
+                                          <a v-bind:href="'/site/profile/user/'+ item.id"> @{{ item.email }}</a>
                                     </div>
                                 </div>
                             </div>

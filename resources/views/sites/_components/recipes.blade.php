@@ -19,11 +19,11 @@
                     <div v-for="item in items">
                         <div class="entry one-third wow fadeInLeft">
                             <figure>
-                                <img v-bind:src="item.image" alt="" />
+                                <img v-bind:src="'/'+item.image" alt="" />
                                 <figcaption><a v-bind:href="'/site/cooking/'+ item.id"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">
-                                <h2><a v-bind:href="'/site/cooking/'+ item.id">@{{ item.name }}</a></h2> 
+                                <h2><a v-bind:href="'/site/cooking/'+ item.id" class="ellipis">@{{ item.name }}</a></h2> 
                                 <div class="actions">
                                     <div>
                                         <div class="difficulty">

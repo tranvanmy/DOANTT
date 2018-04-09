@@ -25,7 +25,7 @@
         <ol class="comment-list" v-for="comment in comments" v-if="comment.parent_id == null">
             <!--comment-->
             <li class="comment depth-1">
-                <div class="avatar"><a href=""><img :src="comment.user.avatar" alt=""></a></div>
+                <div class="avatar"><a :href="'/site/profile/user/' + comment.user.id"><img :src="comment.user.avatar" alt=""></a></div>
                 <div class="comment-box">
                     <div class="comment-author meta">
                         <strong>@{{ comment.user.name }}</strong>@{{ comment.user.created_at }} &nbsp;&nbsp;
@@ -65,7 +65,7 @@
             <!--comment-->
             <ol class="comment-list" v-for="reply in comment.sub">
                 <li class="comment depth-2">
-                    <div class="avatar"><a href=""><img :src="reply.user.avatar" alt=""></a></div>
+                    <div class="avatar"><a :href="'/site/profile/user/' + reply.user.id"><img :src="reply.user.avatar" alt=""></a></div>
                     <div class="comment-box">
                         <div class="comment-author meta"> 
                             <strong>@{{ reply.user.name }}</strong>@{{ comment.user.created_at }} &nbsp;&nbsp;

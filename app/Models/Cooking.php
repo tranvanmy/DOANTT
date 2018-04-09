@@ -9,7 +9,6 @@ use Laravel\Scout\Searchable;
 class Cooking extends Model
 {
     use CookingRelations;
-    use Searchable;
 
     protected $fillable = [
         'id',
@@ -21,6 +20,7 @@ class Cooking extends Model
         'description',
         'ration',
         'level_id',
+        'price',
         'image',
         'video_link',
     ];

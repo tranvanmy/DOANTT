@@ -45,11 +45,11 @@ return [
     // You should create routes to serve images if it is not set to public.
     'base_directory' => 'public',
 
-    'images_folder_name' => 'media/photos',
-    'files_folder_name'  => 'media/files',
+    'images_folder_name' => 'images/media/photos/.',
+    'files_folder_name'  => 'images/media/files/.',
 
-    'shared_folder_name' => 'shares',
-    'thumb_folder_name'  => 'thumbs',
+    'shared_folder_name' => 'images/media/photos/.',
+    'thumb_folder_name'  => 'images/media/photos/.',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,6 +91,7 @@ return [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
+        'image/jpg',
         'image/gif',
         'image/svg+xml',
     ],
@@ -101,6 +102,7 @@ return [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
+        'image/jpg',
         'image/gif',
         'image/svg+xml',
         'application/pdf',

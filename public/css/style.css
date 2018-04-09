@@ -62,7 +62,7 @@ audio, canvas, video { display: inline-block; *display: inline; *zoom: 1;max-wid
 .btn-link { color: #ff7b74 !important; }
 .panel-default>.panel-heading { color: #eee !important; }
 .panel-login{ background-color: #f4716a !important;}
-a { text-decoration: none; }
+a { text-decoration: none !important; }
 a:hover{text-decoration: none;}
 .s-title > h1    {font-size:40px;line-height:1.2;font-weight:300;padding:0 15px 60px;margin-top:-10px;display:inline-block;width:100%;}
 p           {padding:0 0 18px;line-height:1.6;}
@@ -724,7 +724,8 @@ div.uploader.disabled.active span.action        {}
 
 
 /*ICONS*/
-.ico        {display:inline-block;overflow:hidden;background-image:url(../images/ico/icons.png);background-repeat:no-repeat}
+.ico        {display:inline-block;background-image:url(../images/ico/icons.png);overflow:hidden;background-repeat:no-repeat}
+.ico-none        {display:inline-block;background-repeat:no-repeat; padding-top:19px;}
 .i-search       {background-position:0 0;width:25px;height:24px;}
 .i-account      {background-position:-54px 0;width:24px;height:24px;}
 .i-submitrecipe     {background-position:-106px 0;width:25px;height:24px;}
@@ -1064,22 +1065,27 @@ h2.large        {background-size:100% 123px;font-size:24px;}
     white-space: nowrap!important;
     width: 12em!important;
 }
+
 #liHead {
     margin-left: 207px;
 }
+
 #liHead img{
     width: 90px;
     height: 90px;
 }
+
 .search-list {
     max-height: 200px;
     overflow: auto;
 }
+
 .search-list li:hover{
     background-color: #FF7B74;
     cursor: pointer;
     padding-top: 10px;
 }
+
 #search {
     margin-top: 38px;
 }
