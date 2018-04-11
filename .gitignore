@@ -10,7 +10,6 @@ Homestead.yaml
 npm-debug.log
 .env
 /public/bower
-/public/images
 /public/photos
 /public/vendor
 /public/media

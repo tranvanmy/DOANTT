@@ -24,36 +24,37 @@
                             </figure>
                             <div class="container">
                                 <h2><a v-bind:href="'/site/profile/user/'+ item.id">@{{ item.name }}</a></h2> 
-                                <div class="actions">
+                                {{--  <div class="actions">
+>>>>>>> 96ca8488b6b2bb3fddd30cf450384f22c02fbefb
                                     <div>
                                           <a v-bind:href="'/site/profile/user/'+ item.id"> @{{ item.email }}</a>
                                     </div>
-                                </div>
+                                </div>  --}}
                             </div>
                         </div>                      
                     </div>
                 </div>
+                <nav>
+                    <ul class="pagination">
+                        <li v-if="pagination.current_page > 1">
+                            <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
+                                <span aria-hidden="true">«</span>
+                            </a>
+                        </li>
+                        <li v-for="page in pagesNumber"
+                        v-bind:class="[ page == isActived ? 'active' : '']">
+                        <a href="#" @click.prevent="changePage(page)">@{{ page }}</a>
+                        </li>
+                        <li v-if="pagination.current_page < pagination.last_page">
+                            <a href="#" @click.prevent="changePage(pagination.current_page + 1)"> <span aria-hidden="true">»</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </section>              
             <!--right sidebar-->
             @include('sites._sections.sidebar')
         </div>
-            <nav>
-                <ul class="pagination">
-                    <li v-if="pagination.current_page > 1">
-                        <a href="#" @click.prevent="changePage(pagination.current_page - 1)">
-                            <span aria-hidden="true">«</span>
-                        </a>
-                    </li>
-                    <li v-for="page in pagesNumber"
-                    v-bind:class="[ page == isActived ? 'active' : '']">
-                    <a href="#" @click.prevent="changePage(page)">@{{ page }}</a>
-                    </li>
-                    <li v-if="pagination.current_page < pagination.last_page">
-                        <a href="#" @click.prevent="changePage(pagination.current_page + 1)"> <span aria-hidden="true">»</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </main>
 <!--//wrap-->

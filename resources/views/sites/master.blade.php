@@ -4,18 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>UTT-Cook</title>
-    <link rel="shortcut icon" type="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" type="icon" href="/images/favicon.ico">
     {{ Html::style('css/style.css') }}
     {{ Html::style('css/animate.css') }}
     {{ Html::style('bower/font-awesome/css/font-awesome.min.css') }}
     {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
     {{ Html::style('bower/sweetalert/dist/sweetalert.css') }}
     {{ Html::style('bower/toastr/toastr.min.css') }}
-<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300&amp;subset=vietnamese" rel="stylesheet">    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300&amp;subset=vietnamese" rel="stylesheet">
+    <meta id="token" name="csrf-token" value="{{ csrf_token() }}">
     @yield('style')
 
 </head>
 <body class="home">
+        <script lang="javascript">var _vc_data = {id : 1301525, secret : '7121c5894fbc00d7f7f1cc549fbd9629'};(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async=true; ga.defer=true;ga.src = '//live.vnpgroup.net/client/tracking.js';var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
     @yield('content')
 
     {{ Html::script('bower/sweetalert/dist/sweetalert.min.js') }}
