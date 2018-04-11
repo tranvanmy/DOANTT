@@ -10,6 +10,8 @@ interface AbstractRepository
 
     public function paginate($paginate, $with = [], $select = null);
 
+    public function paginateOrder($paginate, $orderby = null, $with = [], $select = null);
+
     public function find($id, $with = null, $select = null);
 
     public function create($data = []);

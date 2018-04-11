@@ -13,9 +13,14 @@ abstract class AbstractEloquentRepository
         return $this->make($with)->get($select);
     }
 
-    public function paginate($paginate, $with = [], $select = null)
+    public function paginate($paginate, $orderBy = null, $with = [], $select = null)
     {
         return $this->make($with)->paginate($paginate, $select);
+    }
+
+    public function paginateOrder($paginate, $orderby = null, $with = [], $select = null)
+    {
+        return $this->make($with)->orderBy($orderby, 'desc')->paginate($paginate, $select);
     }
 
     public function find($id, $with = null, $select = null)

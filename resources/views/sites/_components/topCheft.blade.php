@@ -25,6 +25,7 @@
                             <div class="container">
                                 <h2><a v-bind:href="'/site/profile/user/'+ item.id">@{{ item.name }}</a></h2> 
                                 {{--  <div class="actions">
+>>>>>>> 96ca8488b6b2bb3fddd30cf450384f22c02fbefb
                                     <div>
                                           <a v-bind:href="'/site/profile/user/'+ item.id"> @{{ item.email }}</a>
                                     </div>

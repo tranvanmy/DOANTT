@@ -77,6 +77,11 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\OrderDetailRepository::class,
             \App\Repositories\Eloquents\OrderDetailEloquentRepository::class,
         ],
+
+        'unit' => [
+            \App\Contracts\Repositories\UnitRepository::class,
+            \App\Repositories\Eloquents\UnitEloquentRepository::class,
+        ],
     ];
 
     /**

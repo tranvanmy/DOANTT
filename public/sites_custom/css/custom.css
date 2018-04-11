@@ -1358,3 +1358,8 @@ body.fixed .row-offcanvas-left .sidebar-offcanvas {
                                                   /****** END PRELOADER ****/
 #avatar_admin{ margin-top: 20px !important; }
 .image_admin { width: 300px; }
+
+
+.action_unit {
+  float: unset !important;
+}
