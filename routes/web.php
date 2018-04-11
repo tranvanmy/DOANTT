@@ -20,6 +20,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
     Route::resource('subcrice', 'Admins\SubcriceController');
     Route::resource('category', 'Admins\CategoryController');
+    Route::resource('unit', 'Admins\UnitController');
     Route::resource('ingredient', 'Admins\IngredientController');
     Route::resource('post', 'Admins\PostController');
     Route::resource('cooking', 'Admins\CookingController');

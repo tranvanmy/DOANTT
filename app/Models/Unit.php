@@ -12,5 +12,6 @@ class Unit extends Model
     protected $fillable = [
         'id',
         'name',
+        'created_at'
     ];
 }

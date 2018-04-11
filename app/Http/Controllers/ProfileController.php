@@ -91,6 +91,7 @@ class ProfileController extends Controller
 
         return view('sites._components.topCheft');
     }
+
     /**
      * Store a newly created resource in storage.
      *

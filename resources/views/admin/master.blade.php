@@ -249,11 +249,18 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{ route('admin.unit.index') }}">
+                                    <i class="menu-icon ti-layout-placeholder"></i>
+                                    <span>Đơn Vị</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('admin.subcrice.index') }}">
                                     <i class="menu-icon ti-layout-placeholder"></i>
                                     <span>{{ trans('admin.subscribe') }}</span>
                                 </a>
                             </li>
+
                             <li>
                                 <a href="http://my.vchat.vn/home/type.php?module=msg" target="_blank">
                                   <i class="menu-icon ti-layout-placeholder"></i>

@@ -58,14 +58,14 @@
 									</div>
 								</div>
 								<div class="col-sm-6">
-									<h4 class="page-header">{{ trans('sites.image') }}</h4>
+									<h4 class="page-header">Hình ảnh cho món ăn</h4>
 									<div class="form-group">
 										<img v-bind:src="cooking.image" alt="">
 										<input type="file" v-on:change="uploadImage" id="image">
 									</div>
 								</div>
 								<div class="col-md-12 text-right">
-									<button v-on:click.prevent="step2" class="col-md-2 col-md-offset-10 btn-success">{{ trans('sites.next') }}</button>
+									<button v-on:click.prevent="step2" class="col-md-2 col-md-offset-10 btn-success">Tiếp Tục</button>
 								</div>
 							</div>
 						</div>
@@ -91,7 +91,7 @@
 											cookingIngredient.ingredient_id = ingredient.id">@{{ ingredient.name }}</li>
 										</ul>
 										<ul v-if="statusResult">
-											<li>{{ trans('site.not_available') }}</li>
+											<li class="badge badge-warning nlavalbalse">Nguyên Liệu Không Có Sắn</li>
 										</ul>
 										<span for="">{{ trans('sites.quantity') }}</span>
 										<input class="" type="number" min="0" v-model="cookingIngredient.quantity">
