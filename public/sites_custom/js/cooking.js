@@ -62,6 +62,7 @@ var wishlish = new Vue({
             'status': ''
         },
         inCart: '',
+        showvideo: false,
     },
 
     computed: {
@@ -123,6 +124,22 @@ var wishlish = new Vue({
                 }
             })
             // console.log(input);
+        },
+
+        noOrder: function()
+        {
+            toastr.warning('Món ăn này không order được mời bạn chọn món khác', { timeOut: 5000 });
+        },
+
+        reviewYoutube: function()
+        {
+            $('#modalYotube').modal('show');
+            if(!this.showvideo) {
+                var $log = $("#viewvideo");
+                html = $.parseHTML(this.cooking.video_link);
+                $log.append( html );
+                this.showvideo = true;
+            }
         },
 
         //comment method
@@ -246,6 +263,7 @@ var wishlish = new Vue({
                 console.log(this.inCart)
                 var count =  cart.length;
                 $('#cart_number').text('(' + count + ')')
+                toastr.success('Thêm giỏ hàng thành công!', {timeOut: 5000});
             });
         },
         removeToCart: function(id) {
@@ -259,6 +277,7 @@ var wishlish = new Vue({
                 console.log(this.inCart)
                 var count =  cart.length;
                 $('#cart_number').text('(' + count + ')')
+                toastr.warning('Bạn đã xóa món ăn khỏi giỏ hàng!', 'Chú Ý', {timeOut: 5000});
             });
         },
 

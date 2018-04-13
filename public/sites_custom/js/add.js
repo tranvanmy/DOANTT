@@ -1,7 +1,7 @@
 var app1 = new Vue({
     el: '#cooking',
     data: {
-        cooking: { 'name': '', 'image': '', 'time': '', 'priceCooking': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []},
+        cooking: { 'name': '', 'image': '', 'time': '', 'price': 0, 'video_link': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []},
         cookingError: '',
         cookingStatus: true,
         units: '',
@@ -22,7 +22,8 @@ var app1 = new Vue({
         image: '',
         notification: '',
         price: 0,
-        money: ''
+        money: '',
+        formatVND: ''
     },
     mounted : function(){
         this.getCooking();
@@ -39,16 +40,14 @@ var app1 = new Vue({
                     if (this.cooking.steps.length) {
                         if (this.selectCategory.length) {
                             if (this.price == 0) {
-                                debugger;
                                 this.sendCooking();
                                 this.submitCooking();
                             }
-                            if (this.price == 1 && this.cooking.priceCooking != '') {
-                                debugger;
+                            if (this.price == 1 && this.cooking.price != '') {
                                 this.sendCooking();
                                 this.submitCooking();
                             } else {
-                                toastr.warning('ban can nhap gia tien', { timeOut: 5000 });
+                                toastr.danger('Bạn Cần Nhập Gía Tiền Cho Món Ân!', { timeOut: 5000 });
                             }
                             
                         } else {
@@ -78,6 +77,17 @@ var app1 = new Vue({
             });
         },
 
+        showModalYT: function()
+        {
+            $('#modalYotube').modal('show');
+        },
+        converthtml: function()
+        {
+            var $log = $("#viewvideo");
+            html = $.parseHTML(this.cooking.video_link);
+            $log.append( html );
+        },
+
         updatePrice: function()
         {
 
@@ -102,7 +112,15 @@ var app1 = new Vue({
         },
         priceCooking: function ()
         {
-            console.log(this.price);
+            if(this.price == 0) {
+                this.cooking.price = 0;
+                this.formatVND = 0;
+            }
+        },
+
+        formatPrice: function ()
+        {
+            this.formatVND = new Intl.NumberFormat('nl-NL').format(this.cooking.price);
         },
 
         sendStep: function() {
@@ -343,14 +361,14 @@ var app1 = new Vue({
                         toastr.warning(this.notification['refresh_cooking_success'], {timeOut: 5000});
                         window.location = '/cooking'
                     }
-
                 })
                 .catch((e) => {
                     toastr.warning(this.notification['refresh_cooking_fail'], {timeOut: 5000});
                 })
             } else {
                 this.cooking = {'name': '', 'image': '', 'time': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []};
-                toastr.warning(this.notification['refresh_cooking_success'], {timeOut: 5000});
+                this.cookingError = '';
+                toastr.warning("Format Công Thức Thành Công!", {timeOut: 5000});
             }
         }
     },

@@ -65,7 +65,7 @@ class SubmitCookingController extends Controller
 
     public function store(CokingRequest $request)
     {
-
+        // dd($request->all());
         if ($request->id) {
             $cooking = $this->cooking->update($request->id, $request->all());
             if ($cooking) {
