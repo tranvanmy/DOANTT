@@ -82,6 +82,24 @@ new Vue({
 
         },
 
+        editUnit: function (id)
+        {
+            var input = this.update;
+            axios.put('/admin/unit/' + id, input).then((response) => {
+                this.changePage(this.pagination.current_page);
+                $("#delete-item").modal('hide');
+                if (response.data.status == 'error') {
+                    toastr.error(response.data.message, response.data.action, { timeOut: 5000 });
+                } else {
+                    toastr.success('', response.data.action, { timeOut: 5000 });
+                }
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    this.formErrorsUpdate = error.response.data
+                }
+            });
+        },
+
         addUnit: function ()
         {
             console.log(21);

@@ -226,9 +226,17 @@
 			                    </div>
 			                    <div class="modal-body clearfix">
 			                        <div class="text-success">
-			                            <h5 class="text-success">{{ trans('sites.message_submit_cooking') }}</h5>
-			                            <h5 class="text-danger">{{ trans('sites.message_price_cooking') }}</h5>
-			                        </div>
+										<h5 class="text-success">Ban co muon ban mon an nay khong!</h5>
+										 <select class="form-control" id="sel1" v-on:change="priceCooking" v-model="price">
+											 <option v-bind:value="0">No</option>
+											<option v-bind:value="1">Yes</option>
+                                        </select>
+									</div>
+									<div v-if="price == 1">
+										<hr>
+										<label for="name">Gia Tien (VND)</label>
+										<input type="number" name="name" v-model="cooking.priceCooking" class="form-control"/>
+									</div>
 			                    </div>
 			                    <div class="modal-footer ">
 			                        <a href="javascript:void(0)" v-on:click="submit" class="btn btn-success">

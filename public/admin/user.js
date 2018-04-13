@@ -1,6 +1,6 @@
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-new Vue({
+new Vue({ 
     el: '#manage-vue',
 
     data: {

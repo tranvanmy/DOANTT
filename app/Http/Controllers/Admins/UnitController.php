@@ -106,7 +106,20 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $unit = $this->unit->update($id, $data);
+
+        if ($unit) {
+            $response['status'] = 'success';
+            $response['message'] = trans('admin.edit_success');
+            $response['action'] = trans('admin.success');
+        } else {
+            $response['status'] = 'error';
+            $response['message'] = trans('admin.error_happen');
+            $response['action'] = trans('admin.error');
+        }
+
+        return response()->json($response);
     }
 
     /**
