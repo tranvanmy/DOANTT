@@ -8,11 +8,11 @@
    @if($cooking_id)
    <input type="hidden" value="{{$cooking_id}}" id="cooking_id">
    <div id="cooking-detail">
-      <div class="alert alert-success" v-if="cooking.status == 0">
-         <span>{{ trans('sites.cooking_pending') }}</span>
-      </div>
       <!--wrap-->
       <div class="wrap clearfix">
+      <div class="alert alert-success text-center" v-if="cooking.status == 0">
+         <span>{{ trans('sites.cooking_pending') }}</span>
+      </div>
          <!--breadcrumbs-->
          <nav class="breadcrumbs">
             <ul>
@@ -38,7 +38,13 @@
                                  <dt>{{ trans('sites.posted_by') }}</dt>
                                  <dd itemprop="author" class="vcard author post-author"><span class="fn"><a href="{{ route('site.user.show', $cooking_user_id) }}">@{{ cooking.user.name }}</a></span></dd>
                                  <dt>{{ trans('sites.posted_on') }}</dt>
-                                 <dd itemprop="datePublished" class="post-date updated">@{{ cooking.created_at }}</dd>
+                                 <dd itemprop="datePublished" class="post-date updated">@{{ (cooking.created_at).slice(0, 16) }}</dd>
+                                 <dt>Video</dt>
+                                 <dd itemprop="datePublished" class="post-date updated">
+                                    <a  href="javascript:void(0);" v-on:click="reviewYoutube">
+                                       Review
+                                    </a>
+                                 </dd>
                               </dl>
                            </div>
                         </header>
@@ -66,13 +72,18 @@
                         <div class="">
                            @if(Auth::check())
                            <div v-if="cooking.user.id != {{ Auth::user()->id }}">
-                           <div v-if="inCart" class="favourite" v-on:click="removeToCart(cooking.id)">
-                              <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.remove_to_cart') }}</span></a>
+                              <div v-if="inCart" class="favourite" v-on:click="removeToCart(cooking.id)">
+                                 <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.remove_to_cart') }}</span></a>
+                              </div>
+                              <div v-else="inCart" class="favourite">
+                                 <div  v-if="cooking.price > 0" v-on:click="addToCart(cooking.id)">
+                                    <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.add_to_cart') }}</span></a>
+                                 </div>
+                                 <div v-else v-on:click="noOrder">
+                                    <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>Món ăn này bạn không thể đặt</span></a>
+                                 </div>
+                              </div>
                            </div>
-                           <div v-else="inCart" class="favourite" v-on:click="addToCart(cooking.id)">
-                              <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.add_to_cart') }}</span></a>
-                           </div>
-                            </div>
                            @else
                            <a href="{{ route('login') }}">
                               <div  class="favourite">
@@ -83,7 +94,7 @@
                            @endif
                         </div>
                         <dl class="basic">
-                           @if(Auth::check())
+                           {{-- @if(Auth::check())
                            <div v-if="cooking.user.id == {{ Auth::user()->id }}">
                               <dt>{{ trans('sites.price') }}</dt>
                               <dd>
@@ -93,15 +104,15 @@
                                  </form>
                               </dd>
                            </div>
-                           @endif
-                           <dt>{{ trans('sites.difficulty') }}</dt>
-                           <dd>@{{ cooking.level.name }}</dd>
-                           <dt>{{ trans('sites.cooking_time') }}</dt>
-                           <dd>@{{ cooking.time }} {{ trans('sites.mins') }}</dd>
-                           <dt>{{ trans('sites.serves') }}</dt>
-                           <dd><input v-bind:value="cooking.ration" type="number" name="seres" min="1" max="20" class="input" /></dd>
-                           <dt>{{ trans('sites.price') }}</dt>
-                           <dd>@{{ cooking.price }} VND</dd>
+                           @endif --}}
+                           <dd>{{ trans('sites.difficulty') }}</dd>
+                           <dt>@{{ cooking.level.name }}</dt>
+                           <dd>{{ trans('sites.cooking_time') }}</dd>
+                           <dt>@{{ cooking.time }} Giờ </dt>
+                           <dd>{{ trans('sites.serves') }}</dd>
+                           <dt><input v-bind:value="cooking.ration" type="number" name="seres" min="1" max="20" class="input" /></dt>
+                           <dd>{{ trans('sites.price') }}</dd>
+                           <dt>@{{ cooking.price }} VND</dt>
                         </dl>
                         <dl class="ingredients">
                            <div v-for=" ingredient in cooking.cooking_ingredients">
@@ -121,7 +132,7 @@
                                  @if(Auth::check())
                                  <a v-on:click="wishlist({{ $cooking_id }})" title="Favourites">
                                     <div v-if="wishlishstatus == 0">
-                                       <i class="fa fa-heart-o fa-4x" aria-hidden="true" class="wishlishead"></i>
+                                       <i class="fa fa-heart-o fa-4x"  style="margin-top: 15px;" aria-hidden="true" class="wishlishead"></i>
                                        <span>{{ trans('sites.like') }}</span>
                                     </div>
                                     <div v-else="wishlishstatus == 0" >
@@ -131,7 +142,7 @@
                                  </a>
                                  @else
                                  <a href="{{ route('login') }}">
-                                 <i class="fa fa-heartbeat fa-4x wishlishead" aria-hidden="true"></i>
+                                 <i class="fa fa-heartbeat fa-4x wishlishead" style="margin-top: 15px;" aria-hidden="true"></i>
                                  <span>{{ trans('sites.like') }}</span>
                                  </a>
                                  @endif
@@ -141,6 +152,29 @@
                      </article>
                      <!--//one-third-->
                   </div>
+                  <div class="modal fade" id="modalYotube" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
+                     <div class="modal-dialog">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                 </button>
+                                 <h4 class="modal-title custom_align" id="Heading">VIDEO</h4>
+                             </div>
+                             <div class="modal-body clearfix">
+                                 <div v-if="cooking.video_link != null" id="viewvideo">
+                                 </div>
+                                  <div v-else class="text-center">
+                                  <h4 class="text-danger">KHÔNG CÓ VIDEO REVIEW</h4>
+                                 </div>
+                             </div>
+                             <div class="modal-footer ">
+                                 <a href="javascript:void(0)" class="btn btn-success" data-dismiss="modal">
+                                     <span class="glyphicon glyphicon-ok-sign"></span> OK
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+               </div>
                </div>
                <!--//recipe-->
             </section>

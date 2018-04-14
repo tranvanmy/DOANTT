@@ -2,7 +2,7 @@
 
 @section('title')
     Đơn Vị
-@endsection
+@endsection 
 
 @section('style')
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
@@ -100,18 +100,18 @@
                                             <div class="form-group">
                                                 <label for="sel1">Trạng Thái</label>
                                                 <select class="form-control" id="sel1" v-model="update.status">
-                                                    <option value="1">Hoạt Động</option>
-                                                    <option value="0">Đang Chờ</option>
+                                                    <option v-bind:value="1">Hoạt Động</option>
+                                                    <option v-bind:value="0">Đang Chờ</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer ">
-                                            <a href="javascript:void(0)" v-on:click="delItem(deleteItem.id)" class="btn btn-danger">
+                                            <button type="button" class="btn btn-success"  v-on:click="editUnit(update.id)">
                                                 <span class="glyphicon glyphicon-ok-sign"></span> {{ trans('admin.yes') }}
-                                            </a>
-                                            <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                <span class="glyphicon glyphicon-remove"></span> {{ trans('admin.no') }}
                                             </button>
+                                            <a href="javascript:void(0)"  data-dismiss="modal"  class="btn btn-danger">
+                                                 <span class="glyphicon glyphicon-remove"></span> {{ trans('admin.no') }}
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

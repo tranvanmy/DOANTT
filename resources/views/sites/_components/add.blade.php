@@ -10,7 +10,7 @@
 	   <section class="site-content site-section clearfix">
 			<div class="container">
 				<div class="site-block" >
-					<form id="checkout-wizard" action="ecom_checkout.html" method="post">
+					<form id="checkout-wizard" method="post">
 						<!-- First Step -->
 						<div class="form-group text-right" id="control">
 							<button class="btn-success" v-on:click.prevent="comfirmSubmit">{{ trans('sites.create_cooking') }}</button>
@@ -52,6 +52,13 @@
 										</select>
 										<span class="text-danger clearfix" v-for="error in cookingError.level_id">@{{ error }}</span>
 									</div>
+									<br>
+									<div class="form-group">
+										<label for="description">Link Video</label>
+										<br>
+										<a class="btn btn-success" v-on:click="showModalYT"><i class="fas fa-plus-square"></i> Add Link</a>
+									</div>
+									<br>
 									<div class="form-group">
 										<label for="description">{{ trans('sites.description') }}</label>
 										<textarea v-model="cooking.description" name="description" id="" cols="30" rows="10"></textarea>
@@ -225,18 +232,62 @@
 			                        <h4 class="modal-title custom_align" id="Heading">{{ trans('sites.create_cooking') }}</h4>
 			                    </div>
 			                    <div class="modal-body clearfix">
-			                        <div class="text-success">
-			                            <h5 class="text-success">{{ trans('sites.message_submit_cooking') }}</h5>
-			                            <h5 class="text-danger">{{ trans('sites.message_price_cooking') }}</h5>
-			                        </div>
+			                        <div class="text-success text-center">
+										<h4 class="text-danger">Bạn Có Muốn Bán Món Ăn Này Không?</h4>
+										 <select class="form-control" id="sel1" v-on:change="priceCooking" v-model="price">
+											 <option v-bind:value="0">No</option>
+											<option v-bind:value="1">Yes</option>
+                                        </select>
+									</div>
+									<div v-if="price == 1">
+									<hr>
+									{{-- <label for="name">Gía Tiền (VND)</label> --}}
+									<div class="clearfix"></div>
+										<div class="col-md-12">
+											<div class="col-md-6" style="margin-left: -5%;">
+											<label for="name">Nhập Gía Tiền (VND)</label>
+												<input type="number" name="name" v-model="cooking.price"  v-on:keyup="formatPrice" class="form-control"/>
+											</div>
+											<div class="col-md-6">
+											<label for="name">Format (VND)</label>
+												<input type="text" name="name" disabled v-model="formatVND" class="form-control"/>
+											</div>
+										</div>
+									</div>
 			                    </div>
 			                    <div class="modal-footer ">
 			                        <a href="javascript:void(0)" v-on:click="submit" class="btn btn-success">
-			                            <span class="glyphicon glyphicon-ok-sign"></span>{{ trans('sites.create') }}
+			                            <span class="glyphicon glyphicon-ok-sign"></span> {{ trans('sites.create') }}
 			                        </a>
 			                        <button type="button" class="btn btn-warning" data-dismiss="modal">
-			                            <span class="glyphicon glyphicon-remove"></span>{{ trans('sites.cancel') }}
+			                            <span class="glyphicon glyphicon-remove"></span> {{ trans('sites.cancel') }}
 			                        </button>
+			                    </div>
+			                </div>
+			            </div>
+        			</div>
+        			{{-- //modal youtube --}}
+        			<div class="modal fade" id="modalYotube" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
+			            <div class="modal-dialog">
+			                <div class="modal-content">
+			                    <div class="modal-header">
+			                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+			                        </button>
+			                        <h4 class="modal-title custom_align" id="Heading">Link YouTuBe</h4>
+			                    </div>
+			                    <div class="modal-body clearfix">
+			                    <div class="col-md-10">
+			                        <input v-model="cooking.video_link" type="text" name="link" class="form-control">
+			                    </div>
+			                        <p href="" class="btn btn-success" v-on:click="converthtml">Get Link</p>
+			                        <br>
+									<div v-if="cooking.video_link != ''" id="viewvideo">
+									</div>
+			                    </div>
+			                    <div class="modal-footer ">
+			                        <a href="javascript:void(0)" class="btn btn-success" data-dismiss="modal">
+			                            <span class="glyphicon glyphicon-ok-sign"></span> OK
+			                        </a>
 			                    </div>
 			                </div>
 			            </div>
@@ -249,15 +300,16 @@
 			                        </button>
 			                        <h4 class="modal-title custom_align" id="Heading">{{ trans('sites.reset_cooking') }}</h4>
 			                    </div>
-			                    <div class="modal-body clearfix">
-			                    	<h5>{{ trans('sites.message_reset_cooking') }}</h5>
+			                    <div class="modal-body clearfix text-center">
+			                    	<h4>Bạn Có Muốn Xóa Công Thức Này Không !</h4>
+			                    	<span class="text-danger">Note:Nếu bạn chỉ nhập những thông tin cơ bản thì chúng tôi sẽ format hết lại những thông tin đấy</span>
 			                    </div>
 			                    <div class="modal-footer ">
 			                        <a href="javascript:void(0)" v-on:click="cancelCooking" class="btn btn-success">
-			                            <span class="glyphicon glyphicon-ok-sign"></span>{{ trans('sites.reset') }}
+			                            <span class="glyphicon glyphicon-ok-sign"></span> Đồng Ý
 			                        </a>
 			                        <button type="button" class="btn btn-warning" data-dismiss="modal">
-			                            <span class="glyphicon glyphicon-remove"></span>{{ trans('sites.cancel') }}
+			                            <span class="glyphicon glyphicon-remove"></span> Hủy
 			                        </button>
 			                    </div>
 			                </div>

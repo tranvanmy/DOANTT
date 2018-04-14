@@ -1,7 +1,7 @@
 var app1 = new Vue({
     el: '#cooking',
     data: {
-        cooking: {'name': '', 'image': '', 'time': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []},
+        cooking: { 'name': '', 'image': '', 'time': '', 'price': 0, 'video_link': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []},
         cookingError: '',
         cookingStatus: true,
         units: '',
@@ -21,7 +21,9 @@ var app1 = new Vue({
         selectCategory: [],
         image: '',
         notification: '',
-
+        price: 0,
+        money: '',
+        formatVND: ''
     },
     mounted : function(){
         this.getCooking();
@@ -30,41 +32,43 @@ var app1 = new Vue({
     },
     methods: {
         submit: function() {
-            console.log(this.cookingError)
-            $('#submit').modal('hide');
-            if (this.cookingError) {
-                toastr.warning(this.notification['cooking_not_empty'],  {timeOut: 5000});
-            } else
-            if (this.cooking.cooking_ingredients.length) {
-                if (this.cooking.steps.length) {
-                    if (this.selectCategory.length) {
-                        this.submitCooking()
+                // $('#submit').modal('hide');
+                if (this.cookingError) {
+                    toastr.warning(this.notification['cooking_not_empty'],  {timeOut: 5000});
+                } else
+                if (this.cooking.cooking_ingredients.length) {
+                    if (this.cooking.steps.length) {
+                        if (this.selectCategory.length) {
+                            if (this.price == 0) {
+                                this.sendCooking();
+                                this.submitCooking();
+                            }
+                            if (this.price == 1 && this.cooking.price != '') {
+                                this.sendCooking();
+                                this.submitCooking();
+                            } else {
+                                toastr.danger('Bạn Cần Nhập Gía Tiền Cho Món Ân!', { timeOut: 5000 });
+                            }
+                            
+                        } else {
+                            toastr.warning(this.notification['categories_not_empty'], {timeOut: 5000});
+                        }
                     } else {
-                        toastr.warning(this.notification['categories_not_empty'], {timeOut: 5000});
+                        toastr.warning(this.notification['steps_not_empty'], {timeOut: 5000});
                     }
                 } else {
-                    toastr.warning(this.notification['steps_not_empty'], {timeOut: 5000});
+                   toastr.warning(this.notification['ingredients_not_empty'], {timeOut: 5000});
                 }
-            } else {
-               toastr.warning(this.notification['ingredients_not_empty'], {timeOut: 5000});
-            }
         },
 
         sendCooking: function () {
-            console.log(this.cooking.id)
-            console.log(this.cooking)
             axios.post('/cooking', this.cooking).then((response) => {
-                console.log(response)
                 if (response.data != 'undefined') {
                     this.cooking.id = this.cookingIngredient.cooking_id = this.cookingStep.cooking_id = response.data;
-                    console.log(this.cookingStep.cooking_id);
                 }
-                console.log(this.cookingStep.cooking_id);
-
             })
             .catch((e) => {
                 this.cookingError = e.response.data;
-                console.log(this.cookingError)
                 $('.step').hide();
                 $('#checkout-first').show();
                 this.curentStep = 1;
@@ -73,15 +77,27 @@ var app1 = new Vue({
             });
         },
 
+        showModalYT: function()
+        {
+            $('#modalYotube').modal('show');
+        },
+        converthtml: function()
+        {
+            var $log = $("#viewvideo");
+            html = $.parseHTML(this.cooking.video_link);
+            $log.append( html );
+        },
+
+        updatePrice: function()
+        {
+
+        },
+
         sendIngredient: function() {
-            console.log(this.cookingIngredient)
             axios.post('/ingredient/cooking', this.cookingIngredient).then((response) => {
                 if (this.cookingIngredient.id) {
-                    console.log(this.cookingIngredient.id)
                     this.cooking.cooking_ingredients[this.ingredientIndex] = response.data;
                 } else {
-                    console.log(response.data);
-                    console.log(this.cooking.cooking_ingredients)
                     this.cooking.cooking_ingredients.push(response.data);
                 }
                 this.cookingIngredient = {'id':'', 'ingredient_id': '', 'ingredientName': '', 'cooking_id': '', 'unit_id': '', 'quantity': ''};
@@ -94,9 +110,20 @@ var app1 = new Vue({
                this.cookingIngredientError = e.response.data;
             });
         },
+        priceCooking: function ()
+        {
+            if(this.price == 0) {
+                this.cooking.price = 0;
+                this.formatVND = 0;
+            }
+        },
+
+        formatPrice: function ()
+        {
+            this.formatVND = new Intl.NumberFormat('nl-NL').format(this.cooking.price);
+        },
 
         sendStep: function() {
-            console.log(this.cookingStep);
             var formData = new FormData();
             formData.append('image', $('#imageStep')[0].files[0]);
             formData.append('id', this.cookingStep.id);
@@ -112,7 +139,6 @@ var app1 = new Vue({
                     this.cookingStep.id = '';
 
                 } else {
-                    console.log(response.data);
                     this.cooking.steps.push(response.data);
                     this.cookingStep.content = '';
                     this.cookingStep.step++;
@@ -130,12 +156,12 @@ var app1 = new Vue({
         submitCooking: function() {
             this.sendData(this.curentStep);
             var data = {'cooking_id': this.cooking.id, 'categories': this.selectCategory};
+            console.log(data);
             axios.post('/categories/cooking', data).then((response) => {
                 window.location = '/site/cooking/' + this.cooking.id;
             })
             .catch(e => {
                 this.cookingError = e.response.data;
-                console.log(this.cookingError)
                 $('.step').hide();
                 $('#checkout-first').show();
                 this.curentStep = 1;
@@ -144,7 +170,6 @@ var app1 = new Vue({
 
         deleteStep: function(step, index) {
             axios.delete('/step/cooking/' + step.id).then((response) => {
-                console.log(response.data)
                 if (response.data) {
                     this.cooking.steps.splice(index, 1);
                 }
@@ -162,8 +187,6 @@ var app1 = new Vue({
                     } else {
                         this.cookingStep.step = 1;
                     }
-                    console.log(this.cookingStep.step)
-                    console.log(response);
                 }
                 this.notification = response.data.notification;
             })
@@ -186,7 +209,6 @@ var app1 = new Vue({
             this.cookingIngredient.id = ingredient.id;
             this.ingredientIndex = index;
             this.cookingIngredientError = '';
-            console.log(this.cookingIngredient)
         },
 
         cancelIngresient: function() {
@@ -205,7 +227,6 @@ var app1 = new Vue({
 
         deleteIngredient: function(ingredient, index) {
             axios.delete('/ingredient/cooking/' + ingredient.id).then((response) => {
-                console.log(response.data)
                 if (response.data) {
                     this.cooking.cooking_ingredients.splice(index, 1);
                 }
@@ -259,13 +280,11 @@ var app1 = new Vue({
 
         search: function() {
             var data = this.cookingIngredient.ingredientName;
-            console.log(data)
             this.cookingIngredient.ingredient_id = '';
             if (data) {
                 axios.get('/search/cooking?data=' + data).then((response) => {
                     if (response.data.length) {
                         this.ingredients = response.data;
-                        console.log(response.data);
                         this.statusResult = false;
                     } else {
                         this.ingredients = null
@@ -294,7 +313,6 @@ var app1 = new Vue({
                 case 1:
                     this.cookingError = '';
                     this.sendCooking()
-                    console.log(this.cooking.id)
                     break;
             }
         },
@@ -308,7 +326,6 @@ var app1 = new Vue({
             }).then((response) => {
                this.cooking.image = response.data;
             }).catch((error) => {
-                console.log(error.response)
             });
         },
 
@@ -321,7 +338,6 @@ var app1 = new Vue({
             }).then((response) => {
                this.cooking.image = response.data;
             }).catch((error) => {
-                console.log(error.response)
             });
         },
 
@@ -339,21 +355,20 @@ var app1 = new Vue({
         cancelCooking: function() {
             $('#reset').modal('hide');
             var data = {'id': this.cooking.id };
-            console.log(data)
             if (this.cooking.id) {
                 axios.delete('/cancel/cooking/' + this.cooking.id).then((response) => {
                     if (response.data == 1) {
                         toastr.warning(this.notification['refresh_cooking_success'], {timeOut: 5000});
                         window.location = '/cooking'
                     }
-
                 })
                 .catch((e) => {
                     toastr.warning(this.notification['refresh_cooking_fail'], {timeOut: 5000});
                 })
             } else {
                 this.cooking = {'name': '', 'image': '', 'time': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []};
-                toastr.warning(this.notification['refresh_cooking_success'], {timeOut: 5000});
+                this.cookingError = '';
+                toastr.warning("Format Công Thức Thành Công!", {timeOut: 5000});
             }
         }
     },
