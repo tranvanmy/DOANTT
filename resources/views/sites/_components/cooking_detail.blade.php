@@ -76,7 +76,7 @@
                                  <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.remove_to_cart') }}</span></a>
                               </div>
                               <div v-else="inCart" class="favourite">
-                                 <div  v-if="cooking.price > 0" v-on:click="addToCart(cooking.id)">
+                                 <div  v-if="cooking.price != '0'" v-on:click="addToCart(cooking.id)">
                                     <a href="javascript:void(0);"><i class="fa fa-fw fa-shopping-cart" aria-hidden="true"></i> <span>{{ trans('sites.add_to_cart') }}</span></a>
                                  </div>
                                  <div v-else v-on:click="noOrder">
@@ -123,7 +123,14 @@
                         <div class="widget widget-sidebar">
                            <h5>{{ trans('sites.recipe_category') }}</h5>
                            <ul class="boxed">
-                              <li class="light" v-for="category in cooking.categories"><a><i class="icon icon-themeenergy_pasta"></i> <span>@{{ category.name }}</span></a></li>
+                              <li class="light" v-for="category in cooking.categories">
+                                 <a v-bind:href="'/site/showCategory/' + category.id">
+                                    <img class="ico-none" v-bind:src="category.icon" alt="">
+                                    <span>
+                                       @{{ category.name }}
+                                    </span>
+                                 </a>
+                              </li>
                            </ul>
                         </div>
                         <div id="addwishlish">
@@ -195,8 +202,9 @@
 @endsection
 @section('script')
 <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+{{-- <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script> --}}
 {!! Html::script('sites_custom/js/cooking.js') !!}
-{!! Html::script('js/wishlist.js') !!}
+{{-- {!! Html::script('js/wishlist.js') !!} --}}
 @if (Auth::check())
 <script>
    wishlish.initData({{ $wishlish ? 1 : 0 }});

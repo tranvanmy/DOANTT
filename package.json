@@ -17,5 +17,10 @@
     "laravel-mix": "0.*",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "dependencies": {
+    "jquery-bar-rating": "^1.2.2",
+    "vue-rate-it": "^2.1.0",
+    "vue-star-rating": "^1.5.1"
   }
 }

@@ -1,8 +1,13 @@
+
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// Vue.component('star-rating', VueRateIt.StarRating);
+// var StarRating = require('vue-star-rating');
+Vue.component('star-rating', VueStarRating.default);
+
 
 var wishlish = new Vue({
     el: '#cooking-detail',
-
     data: {
         //cooking
         cooking: [],
@@ -31,6 +36,7 @@ var wishlish = new Vue({
             'parent_id': ''
         },
         //update pricr 
+        rating: 3,
         newItem: { 'price': ''},
         pagination: {
             total: 0,
@@ -112,6 +118,12 @@ var wishlish = new Vue({
             window.print();
         },
 
+        setRating: function ()
+        {
+            // al?ert('Bạn muốn rate cho công thức này không?');
+            if (!confirm('Bạn muốn rate cho công thức này không?!')) return;
+            console.log(this.rating);
+        },
         //update price 
         updateItem: function(id){
             var input =  this.newItem;

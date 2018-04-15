@@ -32,8 +32,8 @@
     {{ Html::script('bower/vue/dist/vue.min.js') }}
     {{ Html::script('bower/toastr/toastr.min.js') }}
     {{-- <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script> --}}
-    {{ Html::script('bower/ckeditor/ckeditor.js') }}
-    {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }} 
+    {{-- {{ Html::script('bower/ckeditor/ckeditor.js') }} --}}
+    {{-- {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}  --}}
     {{ Html::script('js/profile.js') }}
     {{ Html::script('js/subcrice.js') }}
     {{ Html::script('sites_custom/js/cart.js') }}
