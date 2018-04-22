@@ -45,6 +45,18 @@
                                        Review
                                     </a>
                                  </dd>
+                                 <dt>Rate</dt>
+                                 <dd itemprop="datePublished" class="post-date updated">
+                                    @if(Auth::check())
+                                    <a  href="javascript:void(0);" v-on:click="reviewYoutube">
+                                       Danh Gia
+                                    </a>
+                                    @else
+                                    <a   href="{{ route('login') }}">
+                                        Ban can dang nhap de thuc hien chuc nang nay!
+                                    </a>
+                                    @endif
+                                 </dd>
                               </dl>
                            </div>
                         </header>
