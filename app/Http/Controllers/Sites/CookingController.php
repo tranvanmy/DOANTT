@@ -253,6 +253,27 @@ class CookingController extends Controller
         return 0;
     }
 
+
+    public function submitRate($id, Request $request)
+    {
+
+        $rate = $this->rates->createRateByUser($id, $request[0]);
+        $cooking = $this->cooking->getCooking($id);
+
+        $ratesCooking = $this->rates->getReceiptId($id)->get();
+
+        $s = 0;
+        for ($i = 0; $i < count($ratesCooking); $i++) {
+            $s += $ratesCooking[$i]->point;
+        }
+
+        $cooking->rate_point = (float)$s / count($ratesCooking);
+        $cooking->save();
+
+        return response($request->all());
+    }
+
+
     public function showRate($id, Request $request)
     {
         return $this->cooking->getCooking($id);

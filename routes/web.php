@@ -36,6 +36,8 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::get('comment/{id}', 'Sites\CookingController@showComment');
     Route::post('comment', 'Sites\CookingController@submitComment');
     Route::put('comment', 'Sites\CookingController@submitComment');
+    Route::post('rate/{id}', 'Sites\CookingController@submitRate');
+
     Route::delete('comment/{id}', 'Sites\CookingController@deleteComment');
     Route::get('rate/{id}', 'Sites\CookingController@showRate');
     Route::resource('blog', 'BlogController');

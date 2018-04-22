@@ -120,9 +120,20 @@ var wishlish = new Vue({
 
         setRating: function ()
         {
+            console.log(this.cooking.id);
             // al?ert('Bạn muốn rate cho công thức này không?');
-            if (!confirm('Bạn muốn rate cho công thức này không?!')) return;
-            console.log(this.rating);
+            // if (!confirm('Bạn muốn rate cho công thức này không?!')) return;
+            var authOptions = {
+                    method: 'post',
+                    url: '/site/rate/' + id,
+                    params: this.rating,
+                    json: true
+            }
+            axios(authOptions).then(response => {
+                // location.reload();
+            }).catch(function (error) {
+            });
+
         },
         //update price 
         updateItem: function(id){
