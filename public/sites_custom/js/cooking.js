@@ -1,4 +1,3 @@
-
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Vue.component('star-rating', VueRateIt.StarRating);
@@ -36,8 +35,13 @@ var wishlish = new Vue({
             'parent_id': ''
         },
         //update pricr 
-        rating: 3,
-        newItem: { 'price': ''},
+        rating: {
+            'point': 0,
+            'content': ''
+        },
+        newItem: {
+            'price': ''
+        },
         pagination: {
             total: 0,
             per_page: 2,
@@ -72,10 +76,10 @@ var wishlish = new Vue({
     },
 
     computed: {
-        isActived: function () {
+        isActived: function() {
             return this.pagination.current_page;
         },
-        pagesNumber: function () {
+        pagesNumber: function() {
             if (!this.pagination.to) {
                 return [];
             }
@@ -96,7 +100,7 @@ var wishlish = new Vue({
         }
     },
 
-    mounted: function () {
+    mounted: function() {
         this.showCooking();
         this.showComments(this.pagination.current_page);
         this.showRate();
@@ -106,7 +110,7 @@ var wishlish = new Vue({
 
     methods: {
         //cooking method
-        showCooking: function () {
+        showCooking: function() {
             var id = $('#cooking_id').val();
             axios.get('/site/cooking/' + id).then((response) => {
                 this.cooking = response.data;
@@ -114,15 +118,22 @@ var wishlish = new Vue({
             })
         },
 
-        print: function () {
+        print: function() {
             window.print();
         },
 
-        setRating: function ()
-        {
-            console.log(this.cooking.id);
-            // al?ert('Bạn muốn rate cho công thức này không?');
-            // if (!confirm('Bạn muốn rate cho công thức này không?!')) return;
+        openRate: function() {
+            $('#modalRate').modal('show');
+        },
+
+        setRating: function() {
+            if (!confirm('Bạn muốn rate cho công thức này không?!')) return;
+            if(this.rating.content == '' || this.rating.point == 0) {
+                toastr.warning('Moi ban nhap day du thong tin', {
+                    timeOut: 5000
+                });
+                return false;
+            }
             var authOptions = {
                     method: 'post',
                     url: '/site/rate/' + id,
@@ -130,74 +141,73 @@ var wishlish = new Vue({
                     json: true
             }
             axios(authOptions).then(response => {
-                // location.reload();
+                toastr.success('Ban da danh gia thanh cong!', { timeOut: 5000 });
+                this.rating = {'point': 0, 'content': '' };
+                this.showCooking();
             }).catch(function (error) {
             });
-
         },
         //update price 
-        updateItem: function(id){
-            var input =  this.newItem;
-            // console.log(id);
+        updateItem: function(id) {
+            var input = this.newItem;
 
             axios.post('/site/update/price/' + id, input).then((response) => {
-                if(response.data) {
+                if (response.data) {
                     window.location = '/site/cooking/' + id;
-                    toastr.success(response.data.message, response.data.action, {timeOut: 10000});
+                    toastr.success(response.data.message, response.data.action, {
+                        timeOut: 10000
+                    });
                 }
             })
             // console.log(input);
         },
 
-        noOrder: function()
-        {
-            toastr.warning('Món ăn này không order được mời bạn chọn món khác', { timeOut: 5000 });
+        noOrder: function() {
+            toastr.warning('Món ăn này không order được mời bạn chọn món khác', {
+                timeOut: 5000
+            });
         },
 
-        reviewYoutube: function()
-        {
+        reviewYoutube: function() {
             $('#modalYotube').modal('show');
-            if(!this.showvideo) {
+            if (!this.showvideo) {
                 var $log = $("#viewvideo");
                 html = $.parseHTML(this.cooking.video_link);
-                $log.append( html );
+                $log.append(html);
                 this.showvideo = true;
             }
         },
 
         //comment method
-        showComments: function (page) {
+        showComments: function(page) {
             id = $('#cooking_id').val();
             axios.get('/site/comment/' + id + '?page=' + page).then((response) => {
-                console.log(response)
                 this.$set(this, 'comments', response.data.comments.data);
                 this.current_user_id = response.data.user_id;
                 this.newComment.comment_table_id = response.data.comments.data[0].comment_table_id;
                 this.pagination = response.data.pagination;
-                console.log(this.comments)
             })
         },
 
-        submitComment: function (page) {
+        submitComment: function(page) {
             var input = this.newComment;
             input.user_id = this.current_user_id;
             axios.post('/site/comment' + '?page=' + page, input).then((response) => {
-                console.log(response)
                 this.comments = response.data.data;
                 this.newComment.content = '';
                 $('#submit_content').val('');
             })
         },
 
-        clickReply: function (id) {
+        clickReply: function(id) {
             $('#' + id).show();
         },
 
-        closeReply: function (id) {
+        closeReply: function(id) {
             $('#' + id).hide();
         },
 
-        submitReply: function (parent_id) {
+        submitReply: function(parent_id) {
             this.newComment.content = $('#' + parent_id + ' form div input').val();
             this.newComment.parent_id = parent_id;
             this.newComment.user_id = this.current_user_id;
@@ -209,18 +219,16 @@ var wishlish = new Vue({
             })
         },
 
-        editComment: function (id) {
+        editComment: function(id) {
             $('div[editId$=' + id + ']').show();
-            console.log($('div[editId$=' + id + ']' + ' form div input').val());
         },
 
-        updateComment: function (id, parent_id) {
+        updateComment: function(id, parent_id) {
             this.newComment.content = $('div[editId$=' + id + ']' + ' form div input').val();
             this.newComment.id = id;
             this.newComment.parent_id = parent_id;
             this.newComment.user_id = this.current_user_id;
             axios.put('/site/comment', this.newComment).then((response) => {
-                console.log('ok', response)
                 this.comments = response.data.data;
                 this.showComments(this.pagination.current_page);
                 this.newComment.content = '';
@@ -229,26 +237,26 @@ var wishlish = new Vue({
             })
         },
 
-        confirmDeleteComment: function (id) {
+        confirmDeleteComment: function(id) {
             if (confirm('Bạn có muốn xóa không?')) {
                 this.deleteComment(id);
             }
         },
 
-        deleteComment: function (id) {
+        deleteComment: function(id) {
             axios.delete('/site/comment/' + id).then((response) => {
                 // this.comments = response.data.data;
                 this.showComments(this.pagination.current_page);
             })
         },
 
-        changePage: function (page) {
+        changePage: function(page) {
             this.pagination.current_page = page;
             this.showComments(page);
         },
 
         //rate method
-        showRate: function () {
+        showRate: function() {
             id = $('#cooking_id').val();
             axios.get('/site/rate/' + id).then((response) => {
                 this.point = response.data.rate_point;
@@ -256,25 +264,29 @@ var wishlish = new Vue({
         },
 
         //wishlist method
-        initData: function(status)
-        {
+        initData: function(status) {
             this.wishlishstatus = status;
         },
-        wishlist: function(id)
-        {
+        wishlist: function(id) {
             axios.put('/site/wislish/' + id).then((response) => {
                 if (response.data.status == 'error') {
                     this.wishlishstatus = response.data.wishlishstatus;
-                    toastr.warning(response.data.message, response.data.action, {timeOut: 5000});
+                    toastr.warning(response.data.message, response.data.action, {
+                        timeOut: 5000
+                    });
                 } else {
                     this.wishlishstatus = response.data.wishlishstatus;
-                    toastr.success(response.data.message, '', {timeOut: 5000});
+                    toastr.success(response.data.message, '', {
+                        timeOut: 5000
+                    });
                 }
             });
         },
 
         addToCart: function(id) {
-            var cooking = {'cooking': id};
+            var cooking = {
+                'cooking': id
+            };
             axios.post('/cart', cooking).then((response) => {
                 var cart = Object.keys(response.data)
                 if (cart.indexOf(id.toString()) == -1) {
@@ -282,11 +294,11 @@ var wishlish = new Vue({
                 } else {
                     this.inCart = 1;
                 }
-
-                console.log(this.inCart)
-                var count =  cart.length;
+                var count = cart.length;
                 $('#cart_number').text('(' + count + ')')
-                toastr.success('Thêm giỏ hàng thành công!', {timeOut: 5000});
+                toastr.success('Thêm giỏ hàng thành công!', {
+                    timeOut: 5000
+                });
             });
         },
         removeToCart: function(id) {
@@ -297,10 +309,11 @@ var wishlish = new Vue({
                 } else {
                     this.inCart = 1;
                 }
-                console.log(this.inCart)
-                var count =  cart.length;
+                var count = cart.length;
                 $('#cart_number').text('(' + count + ')')
-                toastr.warning('Bạn đã xóa món ăn khỏi giỏ hàng!', 'Chú Ý', {timeOut: 5000});
+                toastr.warning('Bạn đã xóa món ăn khỏi giỏ hàng!', 'Chú Ý', {
+                    timeOut: 5000
+                });
             });
         },
 
@@ -312,8 +325,7 @@ var wishlish = new Vue({
                 } else {
                     this.inCart = 1;
                 }
-                console.log(this.inCart)
-                var count =  cart.length;
+                var count = cart.length;
                 $('#cart_number').text('(' + count + ')')
             });
         }

@@ -15,5 +15,6 @@ class Rate extends Model
         'point',
         'rate_table_id',
         'rate_table_type',
+        'content'
     ];
 }

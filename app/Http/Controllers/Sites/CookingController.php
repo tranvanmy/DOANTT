@@ -256,8 +256,7 @@ class CookingController extends Controller
 
     public function submitRate($id, Request $request)
     {
-
-        $rate = $this->rates->createRateByUser($id, $request[0]);
+        $rate = $this->rates->createRateByUser($id, $request->all());
         $cooking = $this->cooking->getCooking($id);
 
         $ratesCooking = $this->rates->getReceiptId($id)->get();
@@ -270,7 +269,9 @@ class CookingController extends Controller
         $cooking->rate_point = (float)$s / count($ratesCooking);
         $cooking->save();
 
-        return response($request->all());
+        $cooking = $this->cooking->find($id, ['rates']);
+
+        return response($cooking);
     }
 
 
