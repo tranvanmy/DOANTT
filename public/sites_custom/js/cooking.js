@@ -118,6 +118,11 @@ var wishlish = new Vue({
             window.print();
         },
 
+        openRate: function ()
+        {
+            $('#modalRate').modal('show');
+        },
+
         setRating: function ()
         {
             console.log(this.cooking.id);

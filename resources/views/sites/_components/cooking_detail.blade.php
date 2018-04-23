@@ -45,6 +45,18 @@
                                        Review
                                     </a>
                                  </dd>
+                                 <dt>Rate</dt>
+                                 <dd itemprop="datePublished" class="post-date updated">
+                                    @if(Auth::check())
+                                    <a  href="javascript:void(0);" v-on:click="openRate">
+                                       Đánh Gía
+                                    </a>
+                                    @else
+                                    <a   href="{{ route('login') }}">
+                                        Bạn cần đăng nhập để thực hiển chức năng này!
+                                    </a>
+                                    @endif
+                                 </dd>
                               </dl>
                            </div>
                         </header>
@@ -173,6 +185,38 @@
                                   <div v-else class="text-center">
                                   <h4 class="text-danger">KHÔNG CÓ VIDEO REVIEW</h4>
                                  </div>
+                             </div>
+                             <div class="modal-footer ">
+                                 <a href="javascript:void(0)" class="btn btn-success" data-dismiss="modal">
+                                     <span class="glyphicon glyphicon-ok-sign"></span> OK
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+               </div>
+
+               <div class="modal fade" id="modalRate" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
+                     <div class="modal-dialog">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                                 </button>
+                                 <h4 class="modal-title custom_align" id="Heading">{{ trans('sites.rating') }}:</h4>
+                             </div>
+                             <div class="modal-body clearfix">
+                              <div id="rating" class="rating">
+                                 <div> 
+                                    <star-rating v-model="rating" @rating-selected ="setRating"></star-rating>
+                                    <br>
+                                    <textarea></textarea>
+                                 </div>
+                                 <br>
+                              Danh sách đánh gía
+                              <div>
+                                 <star-rating v-bind:star-size="40"></star-rating>
+                                 Bài Viết này hay quá!
+                              </div>
+                              </div>
                              </div>
                              <div class="modal-footer ">
                                  <a href="javascript:void(0)" class="btn btn-success" data-dismiss="modal">
