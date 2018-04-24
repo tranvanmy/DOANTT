@@ -40,6 +40,10 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
 
     Route::delete('comment/{id}', 'Sites\CookingController@deleteComment');
     Route::get('rate/{id}', 'Sites\CookingController@showRate');
+
+    Route::get('show/rate/{id}', 'Sites\CookingController@showNewRate');
+
+
     Route::resource('blog', 'BlogController');
     Route::get('showDetail/{id}', 'BlogController@showDetail');
     Route::resource('cooking', 'Sites\CookingController');

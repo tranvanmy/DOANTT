@@ -12,7 +12,9 @@ body {
     padding: 16px 20px;
     font-weight: 700;
 }
-
+.vue-star-rating-rating-text {
+    display: none !important;
+}
 .favourite a {
     display: table;
     color: #fff !important;

@@ -19,7 +19,7 @@ class RateEloquentRepository extends AbstractEloquentRepository implements RateR
 
     public function getReceiptId($id)
     {
-        return $this->model->where('rate_table_id', $id);
+        return $this->model->with(['user'])->where('rate_table_id', $id)->orderBy('id', 'desc');
     }
 
     public function getRates($id, $type)
@@ -34,18 +34,19 @@ class RateEloquentRepository extends AbstractEloquentRepository implements RateR
     public function createRateByUser($idCooking, $pointCooking)
     {
         $rate = $this->model->where('rate_table_id', $idCooking)->where('user_id', Auth::id())->first();
-        // dd($rate->id);
 
         if (!isset($rate->id)) {
             $this->model->create([
-                'point' => $pointCooking,
+                'point' => $pointCooking['point'],
                 'user_id' => Auth::id(),
+                'content' => $pointCooking['content'],
                 'rate_table_id' => $idCooking,
                 'rate_table_type' => 'cookings'
             ]);
 
         } else {
-            $rate->point = $pointCooking;
+            $rate->point = $pointCooking['point'];
+            $rate->content = $pointCooking['content'];
             $rate->save();
         }
     }
