@@ -12,7 +12,9 @@ class Rate extends Model
     protected $fillable = [
         'id',
         'user_id',
+        'point',
         'rate_table_id',
         'rate_table_type',
+        'content'
     ];
 }

@@ -11,6 +11,7 @@ use App\Contracts\Repositories\RateRepository;
 use App\Contracts\Repositories\WishlishRepository;
 use App\Http\Controllers\Sites\Comment;
 use Auth;
+use Response;
 
 class CookingController extends Controller
 {
@@ -252,6 +253,39 @@ class CookingController extends Controller
 
         return 0;
     }
+
+
+    public function showNewRate($id)
+    {
+        $ratesCooking = $this->rates->getReceiptId($id)->get();
+
+        $response['ratesCooking'] = $ratesCooking;
+        $response['CountratesCooking'] = count($ratesCooking);
+        
+        return Response::json($response) ;
+    }
+
+    public function submitRate($id, Request $request)
+    {
+        $rate = $this->rates->createRateByUser($id, $request->all());
+        $cooking = $this->cooking->getCooking($id);
+
+        $ratesCooking = $this->rates->getReceiptId($id)->get();
+
+        $s = 0;
+        for ($i = 0; $i < count($ratesCooking); $i++) {
+            $s += $ratesCooking[$i]->point;
+        }
+
+        $cooking->rate_point = (float)$s / count($ratesCooking);
+        $cooking->save();
+
+        $response['ratesCooking'] = $ratesCooking;
+        $response['CountratesCooking'] = count($ratesCooking);
+        
+        return Response::json($response) ;
+    }
+
 
     public function showRate($id, Request $request)
     {
