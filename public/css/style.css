@@ -261,7 +261,7 @@ h2.large        {background-position:0 0;width:572px;height:58px;position:static
 .entry h2 a:hover {color:#F4716A;}
 
 .entries h2                 {font-size:17px;font-weight:600;padding:0 0 17px;color:#454545;}
-.entry figure                   {position:relative;overflow:hidden; height: 220px;}
+.entry figure                   {position:relative;overflow:hidden;height: 150px;}
 .entry figcaption               {opacity:0;position:absolute;top:0;left:0;z-index:10;text-align:center;background:rgba(255, 142, 136, 0.85);width:100%;height:100%;-webkit-transition:all 0.2s ease-in;-moz-transition:all 0.4s ease-in;-o-transition:all 0.4s ease-in;-ms-transition:all 0.4s ease-in;transition:all 0.4s ease-in;}
 .entry figcaption a             {float:left;width:100%;height:100%;color:#fff;font-size:17px;font-weight:600;-webkit-transition:all 0.2s ease-in;-moz-transition:all 0.4s ease-in;-o-transition:all 0.4s ease-in;-ms-transition:all 0.4s ease-in;transition:all 0.4s ease-in;}
 .entry figcaption .ico          {display:inline-block;margin:29% 0 3px;}
@@ -278,7 +278,7 @@ blockquote:before           {content:"";background:url(../images/ico/icons.png) 
 .featured.two-third .more       {padding:10px 0 0 20px !important;}
 .featured.one-third .button     {width:100%;margin:0 0 17px;}
 
-.actions .difficulty            {border-right:0;width:47%;}
+.actions .difficulty            {border-right:0;}
 .actions .difficulty .ico   {margin-bottom:-1px;}
 
 .main .quicklinks   {float:left;display:block;width:100%;text-align:center;padding:0 0 30px;}

@@ -1,4 +1,4 @@
-<footer class="foot" role="contentinfo">
+<footer class="foot" role="contentinfo" style="margin-top: 50px;">
     <div class="wrap clearfix">
         <div class="row">
             <article class="one-half">

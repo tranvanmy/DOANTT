@@ -148,14 +148,19 @@ var followView = new Vue({
             })
         },
         updateItem: function(id){
+            // debugger;
             var input = this.fillItem;
             input.avatar = this.imageData;
             axios.put('/site/profile/user/'+ id, input).then((response) => {
+                
                 $("#edititem").modal('hide');
                 if (response.data.status == 'error') {
                     toastr.error(response.data.message, response.data.action, {timeOut: 5000});
                 } else {
-                    toastr.success('', response.data.action, {timeOut: 5000});
+                    toastr.success('', response.data.action, {timeOut: 1000});
+
+                    setTimeout(function(){ window.location.reload(); }, 1000);
+                
                 }
             }).catch((error) => {
                 if (error.response.status == 422) {
@@ -163,6 +168,12 @@ var followView = new Vue({
                 }
             });
         },
+
+        alertEdit: function ()
+        {
+             toastr.warning('Công thức này đang trong quá trình chỉnh sửa!', 'Thông Báo!', {timeOut: 5000});
+        },
+
         initFilemanager: function() {
             this.$nextTick(function() {
                 $('#edit-image').filemanager('image');
