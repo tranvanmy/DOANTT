@@ -78,6 +78,7 @@ Route::post('postLogin', ['as' => 'postLogin', 'uses' => 'SocialiteController@po
 Route::group(['middleware' => 'auth'], function()
 {
     Route::resource('cooking', 'Sites\SubmitCookingController');
+    Route::get('show/cooking/{id}', 'Sites\SubmitCookingController@showEdit')->name('editcooking');
 });
 
 Route::get('/search/cooking', 'Sites\SubmitCookingController@search');

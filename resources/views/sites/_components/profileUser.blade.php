@@ -136,7 +136,7 @@
                                         <div class="image-preview" v-if="imageData.length > 0">
                                             <img class="preview" :src="imageData">
                                         </div>
-                                        <span v-if="formPostErrors['image']" class="error text-danger">@{{ formPostErrors['image    '][0] }}</span>
+                                        <span v-if="formPostErrors['image']" class="error text-danger">@{{ formPostErrors['image'][0] }}</span>
                                     </div>
                                         <br/>
                                     <div class="form-group col-md-12" >
@@ -229,7 +229,7 @@
                             </dl>
                         </div>
                     @if(Auth::check())
-                         @if((Auth::user()->id) == $allData['id']))
+                        @if((Auth::user()->id) == $allData['id']))
                         <div class="col-md-4">
                             <div class="panel panel-info">
                                 <div class="panel-heading text-center"> {{ trans('sites.addPost') }}</div>
@@ -267,11 +267,10 @@
                                             </figcaption>
                                     </figure>
                                     <div class="container">
-                                        <h2>{{ $cooking->name }}</h2>
+                                        <h2 class="ellipis">{{ $cooking->name }}</h2>
                                         <div class="actions">
                                             <div>
                                                 <div class="difficulty">
-                                                    <i class="ico i-hard"></i>
                                                     {{ $cooking->level->name }}
                                                 </div>
                                                 <div class="time">
@@ -287,7 +286,9 @@
                                             @if(Auth::user()->id == $allData['id'])
                                                 @if( $cooking->status == 0 )
                                                 <div class="rate">
+                                                <a href="{{ route('editcooking', $cooking->id ) }}">
                                                     <span class="label label-danger">{{ trans('admin.recipe_pending') }}</span>
+                                                </a>
                                                 </div>
                                                 @elseif($cooking->status == 1)
                                                 <div class="rate">
@@ -297,7 +298,7 @@
                                                 </div>
                                                 @elseif($cooking->status == 2)
                                                     <div class="rate">
-                                                     <a href="{{asset('cooking')}}">
+                                                     <a href="{{asset('/cooking')}}">
                                                         <span class="label label-warning">{{ trans('admin.recipe_editing') }}</span>
                                                     </a>
                                                     </div>
@@ -328,7 +329,7 @@
                                 <div class="entry one-third">
                                     <figure style="height: 150px;">
                                         <img src="{{ $post->image }}"/>
-                                        <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
+                                        <figcaption><a href="{{ route('site.blog.show', [$post->id] ) }}"><i class="ico i-view"></i> <span>Xem bài viết</span></a></figcaption>
                                     </figure>
                                     <div class="container">
                                         <h2 class="ellipis"><a href="{{ route('site.blog.show', [$post->id] ) }}">{{ $post->title }}</a></h2>
@@ -338,7 +339,7 @@
                                                     <i class="ico i-date"></i>{{ $post->created_at }}</a>
                                                 </div>
                                                     @if(Auth::check())
-                                                        @if((Auth::user()->id) == $allData['id']))
+                                                        @if(Auth::user()->id == $allData['id'])
                                                             @if ($post->status == 1)
                                                                 <div class="prouser">
                                                                     <i class="fa fa-location-arrow" aria-hidden="true"></i>
@@ -386,7 +387,7 @@
                                         <figure>
                                             <img src="{{ ($follow->userFollow->avatar) }}" alt=""  height="250px" width="300px"/>
                                             <figcaption>
-                                                <a href="{{ ($follow->userFollow->id) }}"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a>
+                                                <a href="{{ ($follow->userFollow->id) }}"><i class="ico i-view"></i> <span>Xem thông tin</span></a>
                                             </figcaption>
                                         </figure>
                                         <div class="container">

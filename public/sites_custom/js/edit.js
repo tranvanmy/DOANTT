@@ -1,41 +1,17 @@
-// import Vue from 'vue'
+if (typeof window.data === 'string') {
+  window.data = JSON.parse(window.data);
+}
 
 var app1 = new Vue({
     el: '#cooking',
-    data: {
-        cooking: { 'name': '', 'image': '', 'time': '', 'price': 0, 'video_link': '', 'ration': '', 'level_id': '', 'description': '', 'id': '','cooking_ingredients': [], 'steps': []},
-        cookingError: '',
-        cookingStatus: true,
-        units: '',
-        searchData: '',
-        ingredients: '',
-        cookingIngredient: {'id': '', 'ingredient_id': '', 'ingredientName': '', 'cooking_id': '', 'unit_id': '', 'quantity': '', 'description': ''},
-        cookingIngredients: '',
-        cookingIngredientError: '',
-        statusResult: false,
-        curentStep: 1,
-        cookingStep: {'id': '', 'image': '', 'cooking_id': '', 'step': 1, 'content': '', 'status': '0'},
-        cookingStepError: '',
-        stepIndex: null,
-        ingredientIndex: null,
-        status: false,
-        categories: null,
-        selectCategory: [],
-        image: '',
-        notification: '',
-        price: 0,
-        money: '',
-        formatVND: ''
-    },
+    data:  window.data,
     mounted : function(){
         this.getCooking();
-        console.log();
         $('.step').hide();
         $('#checkout-first').show();
     },
     methods: {
         submit: function() {
-                // $('#submit').modal('hide');
                 if (this.cookingError) {
                     toastr.warning(this.notification['cooking_not_empty'],  {timeOut: 5000});
                 } else
@@ -181,7 +157,7 @@ var app1 = new Vue({
         },
 
         getCooking: function() {
-            axios.get('/cooking').then((response) => {
+            axios.get('/show/cooking/' + this.id).then((response) => {
                 if (response.data.cooking) {
                     this.cooking = response.data.cooking;
                     console.log(this.cooking);
@@ -192,6 +168,7 @@ var app1 = new Vue({
                         this.cookingStep.step = 1;
                     }
                 }
+            	console.log( this.cooking.name);
                 this.notification = response.data.notification;
             })
         },

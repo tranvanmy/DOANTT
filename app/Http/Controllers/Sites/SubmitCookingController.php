@@ -44,7 +44,51 @@ class SubmitCookingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $cooking = $this->cooking->getCookingCreating(Auth::user()->id);
+            if(empty($request->all())) {
+                $cooking = $this->cooking->getCookingCreating(Auth::user()->id);
+            } else {
+                $cooking = $this->cooking->find($request['0'], [
+                    'categories',
+                    'cookingIngredients',
+                    'steps'
+                ]);
+            }
+
+            $notification['cooking_not_empty'] = trans('sites.cooking_not_empty');
+            $notification['categories_not_empty'] = trans('sites.categories_not_empty');
+            $notification['steps_not_empty'] = trans('site.steps_not_empty');
+            $notification['ingredients_not_empty'] = trans('sites.ingredient_not_empty');
+            $notification['cooking_success'] = trans('sites.cooking_success');
+
+            $response['cooking'] = $cooking;
+            $response['units'] = $this->unit->all();
+            $response['notification'] = $notification;
+
+            return $response;
+        }
+
+        
+        return view('sites._components.add');
+    }
+
+    public function showEdit(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            // $cooking = $this->cooking->find($id, [
+            //     'categories',
+            //     'cookingIngredients',
+            //     'steps'
+            // ]);
+            $cooking = $this->cooking->find($id, [
+            'user',
+            'categories',
+            'level',
+            'rates',
+            'comments',
+            'cookingIngredients.ingredient',
+            'cookingIngredients.unit',
+            'steps'
+        ]);
 
             $notification['cooking_not_empty'] = trans('sites.cooking_not_empty');
             $notification['categories_not_empty'] = trans('sites.categories_not_empty');
@@ -60,7 +104,9 @@ class SubmitCookingController extends Controller
         }
 
 
-        return view('sites._components.add');
+        return view('sites._components.editCooking', [
+            'id' => $id
+        ]);
     }
 
     public function store(CokingRequest $request)

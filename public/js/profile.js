@@ -147,6 +147,20 @@ var followView = new Vue({
                 this.formPostErrors = e.response.data;
             })
         },
+
+        editCooking: function (id) {
+             var authOptions = {
+                method: 'get',
+                url: '/cooking',
+                params: id,
+                json: true
+            }
+            axios(authOptions).then(response => {
+                // location.reload();
+            }).catch(function (error) {
+            });
+        },
+
         updateItem: function(id){
             // debugger;
             var input = this.fillItem;
