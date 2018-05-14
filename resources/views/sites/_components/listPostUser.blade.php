@@ -20,7 +20,7 @@
                                 <div class="col-md-3 text-center">
                                    <img v-bind:src="item.image" alt="" class="left  wow bounce" data-wow-delay=".4s" data-wow-duration="1s">
                                </div>
-                               <div class="col-md-3 cod-md-offset-2">
+                               <div class="col-md-9 cod-md-offset-2">
                                    <h2><a v-bind:href="'/site/blog/' + item.id">@{{ item.title }}</a></h2>
                                    <p>@{{ item.description }}</p>
                                </div>

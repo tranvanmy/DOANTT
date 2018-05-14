@@ -67,6 +67,7 @@
 								<div class="col-sm-6">
 									<h4 class="page-header">Hình ảnh cho món ăn</h4>
 									<div class="form-group">
+									@{{cooking.image }}
 										<img v-bind:src="cooking.image" alt="">
 										<input type="file" v-on:change="uploadImage" id="image">
 									</div>
@@ -77,6 +78,8 @@
 							</div>
 						</div>
 						<!-- END First Step -->
+
+						
 						<div id="checkout-second" class="step">
 							<!-- Step Info -->
 							<ul class="nav nav-pills nav-justified checkout-steps push-bit">
@@ -138,6 +141,9 @@
 								</div>
 							</div>
 						</div>
+
+
+
 						<!-- Second Step -->
 
 						<!-- END Second Step -->
@@ -241,7 +247,7 @@
 									</div>
 									<div v-if="price == 1">
 									<hr>
-									{{-- <label for="name">Gía Tiền (VND)</label> --}}
+									{{-- <label for="name">Gía Tiền (VND)</label>
 									<div class="clearfix"></div>
 										<div class="col-md-12">
 											<div class="col-md-6" style="margin-left: -5%;">
@@ -320,10 +326,11 @@
 		</section>
 	</div>
 	<!--//wrap-->
-</main>
+</main> --}}
 @include('sites._sections.footer')
+@include('../data.editCooking')
 @endsection
 @section('script')
-	<script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js."></script>
-	{{ Html::script('sites_custom/js/add.js') }}
+	{{ Html::script('sites_custom/js/edit.js') }}
+	{{-- {{ Html::script('sites_custom/js/add.js') }} --}}
 @endsection

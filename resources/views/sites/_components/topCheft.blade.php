@@ -11,7 +11,15 @@
         </nav>
         <div class="row">
             <header class="s-title wow fadeInLeft">
-                <h1>{{ trans('sites.topChef') }}</h1>
+                <h1>{{ trans('sites.topChef') }}
+                <div>
+                    <a href="#" class="button gold">Top đầu bếp <i aria-hidden="true" class="fa fa-times"></i></a>
+
+                    <a href="#" class="button gold">Đầu bếp mới nhất <i aria-hidden="true" class="fa fa-times"></i></a>
+
+                     <a href="#" class="button gold">Đầu bếp đưọc nhiều người theo dõi <i aria-hidden="true" class="fa fa-times"></i></a>
+                </div>
+                </h1>
             </header> 
             <section class="content three-fourth wow fadeInUp">
                 <div class="entries row">
@@ -24,12 +32,7 @@
                             </figure>
                             <div class="container">
                                 <h2><a v-bind:href="'/site/profile/user/'+ item.id">@{{ item.name }}</a></h2> 
-                                {{--  <div class="actions">
->>>>>>> 96ca8488b6b2bb3fddd30cf450384f22c02fbefb
-                                    <div>
-                                          <a v-bind:href="'/site/profile/user/'+ item.id"> @{{ item.email }}</a>
-                                    </div>
-                                </div>  --}}
+
                             </div>
                         </div>                      
                     </div>

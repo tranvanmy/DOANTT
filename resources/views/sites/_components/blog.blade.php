@@ -13,7 +13,7 @@
                     </a>
                 </li>
                 <li>
-                    {{ trans('sites.blog') }}
+                    zxvxv{{ trans('sites.blog') }}
                 </li>
             </ul>
         </nav>

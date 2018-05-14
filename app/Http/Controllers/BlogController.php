@@ -24,7 +24,7 @@ class BlogController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $listPost = $this->post->paginagePost('10', ['user']);
+            $listPost = $this->post->paginagePost('9', ['user']);
             $response = [
                     'pagination' => [
                     'total'        => $listPost->total(),
@@ -73,12 +73,12 @@ class BlogController extends Controller
         if ($request->ajax()) {
             if (Auth::check()) {
                 if ($id == (Auth::user()->id)) {
-                    $allData = $this->post->takeListPost($id, '10');
+                    $allData = $this->post->takeListPost($id, '9');
                 } else {
-                    $allData = $this->post->takeListPostStatus($id, '10');
+                    $allData = $this->post->takeListPostStatus($id, '9');
                 }
             } else {
-                $allData = $this->post->takeListPostStatus($id, '10');
+                $allData = $this->post->takeListPostStatus($id, '9');
             }
             $response = [
                 'pagination' => [

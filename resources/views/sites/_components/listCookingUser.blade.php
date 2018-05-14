@@ -23,7 +23,7 @@
                                 <figcaption><a v-bind:href="'/site/cooking/'+ item.id"><i class="ico i-view"></i> <span>{{ trans('sites.view') }}</span></a></figcaption>
                             </figure>
                             <div class="container">
-                                <h2><a v-bind:href="'/site/cooking/'+ item.id">@{{ item.name }}</a></h2> 
+                                <h2 class="ellipis"><a v-bind:href="'/site/cooking/'+ item.id">@{{ item.name }}</a></h2> 
                                 <div class="actions">
                                     <div>
                                         <div class="difficulty">
