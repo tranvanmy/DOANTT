@@ -36,7 +36,6 @@ class SearchController extends Controller
 
     public function searchIngredient(Request $request)
     {
-        // return $request->name;
         return $this->ingredient->getByName($request->name);
     }
 }
