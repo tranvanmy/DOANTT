@@ -7,6 +7,7 @@ var app1 = new Vue({
         ingredientArr: [],
         ingredientName: '',
         selectIngredients: [],
+        error: ''
     },
     mounted : function() {
         //
@@ -15,6 +16,12 @@ var app1 = new Vue({
         searchName: function() {
             axios.get('search/name?name=' + this.name).then((response) => {
                 this.cookings = response.data;
+                console.log(this.cookings);
+                if(this.cookings.length == 0) {
+                    this.error = "Không Tìm Thấy Kết Quả";
+                } else {
+                    this.error = '';
+                }
             })
         },
 

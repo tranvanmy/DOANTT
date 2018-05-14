@@ -9,7 +9,7 @@
         <nav class="breadcrumbs">
             <ul>
                 <li><a href="index.html" title="Home">Home</a></li>
-                <li>Search for Recipes</li>
+                <li>Tìm Kiếm Công Thức</li>
             </ul>
         </nav>
         <!--//breadcrumbs-->
@@ -24,18 +24,15 @@
                         <h3>{{ trans('sites.search_by_name') }}</h3>
                         <div class="row">
                             <div class="search" id="search">
-                                <form action="" v-on:submit.prevent="searchName">
-                                    <input type="search" placeholder="Find recipe by name" v-model="name">
-                                    <input type="submit" value="Search">
-                                </form>
-
+                                <input type="search" placeholder="Find recipe by name" v-on:keyup="searchName" v-model="name">
+                                <input type="submit" value="Search">
                             </div>
                         </div>
                     </div>
                     <div class="right">
                         <div class="ingredients">
                             <h3>{{ trans('sites.search_by_ingredient') }}</h3>
-                            <a v-for="(selectIngredient, index) in selectIngredients" v-on:click.prevent="deleteIngredient(selectIngredient, index)" href="#" class="button gold">@{{ selectIngredient.name }} <i class="fa fa-times" aria-hidden="true"></i></a>
+                            <a v-for="(selectIngredient, index) in selectIngredients" v-on:click.prevent="deleteIngredient(selectIngredient, index)" href="#"  style="position: absolute;" class="button gold">@{{ selectIngredient.name }} <i class="fa fa-times" aria-hidden="true"></i></a>
                         </div>
                         <div class="f-row">
                             <input v-on:keyup="searchIngredient" type="text" placeholder="Add ingredients (one at a time)" v-model="ingredientName">
@@ -43,12 +40,13 @@
                                 <li v-for="ingredient in ingredients" v-on:click="addIngredient(ingredient)">@{{ ingredient.name }}</li>
                             </ul>
                         </div>
-
-
+                    </div>
+                    <div v-if="error != ''">
+                        <div class="alert alert-warning text-center"><span>@{{ error }}</span></div>
+                        
                     </div>
                 </div>
                 <!--//recipefinder-->
-
                 <!--results-->
                 <div class="entries row">
                     <!--item-->
@@ -58,14 +56,20 @@
                             <figcaption><a :href="'/site/cooking/' + cooking.id"><i class="icon icon-themeenergy_eye2"></i> <span>View recipe</span></a></figcaption>
                         </figure>
                         <div class="container">
-                            <h2><a v-bind:href="'/site/cooking/'+ cooking.id">@{{ cooking.name }}</a></h2>
+                            <h2 class="ellipis"><a v-bind:href="'/site/cooking/'+ cooking.id">@{{ cooking.name }}</a></h2>
                             <div class="actions">
                                 <div>
-                                    <div class="likes">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i> @{{ cooking.time }}
+                                    <div class="">
+                                     @{{ cooking.level.name }}
                                     </div>
-                                    <div class="comments">
-                                        <i class="fa fa-star-half-o" aria-hidden="true"></i> @{{ cooking.rate_point}}
+                                    <div class="">
+                                    Thoi Gian: @{{ cooking.time }}h
+                                    </div>
+                                    <div class="comments" v-if="cooking.rate_point == null">
+                                    0 <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="comments" v-else>
+                                    @{{ cooking.rate_point}} <i class="fa fa-star-half-o" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>

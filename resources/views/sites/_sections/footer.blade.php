@@ -2,12 +2,12 @@
     <div class="wrap clearfix">
         <div class="row">
             <article class="one-half">
-                <h5>{{ trans('sites.welcome') }}</h5>
+                <h5>Chào mừng bạn đến với UTTCOOK</h5>
             </article>
             <article class="one-fourth">
                 <h5>{{ trans('sites.needHelp') }}</h5>
                 <p>{{ trans('sites.contactUs') }}</p>
-                <p><em>T:</em>  +1 555 555 555<br /><em>E:</em>  <a href="#">{{ trans('sites.mail') }}</a></p>
+                <p><em>T:</em> 0964 395 169<br /><em>E:</em>  <a href="#">{{ trans('sites.mail') }}</a></p>
             </article>
             <div id="subcrice">
                 <article class="one-fourth">
@@ -25,7 +25,6 @@
                 </article>
             </div>
             <div class="bottom">
-                <p class="copy">{{ trans('sites.copyRight') }}</p>
                 <nav class="foot-nav">
                     <ul>
                         <li><a href="" title="{{ trans('sites.home')}}">{{ trans('sites.home')}}</a></li>
