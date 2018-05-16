@@ -207,7 +207,7 @@
                         </div>
                         <ul class="navigation">
                             <li>
-                                <a href="">
+                                <a href="{{ route('admin.report') }}">
                                     <i class="menu-icon ti-desktop"></i>
                                     <span class="mm-text ">{{ trans('admin.dashboard') }}</span>
                                 </a>
@@ -250,13 +250,13 @@
                             </li>
                             <li>
                                 <a href="{{ route('admin.unit.index') }}">
-                                    <i class="menu-icon ti-layout-placeholder"></i>
+                                        <i class="fas fa-university"></i>  
                                     <span>Đơn Vị</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('admin.subcrice.index') }}">
-                                    <i class="menu-icon ti-layout-placeholder"></i>
+                                        <i class="fas fa-heart"></i>
                                     <span>{{ trans('admin.subscribe') }}</span>
                                 </a>
                             </li>
@@ -281,10 +281,11 @@
             </aside>-->
         </div>
         <div id="qn"></div>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         {{ Html::script('bower/jquery/dist/jquery.min.js') }}
         {{ Html::script('sites_custom/js/app.js') }}
         {{ Html::script('sites_custom/js/jquery.flot.spline.js') }}
-        {{ Html::script('sites_custom/js/jquery.flot.tooltip.js') }}
+        {{--  {{ Html::script('sites_custom/js/jquery.flot.tooltip.js') }}  --}}
         {{ Html::script('sites_custom/js/newsTicker.js') }}
         {{ Html::script('bower/Flot/jquery.flot.js') }}
         {{ Html::script('bower/Flot/jquery.flot.resize.js') }}
@@ -292,7 +293,7 @@
         {{ Html::script('bower/swiper/dist/js/swiper.min.js') }}
         {{ Html::script('bower/chart.js/dist/Chart.js') }}
         {{ Html::script('bower/moment/min/moment.min.js') }}
-        {{ Html::script('sites_custom/js/dashboard1.js') }}
+        {{--  {{ Html::script('sites_custom/js/dashboard1.js') }}  --}}
         {{ Html::script('bower/vue/dist/vue.min.js') }}
         {{ Html::script('bower/axios/dist/axios.min.js') }}
         {{ Html::script('bower/toastr/toastr.min.js') }}

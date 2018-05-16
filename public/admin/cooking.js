@@ -14,6 +14,7 @@ new Vue({
             last_page: 0
         },
         offset: 4,
+        search: 1,
         show: [],
         fillItem: [], 
         formErrors: {},
@@ -52,7 +53,6 @@ new Vue({
     methods: {
         getCookings: function(page){
             axios.get('/admin/cooking?page=' + page).then((response) => {
-                console.log(response)
                 this.$set(this, 'cookings', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             });
@@ -67,6 +67,12 @@ new Vue({
         editCooking: function(cooking){
             this.fillItem = cooking;
             $("#edit-item").modal('show');
+        },
+
+        searchChange: function ()
+        {
+            debugger;
+            console.log(1);
         },
 
         updateItem: function(id){
