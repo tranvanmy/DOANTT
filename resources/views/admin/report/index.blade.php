@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="flip">
-                    <div class="widget-bg-color-icon card-box front">
+                    <div class="widget-bg-color-icon card-box front" style="background-color: #00c0ef !important; box-shadow: 10px 9px 4px -5px #888888;">
                         <div class="bg-icon pull-left">
                             <i class="ti-eye text-warning"></i>
                         </div>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-3">
                 <div class="flip">
-                    <div class="widget-bg-color-icon card-box front">
+                    <div class="widget-bg-color-icon card-box front" style="background-color:  #00a65a !important; box-shadow: 10px 9px 4px -5px #888888;">
                         <div class="bg-icon pull-left">
                             <i class="ti-shopping-cart text-success"></i>
                         </div>
@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-3">
                 <div class="flip">
-                    <div class="widget-bg-color-icon card-box front">
+                    <div class="widget-bg-color-icon card-box front" style="    background-color: #f39c12 !important; box-shadow: 10px 9px 4px -5px #888888;">
                         <div class="bg-icon pull-left">
                             <i class="ti-slice text-info"></i>
                         </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-3">
                 <div class="flip">
-                    <div class="widget-bg-color-icon card-box front">
+                    <div class="widget-bg-color-icon card-box front" style="    background-color: #dd4b39 !important; box-shadow: 10px 9px 4px -5px #888888;">
                         <div class="bg-icon pull-left">
                             <i class="ti-user text-info"></i>
                         </div>

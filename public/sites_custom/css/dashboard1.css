@@ -15,6 +15,7 @@ body > .header .logo {
 @media screen and (min-width : 992px) {
     .left-side {
         top : 51px;
+        min-height: 818px;
     }
     /*Right side strech mode*/
     .right-side.strech {
@@ -137,12 +138,15 @@ body > .header .logo {
 }
 
 /*Dashboard chart*/
-
+.main-chart {
+    box-shadow: 5px 10px 8px 10px #888888;
+}
 .main-chart .panel-tabs {
     padding : 2px 0 0 10px;
 }
 .main-chart .panel-tabs .nav-tabs {
     border-bottom : 0;
+    margin-top: 20px;
 }
 .main-chart .panel-tabs .nav-tabs > li {
     font-size : 13px;

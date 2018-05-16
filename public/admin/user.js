@@ -15,6 +15,10 @@ new Vue({
         offset: 4,
         formErrors: {},
         formErrorsUpdate: {},
+        search: 0,
+        fillSearch: {'name': ''},
+        statusSearch: {'status': ''},
+        statusLevel: {'level': ''},
         newItem: {'name':'', 'email':'', 'password':'', 'phone':'', 'avatar':'', 'level_id': '1', 'status':'0', 'levels-name': '', 'confirm_pass': ''},
         fillItem: {'id':'', 'name': '', 'email': '', 'password':'', 'phone': '', 'avatar': '', 'level_id': '', 'status': ''},
         deleteItem: {'name':'','id':''}
@@ -46,12 +50,102 @@ new Vue({
     },
     mounted : function(){
         this.showInfor(this.pagination.current_page);
-        this.initFilemanager();
+        $('#paginationName').hide();
+        $('#paginationStatus').hide();
+        $('#paginationLevel').hide();
+        // this.initFilemanager();
     },
 
     methods: {
         showInfor: function(page) {
             axios.get('/admin/user?page='+ page).then(response => {
+                this.$set(this, 'items', response.data.data.data);
+                console.log(this.items);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
+        searchName: function (page)
+        {
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/nameUser?page=' + page,
+                params: this.fillSearch.name,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+                $('#paginationIndex').hide();
+                $('#paginationStatus').hide();
+        $('#paginationLevel').hide();
+
+                $('#paginationName').show();
+
+                this.$set(this, 'items', response.data.data.data);
+                console.log(this.items);
+                
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
+        changePageName: function (page) {
+            this.pagination.current_page = page;
+            this.searchName(page);
+        },
+
+
+        searchChange: function (page)
+        {
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/statusUser?page=' + page,
+                params: this.statusSearch.status,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+                $('#paginationIndex').hide();
+                $('#paginationName').hide();
+        $('#paginationLevel').hide();
+
+                $('#paginationStatus').show();
+
+                this.$set(this, 'items', response.data.data.data);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
+        changePageStatus: function (page) {
+            this.pagination.current_page = page;
+            this.searchChange(page);
+        },
+        changePageLevel: function (page) {
+            this.pagination.current_page = page;
+            this.searchLevelChange(page);
+        },
+
+        searchLevelChange: function (page)
+        {
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/levelUser?page=' + page,
+                params: this.statusLevel.level,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+
+                $('#paginationIndex').hide();
+                $('#paginationName').hide();
+                $('#paginationStatus').hide();
+                $('#paginationLevel').show();
+                
                 this.$set(this, 'items', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             })
@@ -120,6 +214,8 @@ new Vue({
             this.fillItem.phone = item.phone;
             this.fillItem.password = item.password;
             this.fillItem.id = item.id;
+            this.fillItem.level_id = item.level_id;
+            this.fillItem.status = item.status;
             $("#edit-item").modal('show');
         },
 

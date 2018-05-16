@@ -24,11 +24,22 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = $this->category->all();
-            $categories = Helpers::categoriesToArray($categories);
-            // $categories = json_encode($categories);
+            $categories = $this->category->paginate('5');
+            // $categories = Helpers::categoriesToArray($categories);
 
-            return response()->json($categories);
+             $response = [
+                'pagination' => [
+                    'total'        => $categories->total(),
+                    'per_page'     => $categories->perPage(),
+                    'current_page' => $categories->currentPage(),
+                    'last_page'    => $categories->lastPage(),
+                    'from'         => $categories->firstItem(),
+                    'to'           => $categories->lastItem()
+                ],
+                'data' => $categories
+            ];
+
+            return response()->json($response);
         }
 
         return view('admin.category.index');

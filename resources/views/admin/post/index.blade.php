@@ -45,10 +45,12 @@ Quản lý bài viết
                                             <tbody>                       
                                                 <tr role="row" v-for="item in items">
                                                     <td>@{{ item.id }}</td>
-                                                    <td><a data-toggle="modal" v-bind:href="'/site/blog/' + item.id" target="_blank">@{{ item.title }}</a></td>
+                                                    <td><a data-toggle="modal" v-bind:href="'/site/blog/' + item.id" target="_blank" > @{{ item.title }}</a>
+                                                  
+                                                    </td>
                                                     <td>
                                                     <a v-bind:href="'/site/profile/user/' + item.user.id" target="_blank">@{{ item.user.name }}</a></td>
-                                                    <td>@{{ item.description }}</td>
+                                                    <td >@{{ item.description }}</td>
                                                     <td>
                                                         <span v-if="item.status == 1" class="action_unit label label-danger">
                                                             Không hiển thị

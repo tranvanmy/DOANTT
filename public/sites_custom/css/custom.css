@@ -47,7 +47,8 @@ body > .header {
 
 body > .header .navbar {
   margin-bottom: 0;
-  background-color: #EEE;
+  /*background-color: #EEE;*/
+      background-color: #3c8dbc;
   border-bottom: 1px solid #ccc;
 }
 
@@ -328,11 +329,18 @@ input[type="range"] {
 .content {
   display: block;
   width: auto;
-  padding: 0 15px;
+  /* padding: 0 15px; */
+}
+
+#manage-vue{
+  box-shadow: 5px 10px 8px 3px #888888;
+  border-top: 3px solid #d2d6de;
+  border-left: 3px solid #d2d6de;
 }
 
 .left-side {
-  background: #FFF;
+  background-color: #222d32;
+  /*background: #FFF;*/
   box-shadow: 0 0 15px #EEE;
 }
 
@@ -359,7 +367,8 @@ input[type="range"] {
   margin-top: 12px;
   font-weight: 500;
   font-size: 16px;
-  color: #2E576B;
+  color: #fff;
+  margin-top: 24px;
 }
 
 .nav_profile .profile-left .profile-thumb img {
@@ -407,6 +416,7 @@ input[type="range"] {
 /*Dropdowns in general*/
 .dropdown-menu {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  background-color: #3c8dbc;
   z-index: 2300;
 }
 
@@ -446,7 +456,7 @@ input[type="range"] {
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
   height: 140px;
   padding: 6%;
-  background: #F5F5F5;
+  background-color: #3c8dbc;
   text-align: center;
   border-bottom: 1px solid #eee;
 }
@@ -845,7 +855,7 @@ to {
 
   #menu .navigation a {
       text-align: left;
-      color: #666;
+      color: #fff;
       position: relative;
       transition: all .2s;
       display: block;

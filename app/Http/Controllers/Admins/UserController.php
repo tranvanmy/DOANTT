@@ -43,7 +43,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $userList = $this->user->paginate('10', ['level']);
+            $userList = $this->user->PaginateUser('10', ['level']);
             $response = [
                 'pagination' => [
                     'total'        => $userList->total(),
@@ -59,6 +59,61 @@ class UserController extends Controller
             return response()->json($response);
         }
             return view('admin.user.index');
+    }
+
+    public function searchName(Request $request)
+    {
+        $userList = $this->user->searchNamePaginateCooking($request[0], '10', ['level']);
+        $response = [
+            'pagination' => [
+                'total'        => $userList->total(),
+                'per_page'     => $userList->perPage(),
+                'current_page' => $userList->currentPage(),
+                'last_page'    => $userList->lastPage(),
+                'from'         => $userList->firstItem(),
+                'to'           => $userList->lastItem()
+            ],
+            'data' => $userList
+        ];
+
+        return response()->json($response);
+
+    }
+
+    public function statusUser(Request $request)
+    {
+        $userList = $this->user->searchStatusPaginateCooking($request[0], '10', ['level']);
+        $response = [
+            'pagination' => [
+                'total'        => $userList->total(),
+                'per_page'     => $userList->perPage(),
+                'current_page' => $userList->currentPage(),
+                'last_page'    => $userList->lastPage(),
+                'from'         => $userList->firstItem(),
+                'to'           => $userList->lastItem()
+            ],
+            'data' => $userList
+        ];
+
+        return response()->json($response);
+    }
+
+public function levelUser(Request $request)
+    {
+        $userList = $this->user->searchLevelPaginateCooking($request[0], '10', ['level']);
+        $response = [
+            'pagination' => [
+                'total'        => $userList->total(),
+                'per_page'     => $userList->perPage(),
+                'current_page' => $userList->currentPage(),
+                'last_page'    => $userList->lastPage(),
+                'from'         => $userList->firstItem(),
+                'to'           => $userList->lastItem()
+            ],
+            'data' => $userList
+        ];
+
+        return response()->json($response);
     }
 
     public function report()

@@ -6,3 +6,9 @@
     display: block;
     white-space: nowrap;
 }
+
+#nameCooking{
+    height: 31px;
+    margin-left: 30px;
+    width: 300px;
+}
