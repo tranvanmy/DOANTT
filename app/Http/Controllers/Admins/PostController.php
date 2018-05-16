@@ -23,8 +23,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($post);
         if ($request->ajax()) {
-            $post = $this->post->paginate('3', ['categories', 'user']);
+            $post = $this->post->paginagePost('9', ['user']);
             $response = [
                 'pagination' => [
                     'total' => $post->total(),

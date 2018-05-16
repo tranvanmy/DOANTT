@@ -14,4 +14,11 @@ class PostEloquentRepository extends AbstractEloquentRepository implements PostR
     {
         $this->model = $post;
     }
+
+    public function paginagePost($paginate, $with = [], $select = null)
+    {
+        $post = $this->model->with(['user'])->orderBy('id', 'DESC')->paginate($paginate);
+ 
+        return $post;
+    }
 }

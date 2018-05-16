@@ -22,7 +22,7 @@ class CookingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $cooking = $this->cooking->getPaginateCooking('3', ['categories', 'user', 'steps']);
+            $cooking = $this->cooking->getPaginateCooking('10', ['categories', 'user', 'steps']);
             $response = [
                 'pagination' => [
                     'total' => $cooking->total(),
