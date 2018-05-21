@@ -19,13 +19,6 @@ Quản lý công thức
         <li class="next">
             <a>{{ trans('admin.cooking') }}/</a>
         </li>
-        <li> 
-            <label>Tìm Kiếm</label>
-            <select name="status" class="input-sm" id="" v-on:change="searchChange">
-                <option v-bind:value="1">Theo Tên</option>
-                <option v-bind:value="0">Theo Trạng Thái</option>
-            </select>
-        </li>
     </ul>
 @endsection
 
@@ -36,7 +29,19 @@ Quản lý công thức
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-heading">
-                        </button>
+                     <label>Tìm Kiếm</label>
+                        <select name="status" class="input-sm" v-model="search">
+                            <option v-bind:value="1">Theo Tên</option>
+                            <option v-bind:value="0">Theo Trạng Thái</option>
+                        </select>
+                            
+                        <input type="" v-if="search == 1" id="nameCooking" v-model="fillSearch.name" v-on:keyup="searchName">
+
+                        <select  v-else name="status" class="input-sm" v-model="statusSearch.status" v-on:change="searchChange">
+                            <option value="0">Đang Chờ</option>
+                            <option value="1">Hiển Thị</option>
+                            <option value="2">Đang Chỉnh Sửa</option>
+                        </select>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -89,6 +94,7 @@ Quản lý công thức
                                     </div>
                                 </div>
                                 <!-- Pagination -->
+                                <div id="paginationIndex">
                                 <nav class="dataTables_paginate paging_simple_numbers">
                                     <ul class="pagination">
                                         <li v-if="pagination.current_page > 1">
@@ -110,6 +116,59 @@ Quản lý công thức
                                         </li>
                                     </ul>
                                 </nav>
+                                </div>
+
+                                <div id="paginationSearchName">
+
+                                <nav class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li v-if="pagination.current_page > 1">
+                                            <a href="#"
+                                               @click.prevent="changePageName(pagination.current_page - 1)">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li v-for="page in pagesNumber"
+                                            v-bind:class="[ page == isActived ? 'active' : '']">
+                                            <a href="#"
+                                               @click.prevent="changePageName(page)">@{{ page }}</a>
+                                        </li>
+                                        <li v-if="pagination.current_page < pagination.last_page">
+                                            <a href="#"
+                                               @click.prevent="changePageName(pagination.current_page + 1)">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </div>
+
+                                <div id="paginationSearchStatus">
+                               
+                                <nav class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li v-if="pagination.current_page > 1">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(pagination.current_page - 1)">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li v-for="page in pagesNumber"
+                                            v-bind:class="[ page == isActived ? 'active' : '']">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(page)">@{{ page }}</a>
+                                        </li>
+                                        <li v-if="pagination.current_page < pagination.last_page">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(pagination.current_page + 1)">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

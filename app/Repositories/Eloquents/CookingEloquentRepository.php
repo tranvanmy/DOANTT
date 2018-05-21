@@ -101,12 +101,42 @@ class CookingEloquentRepository extends AbstractEloquentRepository implements Co
             ->get();
     }
 
+    public function searchNameAdmin($name)
+    {
+        return Cooking::where('name', 'like', '%' . $name . '%')
+            ->with(['level'])
+            ->paginate(10);
+    }
+
+
+
     public function getPaginateCooking($paginate, $with = [], $select = null)
     {
         $cooking = $this->model->with($with)->orderBy('id', 'DESC')->paginate($paginate);
 
         return $cooking;
     }
+
+    public function searchNamePaginateCooking($name, $paginate, $with = [], $select = null)
+    {
+        $cooking = Cooking::where('name', 'like', '%' . $name . '%')
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $cooking;
+    }
+
+    public function searchStatusPaginateCooking($status, $paginate, $with = [], $select = null)
+    {
+         $cooking = Cooking::where('status', $status)
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $cooking;
+    }
+
 
     public function withArrId($arrId, $with)
     {

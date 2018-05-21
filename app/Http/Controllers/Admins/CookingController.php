@@ -50,6 +50,42 @@ class CookingController extends Controller
         //
     }
 
+    public function searchName(Request $request)
+    {
+        $cooking = $this->cooking->searchNamePaginateCooking($request[0],'10', ['categories', 'user', 'steps']);
+        $response = [
+            'pagination' => [
+                'total' => $cooking->total(),
+                'per_page' => $cooking->perPage(),
+                'current_page' => $cooking->currentPage(),
+                'last_page' => $cooking->lastPage(),
+                'from' => $cooking->firstItem(),
+                'to' => $cooking->lastItem()
+            ],
+            'data' => $cooking
+        ];
+
+        return response()->json($response);
+    }
+
+    public function searchStatus(Request $request)
+    {
+        // dump($request[0]);
+        $cooking = $this->cooking->searchStatusPaginateCooking($request[0],'10', ['categories', 'user', 'steps']);
+        $response = [
+            'pagination' => [
+                'total' => $cooking->total(),
+                'per_page' => $cooking->perPage(),
+                'current_page' => $cooking->currentPage(),
+                'last_page' => $cooking->lastPage(),
+                'from' => $cooking->firstItem(),
+                'to' => $cooking->lastItem()
+            ],
+            'data' => $cooking
+        ];
+
+        return response()->json($response);
+    }
     /**
      * Store a newly created resource in storage.
      *

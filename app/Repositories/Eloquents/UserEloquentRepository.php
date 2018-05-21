@@ -21,4 +21,44 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
     {
         $this->model = $user;
     }
+
+    public function searchNamePaginateCooking($name, $paginate, $with = [], $select = null)
+    {
+        $user = User::where('name', 'like', '%' . $name . '%')
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $user;
+    }
+
+    public function searchStatusPaginateCooking($status, $paginate, $with = [], $select = null)
+    {
+        $user = User::where('status', $status)
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $user;
+    }
+
+    public function searchLevelPaginateCooking($level, $paginate, $with = [], $select = null)
+    {
+    	$user = User::where('level_id', $level)
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $user;
+    }
+
+    public function PaginateUser($paginate, $with = [], $select = null)
+    {
+        $user = User::with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $user;
+    }
+
 }

@@ -29,15 +29,14 @@
         </div>
         <header class="header">
             <nav class="navbar navbar-static-top" role="navigation">
-                <a href="" class="logo">
-                    <img src="{{ asset('images/logo.png') }}" width="100%" alt="logo"/>
-                </a>
-                <div>
+
+   {{--              <div>
+                <span class="logo-lg"><b>Admin</b>LTE</span>
                     <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
                         <i class="fa fa-fw ti-menu"></i>
                     </a>
-                </div>
-                <div class="navbar-right" id="myprofile">
+                </div> --}}
+               {{--  <div class="navbar-right" id="myprofile">
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle padding-user" data-toggle="dropdown">
@@ -189,7 +188,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </nav>
         </header>
         <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -249,15 +248,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('admin.unit.index') }}">
+                                <a href="{{ route('admin.unit.index') }}" style="margin-left: 4px;">
                                         <i class="fas fa-university"></i>  
-                                    <span>Đơn Vị</span>
+                                    <span style="margin-left: 8px;">Đơn Vị</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('admin.subcrice.index') }}">
+                                <a href="{{ route('admin.subcrice.index') }}" style="margin-left: 4px;">
                                         <i class="fas fa-heart"></i>
-                                    <span>{{ trans('admin.subscribe') }}</span>
+                                    <span style="margin-left: 8px;">{{ trans('admin.subscribe') }}</span>
                                 </a>
                             </li>
 

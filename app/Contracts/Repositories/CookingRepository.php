@@ -20,5 +20,11 @@ interface CookingRepository extends AbstractRepository
 
     public function deleteCoking($id);
 
+    public function searchNameAdmin($name);
+
     public function getPaginateCooking($paginate, $with = [], $select = null);
+
+    public function searchNamePaginateCooking($name, $paginate, $with = [], $select = null);
+
+    public function searchStatusPaginateCooking($status, $paginate, $with = [], $select = null);
 }

@@ -16,6 +16,8 @@ new Vue({
         offset: 4,
         search: 1,
         show: [],
+        fillSearch: {'name':''},
+        statusSearch: {'status': ''},
         fillItem: [], 
         formErrors: {},
         formErrorsUpdate: {},
@@ -47,6 +49,8 @@ new Vue({
     },
 
     mounted : function(){
+        $('#paginationSearchName').hide();
+        $('#paginationSearchStatus').hide();
         this.getCookings(this.pagination.current_page);
     },
 
@@ -69,10 +73,47 @@ new Vue({
             $("#edit-item").modal('show');
         },
 
-        searchChange: function ()
+        searchChange: function (page)
         {
-            debugger;
-            console.log(1);
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/statusCooking?page=' + page,
+                params: this.statusSearch.status,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+                $('#paginationIndex').hide();
+                $('#paginationSearchName').hide();
+                $('#paginationSearchStatus').show();
+
+                this.$set(this, 'cookings', response.data.data.data);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
+        searchName: function (page)
+        {
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/nameCooking?page=' + page,
+                params: this.fillSearch.name,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+                $('#paginationIndex').hide();
+                $('#paginationSearchStatus').hide();
+                $('#paginationSearchName').show();
+                this.$set(this, 'cookings', response.data.data.data);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+
+
         },
 
         updateItem: function(id){
@@ -95,6 +136,16 @@ new Vue({
         changePage: function (page) {
             this.pagination.current_page = page;
             this.getCookings(page);
+        },
+
+        changePageName: function (page) {
+            this.pagination.current_page = page;
+            this.searchName(page);
+        },
+
+         changePageStatus: function (page) {
+            this.pagination.current_page = page;
+            this.searchChange(page);
         }
     }
 });

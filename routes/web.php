@@ -16,6 +16,12 @@
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('dashboard', 'Admins\UserController@report')->name('report');
     Route::resource('user', 'Admins\UserController');
+    Route::get('search/nameUser', 'Admins\UserController@searchName');
+    Route::get('search/statusUser', 'Admins\UserController@statusUser');
+    Route::get('search/levelUser', 'Admins\UserController@levelUser');
+
+
+
     Route::put('profile/{id}', 'Admins\UserController@showAdmin')->name('profile');
     Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
     Route::resource('subcrice', 'Admins\SubcriceController');
@@ -24,6 +30,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('ingredient', 'Admins\IngredientController');
     Route::resource('post', 'Admins\PostController');
     Route::resource('cooking', 'Admins\CookingController');
+    Route::get('search/nameCooking', 'Admins\CookingController@searchName');
+    Route::get('search/statusCooking', 'Admins\CookingController@searchStatus');
+
+
     Route::resource('order', 'Admins\OrderController');
 });
 

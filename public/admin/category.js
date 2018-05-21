@@ -53,9 +53,9 @@ new Vue({
     methods: {
 
         getItems: function(page){
-            axios.get('/admin/category').then((response) => {
-                console.log(response)
-                this.$set(this, 'items', response.data);
+            axios.get('/admin/category?page='+ page).then((response) => {
+                this.$set(this, 'items', response.data.data.data);
+                this.$set(this, 'pagination', response.data.pagination);
             });
         },
 
