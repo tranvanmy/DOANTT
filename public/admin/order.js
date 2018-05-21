@@ -17,7 +17,8 @@ new Vue({
             last_page: 0
         },
         offset: 4,
-
+        statusSearch: {'status': ''},
+        totalOrder: null,
     },
 
     computed: {
@@ -47,12 +48,14 @@ new Vue({
 
     mounted : function(){
         this.getCookings(this.pagination.current_page);
+        $('#paginationSearchStatus').hide();
     },
 
     methods: {
         getCookings: function(page){
-            axios.get('/order/sell?page=' + page).then((response) => {
-                console.log(response)
+            axios.get('/admin/order?page=' + page).then((response) => {
+                console.log(response.data.data.total);
+                this.totalOrder = response.data.data.total;
                 this.$set(this, 'orders', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             });
@@ -60,7 +63,6 @@ new Vue({
 
         showOrder: function(order) {
             axios.get('/order/show/' + order.id).then((response) => {
-                console.log(response)
                 this.orderDetails = response.data;
                 this.order = order;
             });
@@ -68,11 +70,32 @@ new Vue({
             $('#show-order').modal('show');
         },
 
-        updateStatus: function(order) {
-            console.log(order.status)
-            axios.put('/order/show/' + order.id, {'status': order.status}).then((response) => {
-                console.log(response)
+        searchChange: function(page)
+        {
+            if(this.statusSearch.status == 3) {
+                this.getCookings();
+            } else {
+                var authOptions = {
+                    method: 'get',
+                    url: '/admin/search/statusOder?page=' + page,
+                    params: this.statusSearch.status,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                }
+                axios(authOptions).then(response => {
+                    $('#paginationIndex').hide();
+                    $('#paginationSearchStatus').show();
+                    this.totalOrder = response.data.data.total;
+                    this.$set(this, 'orders', response.data.data.data);
+                    this.$set(this, 'pagination', response.data.pagination);
+                })
+            }
+        },
 
+        updateStatus: function(order) {
+            axios.put('/order/show/' + order.id, {'status': order.status}).then((response) => {
             });
         },
 
@@ -83,6 +106,11 @@ new Vue({
         changePage: function (page) {
             this.pagination.current_page = page;
             this.getCookings(page);
+        },
+
+        changePageStatus: function (page) {
+            this.pagination.current_page = page;
+            this.searchChange(page);
         }
     }
 });

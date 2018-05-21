@@ -28,7 +28,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $order = $this->order->get(10, ['user', 'sellerr']);
+            $order = $this->order->get(10, ['user', 'sellerr', 'orderDetail.cooking.user']);
             $response = [
                 'pagination' => [
                     'total' => $order->total(),
@@ -47,6 +47,23 @@ class OrderController extends Controller
         return view('admin.order.index');
     }
 
+    public function searchStatus(Request $request)
+    {
+        $order = $this->order->searchStatusPaginateOrder($request[0], 10, ['user', 'sellerr', 'orderDetail.cooking.user']);
+        $response = [
+            'pagination' => [
+                'total' => $order->total(),
+                'per_page' => $order->perPage(),
+                'current_page' => $order->currentPage(),
+                'last_page' => $order->lastPage(),
+                'from' => $order->firstItem(),
+                'to' => $order->lastItem()
+            ],
+            'data' => $order
+        ];
+
+        return response()->json($response);
+    }
     /**
      * Show the form for creating a new resource.
      *

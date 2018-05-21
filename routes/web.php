@@ -21,7 +21,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::get('search/levelUser', 'Admins\UserController@levelUser');
 
 
-
     Route::put('profile/{id}', 'Admins\UserController@showAdmin')->name('profile');
     Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
     Route::resource('subcrice', 'Admins\SubcriceController');
@@ -35,6 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 
 
     Route::resource('order', 'Admins\OrderController');
+    Route::get('search/statusOder', 'Admins\OrderController@searchStatus');
 });
 
 

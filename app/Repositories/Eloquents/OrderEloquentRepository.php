@@ -29,4 +29,14 @@ class OrderEloquentRepository extends AbstractEloquentRepository implements Orde
     {
         return $this->model->with($with)->where('seller', $seller_id)->orderBy('id', 'desc')->paginate($paginate);
     }
+
+    public function searchStatusPaginateOrder($status, $paginate, $with = [], $select = null)
+    {
+         $Order = Order::where('status', $status)
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $Order;
+    }
 }
