@@ -54,6 +54,16 @@ new Vue({
                 this.$set(this, 'pagination', response.data.pagination);
             })
         },
+
+        searchTopMaster: function (pape)
+        {
+            axios.get('/site/top/master?page='+ page).then(response => {
+                this.$set(this, 'items', response.data.data.data);
+                console.log(response);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
         changePage: function (page) {
             this.pagination.current_page = page;
             this.showInfor(page);

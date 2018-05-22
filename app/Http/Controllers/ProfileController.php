@@ -92,6 +92,14 @@ class ProfileController extends Controller
         return view('sites._components.topCheft');
     }
 
+
+    public function topMaster()
+    {
+        $user = $this->user->getbyMaster(0, ['level', 'cookings'], 'id');
+
+        dd($user);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -66,4 +66,13 @@ abstract class AbstractEloquentRepository
             ->take($number)
             ->get();
     }
+
+    public function getbyMaster($status, $with, $orderBy)
+    {
+        return $this->model
+            ->where('status', $status)
+            ->with($with)
+            ->orderBy($orderBy, 'desc')
+            ->get();
+    }
 }

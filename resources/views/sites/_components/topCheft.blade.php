@@ -13,9 +13,9 @@
             <header class="s-title wow fadeInLeft">
                 <h1>{{ trans('sites.topChef') }}
                 <div>
-                    <a href="#" class="button gold">Top đầu bếp <i aria-hidden="true" class="fa fa-times"></i></a>
+                    <a href="#" class="button gold" @click="searchTopMaster()" >Top đầu bếp <i aria-hidden="true" class="fa fa-times"></i></a>
 
-                    <a href="#" class="button gold">Đầu bếp mới nhất <i aria-hidden="true" class="fa fa-times"></i></a>
+                    <a href="#" class="button">Đầu bếp mới nhất <i aria-hidden="true" class="fa fa-times"></i></a>
 
                      <a href="#" class="button gold">Đầu bếp đưọc nhiều người theo dõi <i aria-hidden="true" class="fa fa-times"></i></a>
                 </div>
