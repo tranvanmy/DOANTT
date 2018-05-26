@@ -70,7 +70,6 @@ class CookingController extends Controller
 
     public function searchStatus(Request $request)
     {
-        // dump($request[0]);
         $cooking = $this->cooking->searchStatusPaginateCooking($request[0],'10', ['categories', 'user', 'steps']);
         $response = [
             'pagination' => [

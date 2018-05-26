@@ -61,8 +61,6 @@ class CartController extends Controller
             if ($request->quantity) {
                 $cart[$request->cooking] = $request->quantity;
                 session()->put('cart', $cart);
-
-                // return redirect('cart');
             } else {
                 $cart[$request->cooking] = 1;
             }
@@ -161,13 +159,12 @@ class CartController extends Controller
             $arr[$cooking->user_id][$cooking->id]['price'] = $cooking->price;
         }
 
-        // dd($arr);
         foreach ($arr as $seller => $cookings) {
             $total = 0;
             foreach ($cookings as $cooking => $data) {
                 $total += $data['quantity'] * $data['price'];
             }
-            // dd($seller)
+
             $order['seller'] = $seller;
             $order['total'] = $total;
             $order['status'] = 0;

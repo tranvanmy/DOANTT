@@ -60,9 +60,17 @@
                                         <div class="container">
                                             <h2 class="ellipis"><a href="{{ route('site.cooking.show', [$cooking->id])  }}">{{ $cooking->name }}</a></h2>
                                             <div class="actions">
-                                                <div>
-                                                    <div class="difficulty"><i class="ico i-medium"></i><a href="#">{{ $cooking->level->name }}</a></div>
-                                                    <div class="comments"><i class="ico i-comments"></i><a href="">{{ $cooking->comments->count() }}</a></div>
+                                               <div>
+                                                <div class="">
+                                                     {{ $cooking->level->name }}
+                                                    </div>
+                                                    <div class="">
+                                                    Thoi Gian: {{ $cooking->time }}h
+                                                    </div>
+                                                
+                                                    <div class="comments">
+                                                    {{ $cooking->rate_point}} <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

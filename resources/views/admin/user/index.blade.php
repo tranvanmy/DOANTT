@@ -47,6 +47,7 @@ Quản lý người dùng
                             <option value="4">{{ trans('admin.cheefee') }}</option>
                             <option value="5">{{ trans('admin.mastee') }}</option>
                         </select>
+                        <span class="label label-success"> Tổng người dùng là :@{{ totalOrder }}</span>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">

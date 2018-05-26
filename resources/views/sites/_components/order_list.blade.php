@@ -21,13 +21,13 @@
         <!--row-->
         <div class="container">
         @if(session()->has('message'))
-            <div class="row btn-success">
+            <div class="row btn-success text-center">
                 <h2>{{ session()->get('message') }}</h2>
             </div>
         @endif
             <div class="row">
                 <div class="col-md-12">
-                    <div class="invoice-title">
+                    <div class="invoice-title" style="border-radius: 40px;">
                         <h2>{{ trans('sites.order_list') }}</h2>
                         <hr>
                     </div>

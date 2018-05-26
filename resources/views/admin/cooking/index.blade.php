@@ -42,6 +42,8 @@ Quản lý công thức
                             <option value="1">Hiển Thị</option>
                             <option value="2">Đang Chỉnh Sửa</option>
                         </select>
+                         <span class="label label-success"> Tổng công thức là :@{{ totalOrder }}</span>
+
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">

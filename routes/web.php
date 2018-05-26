@@ -24,9 +24,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::put('profile/{id}', 'Admins\UserController@showAdmin')->name('profile');
     Route::put('update/profile/{id}', 'Admins\UserController@updaeAdmin')->name('profile');
     Route::resource('subcrice', 'Admins\SubcriceController');
+
     Route::resource('category', 'Admins\CategoryController');
+    Route::get('parent/category', 'Admins\CategoryController@parentCategory');
+
     Route::resource('unit', 'Admins\UnitController');
+
     Route::resource('ingredient', 'Admins\IngredientController');
+    Route::get('search/nameIngredient', 'Admins\IngredientController@searchName');
+    Route::get('search/statusIngredient', 'Admins\IngredientController@searchStatus');
+    
+    Route::get('search/statusInter', 'Admins\IngredientController@statusInter');
+
+
     Route::resource('post', 'Admins\PostController');
     Route::resource('cooking', 'Admins\CookingController');
     Route::get('search/nameCooking', 'Admins\CookingController@searchName');
@@ -80,8 +90,9 @@ Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 //facebook
+
 Route::get('auth/facebook', 'SocialiteController@redirect')->name('facebook.login');
-Route::get('callback/facebook', 'SocialiteController@callback');
+Route::get('auth/callback/facebook', 'SocialiteController@callback');
 //Logout
 Route::get('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 Route::post('postLogin', ['as' => 'postLogin', 'uses' => 'SocialiteController@postLogin']);

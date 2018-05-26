@@ -90,7 +90,6 @@
                                  <h4 class="modal-title" id="myModalLabel">{{ trans('admin.category_new') }}</h4>
                               </div>
                               <div class="modal-body">
-                                 <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
                                     <div class="form-group">
                                        <label for="name">{{ trans('admin.category_name') }}</label>
                                        <input type="text" name="name" class="form-control" v-model="newItem.name" />
@@ -100,7 +99,7 @@
                                        <label for="parent_id">{{trans('admin.category_parent') }}</label>
                                        <select  class="input-sm" name="parent_id" id="" v-model="newItem.parent_id">
                                           <option value="">{{trans('admin.none') }}</option>
-                                          <option v-for="item in items" v-bind:value=" item.id">@{{ item.name }}</option>
+                                          <option v-for="item in category" v-bind:value="item.id">@{{ item.name }}</option>
                                        </select>
                                        <label for="status">{{trans('admin.status') }}</label>
                                        <select  name="status" class="input-sm" id="" v-model="newItem.status">
@@ -109,13 +108,10 @@
                                           <option value="2">{{ trans('admin.in_home_page') }}</option>
                                        </select>
                                        <br>
-                                        <label for="status">{{ trans('admin.icon') }}</label>
-                                       <img class="icon-category" id="new-image-preview">
-                                       <span class="input-group-btn">
-                                           <a id="new-image" data-input="name-new-image" data-preview="new-image-preview" class="btn btn-primary">
-                                           <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
-                                       </span>
-                        
+                                       <label for="status">{{ trans('admin.icon') }}</label>
+                                       <div class="file-upload-form">
+                                          <input type="file" @change="previewImage" accept="image/*" name="avatar">
+                                       </div>
                                     </div>
                               </div>
                               <div class="modal-footer ">
@@ -127,68 +123,48 @@
                            </div>
                         </div>
                      </div>
-                     <!-- comfirm delete item -->
-                     <div class="modal fade" id="delete-item" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-                     <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                     </button>
-                     <h4 class="modal-title custom_align" id="Heading">Delete User</h4>
-                     </div>
-                     <div class="modal-body">
-                     <div class="alert alert-danger">
-                     <span class="glyphicon glyphicon-warning-sign"></span> {{ trans('admin.category_comfirm_delete') . ': ' }} @{{ deleteItem.name }}
-                     </div>
-                     </div>
-                     <div class="modal-footer ">
-                     <a href="javascript:void(0)" v-on:click="delItem(deleteItem.id)" class="btn btn-danger">
-                     <span class="glyphicon glyphicon-ok-sign"></span> Yes
-                     </a>
-                     <button type="button" class="btn btn-success" data-dismiss="modal">
-                     <span class="glyphicon glyphicon-remove"></span> No
-                     </button>
-                     </div>
-                     </div>
-                     </div>
-                     </div>
-                     <!-- Edit Item Modal -->
                      <div class="modal fade" id="edit-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                     <div class="modal-dialog" role="document">
-                     <div class="modal-content">
-                     <div class="modal-header">
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                     <h4 class="modal-title" id="myModalLabel">{{ trans('admin.category_edit') }}</h4>
-                     </div>
-                     <div class="modal-body">
-                     <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
-                     <div class="form-group">
-                     <label for="name">{{ trans('admin.category_name') }}</label>
-                     <input type="text" name="name" class="form-control" v-model="fillItem.name" />
-                     <span v-if="formErrorsUpdate['name']" class="error text-danger">@{{ formErrorsUpdate['name'][0] }}</span><br>
-                     <label for="status">{{ trans('admin.status') }}</label>
-                     <select  name="status" class="input-sm" id="" v-model="fillItem.status" class="input-sm">
-                     <option value="1">{{ trans('admin.show') }}</option>
-                     <option value="0">{{ trans('admin.not_show') }}</option>
-                     <option value="2">{{ trans('admin.in_home_page') }}</option>
-                     </select>
-                     <div>
-                     <img id="edit-image-preview" style="margin-top:15px;max-height:100px;">
-                     <span class="input-group-btn">
-                     <a id="edit-image" data-input="name-edit-image" data-preview="edit-image-preview" class="btn btn-primary">
-                     <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
-                     </span>
-                     <input id="name-edit-image" class="" type="text" name="filepath">
-                     </div>
-                     </div>
-                     <div class="form-group">
-                     <button type="submit" class="btn btn-success">{{ trans('admin.category_update') }}</button>
-                     </div>
-                     </form>
-                     </div>
-                     </div>
-                     </div>
-                     </div>
+                        <div class="modal-dialog" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                 <h4 class="modal-title" id="myModalLabel">{{ trans('admin.category_edit') }}</h4>
+                              </div>
+                              <div class="modal-body">
+                                    <div class="form-group">
+                                       <label for="name">{{ trans('admin.category_name') }}</label>
+                                       <input type="text" name="name" class="form-control" v-model="fillItem.name" />
+                                       <span v-if="formErrorsUpdate['name']" class="error text-danger">@{{ formErrorsUpdate['name'][0] }}</span><br>
+                                       <br>
+                                       <br>
+
+                                       <label for="parent_id">{{trans('admin.category_parent') }}</label>
+                                       <select  class="input-sm" name="parent_id" id="" v-model="fillItem.parent_id">
+                                          <option value="">{{trans('admin.none') }}</option>
+                                          <option v-for="item in category" v-bind:value="item.id">@{{ item.name }}</option>
+                                       </select>
+                                       <label for="status">{{ trans('admin.status') }}</label>
+                                       <select  name="status" class="input-sm" id="" v-model="fillItem.status" class="input-sm">
+                                          <option value="1">{{ trans('admin.show') }}</option>
+                                          <option value="0">{{ trans('admin.not_show') }}</option>
+                                          <option value="2">{{ trans('admin.in_home_page') }}</option>
+                                       </select>
+                                       <br>
+                                       <div class="file-upload-form">
+                                          <input type="file" @change="previewImage" accept="image/*" name="avatar">
+                                       </div>
+                                       <img class="ico-none" v-bind:src="fillItem.icon" alt="">
+                                    </div>
+                              </div>
+                                 <div class="modal-footer ">
+                                    <a href="javascript:void(0)"  data-dismiss="modal"  class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span> {{ trans('admin.no') }}
+                                    </a>
+                                    <button type="submit" class="btn btn-success" v-on:click="updateItem(fillItem.id)">Cập Nhật</button>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
                   </div>
                </div>
             </div>
@@ -198,6 +174,5 @@
 </section>
 @endsection
 @section('script')
-<script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
 {{ Html::script('admin/category.js') }}
 @endsection

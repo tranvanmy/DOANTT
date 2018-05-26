@@ -19,7 +19,13 @@ new Vue({
         formErrorsUpdate: {},
         newItem: {'name':'', 'description': '', 'type': '0', 'image': '', 'status': '1'},
         fillItem: {'name':'', 'description': '', 'type': '', 'image': '', 'status': ''},
-        deleteItem: {'name':'','id':''}
+        deleteItem: {'name':'','id':''},
+        search: 1,
+        fillSearch: {'name': ''},
+        statusSearch: {'status': ''},
+
+        statusInter: {'status': ''},
+        totalOrder: null
     },
 
     computed: {
@@ -49,6 +55,10 @@ new Vue({
 
     mounted : function(){
         this.getItems(this.pagination.current_page);
+        $('#paginationSearchName').hide();
+        $('#paginationSearchStatus').hide();
+
+        $('#paginationInter').hide();
         this.initFilemanager();
     },
 
@@ -67,6 +77,85 @@ new Vue({
             });
         },
 
+        searchName: function (page)
+        {
+            var authOptions = {
+                method: 'get',
+                url: '/admin/search/nameIngredient?page=' + page,
+                params: this.fillSearch.name,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                json: true
+            }
+            axios(authOptions).then(response => {
+                $('#paginationIndex').hide();
+                $('#paginationSearchStatus').hide();
+                $('#paginationInter').hide();
+                $('#paginationSearchName').show();
+                this.totalOrder = response.data.data.total;
+                this.$set(this, 'items', response.data.data.data);
+                this.$set(this, 'pagination', response.data.pagination);
+            })
+        },
+
+
+        searchChange: function (page)
+        {
+            if(this.statusSearch.status == 3) {
+                this.getItems(page);
+            } else {
+
+                var authOptions = {
+                    method: 'get',
+                    url: '/admin/search/statusIngredient?page=' + page,
+                    params: this.statusSearch.status,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                }
+                axios(authOptions).then(response => {
+                    $('#paginationIndex').hide();
+                    $('#paginationSearchName').hide();
+                    $('#paginationInter').hide();
+                    $('#paginationSearchStatus').show();
+                    
+                    this.totalOrder = response.data.data.total;
+                    this.$set(this, 'items', response.data.data.data);
+                    this.$set(this, 'pagination', response.data.pagination);
+            })
+            }
+        },
+
+
+        searchChangeInter: function (page)
+        {
+            if(this.statusInter.status == 3) {
+                this.getItems(page);
+            } else {
+                var authOptions = {
+                    method: 'get',
+                    url: '/admin/search/statusInter?page=' + page,
+                    params: this.statusInter.status,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                }
+                axios(authOptions).then(response => {
+                    $('#paginationIndex').hide();
+                    $('#paginationSearchName').hide();
+                    $('#paginationSearchStatus').hide();
+                    $('#paginationInter').show();
+                    
+                    this.totalOrder = response.data.data.total;
+                    this.$set(this, 'items', response.data.data.data);
+                    this.$set(this, 'pagination', response.data.pagination);
+                })
+            }
+        },
+
         showItem: function(item) {
             this.show.name = item.name;
             this.show.description = item.description;
@@ -83,9 +172,6 @@ new Vue({
         createItem: function(){
             var input = this.newItem;
             var image = $('#name-new-image').val();
-            input.image = image;
-            var description = CKEDITOR.instances['my-editor'].getData();
-            input.description = description;
             axios.post('/admin/ingredient',input).then((response) => {
                 this.changePage(this.pagination.current_page);
                 this.newItem = {'name':'', 'description': '', 'type': '0', 'image': '','status': '1'};
@@ -131,7 +217,6 @@ new Vue({
             var image = $('#name-edit-image').val();
             $('#edit-image-preview').attr('src', item.image);
             $('#name-edit-image').val(item.image);
-            var description = CKEDITOR.instances['my-editor-edit'].setData(item.description);
             this.fillItem = item;
             $("#edit-item").modal('show');
         },
@@ -139,9 +224,6 @@ new Vue({
         updateItem: function(id){
             var input = this.fillItem;
             var image = $('#name-edit-image').val();
-            input.image = image;
-            var description = CKEDITOR.instances['my-editor-edit'].getData();
-            input.description = description;
             axios.put('/admin/ingredient/' + id, input).then((response) => {
                 this.changePage(this.pagination.current_page);
                 $("#edit-item").modal('hide');
@@ -162,6 +244,20 @@ new Vue({
         changePage: function (page) {
             this.pagination.current_page = page;
             this.getItems(page);
+        },
+
+        changePageName: function (page) {
+            this.pagination.current_page = page;
+            this.searchName(page);
+        },
+
+         changePageStatus: function (page) {
+            this.pagination.current_page = page;
+            this.searchChange(page);
+        },
+        changePageInter: function (page) {
+            this.pagination.current_page = page;
+            this.searchChangeInter(page);
         }
     }
 });

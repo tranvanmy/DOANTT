@@ -2,7 +2,7 @@
 @section('content')
 @include('sites._sections.header')
 <main class="main login" role="main">
-    <div class="container col-md-10 col-md-offset-1">
+    <div class="container col-md-8 col-md-offset-2">
         <section class="content p-l-r-15" id="manage-order">
             <div class="row">
                 <div class="col-md-12">
@@ -18,17 +18,17 @@
                                                 <thead>
                                                     <tr class="filters" role="row">
                                                         <th class="col-md-1">{{ trans('admin.id') }}</th>
-                                                        <th class="col-md-3">{{ trans('admin.user') }}</th>
-                                                        <th class="col-md-1">{{ trans('admin.note') }}</th>
-                                                        <th class="col-md-1">{{ trans('admin.status') }}</th>
-                                                        <th class="col-md-1">{{ trans('admin.action') }}</th>
+                                                        <th class="col-md-1">Khách đặt hàng</th>
+                                                        <th class="col-md-1">Địa Chỉ</th>
+                                                        <th class="col-md-1">Trang Thai</th>
+                                                        <th class="col-md-1">Chi tiết đơn hàng</th>
                                                     </thead>
                                                     <tbody>
                                                         <tr role="row" v-for="order in orders">
                                                             <td>@{{ order.id }}</td>
                                                             <td><a data-toggle="modal" v-on:click="showorder(order)" type="button">@{{ order.user.name }}</a></td>
 
-                                                            <td>@{{ order.note }}</td>
+                                                            <td>@{{ order.address }}</td>
 
                                                             <td v-if="order.status == 0">
                                                                 <span class="label label-warning">
@@ -79,42 +79,32 @@
             </div>
         </div>
         <div class="modal fade" id="show-order" role="dialog">
-            <div class="modal-dialog modal-md" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel"></h4>
+                        <h4 class="modal-title" id="myModalLabel"> CHI TIẾT ĐƠN HÀNG | TRẠNG THÁI
+                            <span v-if="order.status == 1" class="label label-success">{{ trans('sites.success') }}</span>
+                            <span v-if="order.status == 0" class="label label-warning">{{ trans('sites.pending') }}</span>
+                        </h4>
                     </div>
                     <div class="modal-body clearfix">
-
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="invoice-title">
-                                    <h2>{{ trans('sites.show_order') }}</h2>
-                                    <h3 class="pull-right">
-                                        <span v-if="order.status == 1" class="label label-success">{{ trans('sites.success') }}</span>
-                                        <span v-if="order.status == 0" class="label label-warning">{{ trans('sites.pending') }}</span>
-                                    </h3>
+                                <div class="col-xs-6">
+                                    <address>
+                                        <strong>{{ trans('sites.order_infomation') }}:</strong><br>
+                                        Name: @{{ order.name }}<br>
+                                        Email: @{{ order.email }}<br>
+                                        Phone: @{{ order.phone }}<br>
+                                        Address: @{{ order.address }}
+                                    </address>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <address>
-                                            <strong>{{ trans('sites.order_infomation') }}:</strong><br>
-                                            @{{ order.name }}<br>
-                                            @{{ order.email }}<br>
-                                            @{{ order.phone }}<br>
-                                            @{{ order.address }}
-                                        </address>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <address>
-                                            <strong>{{ trans('sites.order_date') }}:</strong><br>
-                                            @{{ order.created_at }}<br><br>
-                                        </address>
-                                    </div>
+                                <div class="col-xs-6">
+                                    <address>
+                                        <strong>{{ trans('sites.order_date') }}:</strong><br>
+                                        @{{ order.created_at }}<br><br>
+                                    </address>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +118,8 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title"><strong>{{ trans('sites.order_summary') }}</strong></h3>
+                                    <div class="panel-heading" style="color: #333; background-color: rgb(79, 169, 115); border-color: #DCDCDC;">
+                                        <h3 class="panel-title"><strong>Sản Phẩm</strong></h3>
                                     </div>
                                     <div class="panel-body">
                                         <div class="table-responsive">
@@ -143,9 +133,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
                                                     <tr v-for="orderDetail in orderDetails">
-                                                        <td>@{{ orderDetail.cooking.name }}</td>
+                                                        <td>
+                                                         <a  v-bind:href="'/site/cooking/' + orderDetail.cooking.id" target="_blank">
+                                                                    @{{ orderDetail.cooking.name }}
+                                                            </a>
+                                                        </td>
                                                         <td class="text-center">@{{ orderDetail.price / orderDetail.quantity }}</td>
                                                         <td class="text-center">@{{ orderDetail.quantity }}</td>
                                                         <td class="text-right">@{{ orderDetail.price }}</td>
@@ -166,7 +159,7 @@
                                                 <tr>
                                                     <td class="no-line"></td>
                                                     <td class="no-line"></td>
-                                                    <td class="no-line text-center"><strong>{{ trans('sites.money') }}</strong></td>
+                                                    <td class="no-line text-center"><strong>Tổng Tiền</strong></td>
                                                     <td class="no-line text-right">@{{ order.total }}</td>
                                                 </tr>
                                             </tbody>
@@ -187,5 +180,5 @@
 @include('sites._sections.footer')
 @endsection
 @section('script')
-{{ Html::script('admin/order.js') }}
+{{ Html::script('admin/sell.js') }}
 @endsection

@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = $this->category->paginate('5');
+            $categories = $this->category->paginate('10');
             // $categories = Helpers::categoriesToArray($categories);
 
              $response = [
@@ -45,6 +45,14 @@ class CategoryController extends Controller
         return view('admin.category.index');
     }
 
+
+    public function parentCategory(Request $request)
+    {
+        $categories = $this->category->all();
+        $categories = Helpers::categoriesToArray($categories);
+            // $categories = json_encode($categories);
+        return response()->json($categories);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +71,28 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        if ($this->category->create($request->all())) {
+        $exploded = explode(',', $request->icon);
+
+        $decoded = base64_decode($exploded[1]);
+
+        if (str_contains($exploded[0], 'jpeg')) {
+            $extention = 'jpg';
+        } else {
+            $extention = 'png';
+        }
+
+        $fileName = str_random().'.'.$extention;
+
+        $path = public_path().'/images/'.$fileName;
+
+        file_put_contents($path, $decoded);
+        
+        $data['icon'] = '/images/'.$fileName;
+        $data['name'] = $request->name;
+        $data['parent_id'] = $request->parent_id;
+        $data['status'] = $request->status;
+
+        if ($this->category->create($data)) {
             $response['status'] = 'success';
             $response['message'] = trans('admin.add_success');
             $response['action'] = trans('admin.success');

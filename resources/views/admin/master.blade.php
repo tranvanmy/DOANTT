@@ -9,12 +9,12 @@
 
         {{ Html::style('bower/bootstrap/dist/css/bootstrap.min.css') }}
         {{ Html::style('sites_custom/css/app.css') }}
-        {{ Html::style('bower/swiper/dist/css/swiper.min.css') }}
+        {{-- {{ Html::style('bower/swiper/dist/css/swiper.min.css') }} --}}
         {{ Html::style('bower/font-awesome/css/font-awesome.min.css') }}
-        {{ Html::style('sites_custom/css/lc_switch.css') }}
+        {{-- {{ Html::style('sites_custom/css/lc_switch.css') }} --}}
         {{ Html::style('sites_custom/css/custom.css') }}
         {{ Html::style('sites_custom/css/dashboard1.css') }}
-        {{ Html::style('sites_custom/css/dashboard1_timeline.css') }}
+        {{-- {{ Html::style('sites_custom/css/dashboard1_timeline.css') }} --}}
         {{ Html::style('bower/themify-icons/css/themify-icons.css') }}
         {{ Html::style('bower/bootstrap-select/dist/css/bootstrap-select.min.css') }}
         {{ Html::style('bower/toastr/toastr.min.css') }}
@@ -30,13 +30,12 @@
         <header class="header">
             <nav class="navbar navbar-static-top" role="navigation">
 
-   {{--              <div>
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <div>
                     <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <i class="fa fa-fw ti-menu"></i>
+                       <i class="fas fa-bars"></i>
                     </a>
-                </div> --}}
-               {{--  <div class="navbar-right" id="myprofile">
+                </div>
+                <div class="navbar-right" id="myprofile">
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle padding-user" data-toggle="dropdown">
@@ -55,16 +54,16 @@
                                     <img src="{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
                                     <p>{{ Auth::user()->name }}</p>
                                 </li>
-                                <li class="p-t-3">
+                                <li class="p-t-3" style="color: #1b1b1c;">
                                     <a v-on:click="showInfor({{ Auth::user()->id }})">
-                                        <i class="fa fa-fw ti-user"></i>
+                                        <i class="fas fa-user-alt"></i>
                                         {{ trans('admin.my_profile') }}
                                     </a>
                                 </li>
                                 <li role="presentation" class="divider"></li>
-                                <li class="user-footer">
+                                <li class="user-footer" style="color: #1b1b1c;">
                                     <a href="{{ route('logout') }}">
-                                        <i class="fa fa-fw ti-shift-right"></i>
+                                        <i class="fas fa-sign-out-alt"></i>
                                         {{ trans('admin.logout') }}
                                     </a>
                                 </li>
@@ -188,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </nav>
         </header>
         <div class="wrapper row-offcanvas row-offcanvas-left">
@@ -285,13 +284,13 @@
         {{ Html::script('sites_custom/js/app.js') }}
         {{ Html::script('sites_custom/js/jquery.flot.spline.js') }}
         {{--  {{ Html::script('sites_custom/js/jquery.flot.tooltip.js') }}  --}}
-        {{ Html::script('sites_custom/js/newsTicker.js') }}
-        {{ Html::script('bower/Flot/jquery.flot.js') }}
-        {{ Html::script('bower/Flot/jquery.flot.resize.js') }}
-        {{ Html::script('bower/Flot/jquery.flot.stack.js') }}
-        {{ Html::script('bower/swiper/dist/js/swiper.min.js') }}
-        {{ Html::script('bower/chart.js/dist/Chart.js') }}
-        {{ Html::script('bower/moment/min/moment.min.js') }}
+        {{-- {{ Html::script('sites_custom/js/newsTicker.js') }} --}}
+        {{-- {{ Html::script('bower/Flot/jquery.flot.js') }} --}}
+        {{-- {{ Html::script('bower/Flot/jquery.flot.resize.js') }} --}}
+        {{-- {{ Html::script('bower/Flot/jquery.flot.stack.js') }} --}}
+        {{-- {{ Html::script('bower/swiper/dist/js/swiper.min.js') }} --}}
+        {{-- {{ Html::script('bower/chart.js/dist/Chart.js') }} --}}
+        {{-- {{ Html::script('bower/moment/min/moment.min.js') }} --}}
         {{--  {{ Html::script('sites_custom/js/dashboard1.js') }}  --}}
         {{ Html::script('bower/vue/dist/vue.min.js') }}
         {{ Html::script('bower/axios/dist/axios.min.js') }}
