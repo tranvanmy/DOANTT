@@ -31,7 +31,7 @@ class FollowController extends Controller
     public function showFollow($id, Request $request)
     {
         if ($request->ajax()) {
-            $allData = $this->follow->listFollowsUser($id, '10');
+            $allData = $this->follow->listFollowsUser($id, '6');
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),
@@ -53,7 +53,7 @@ class FollowController extends Controller
     public function showByFollow($id, Request $request)
     {
         if ($request->ajax()) {
-            $allData = $this->follow->listByFollowsUser($id, '10');
+            $allData = $this->follow->listByFollowsUser($id, '6');
             $response = [
                 'pagination' => [
                 'total'        => $allData->total(),

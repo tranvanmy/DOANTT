@@ -67,8 +67,7 @@
 								<div class="col-sm-6">
 									<h4 class="page-header">Hình ảnh cho món ăn</h4>
 									<div class="form-group">
-									@{{cooking.image }}
-										<img v-bind:src="cooking.image" alt="">
+										<img v-bind:src="'/' + cooking.image" alt="">
 										<input type="file" v-on:change="uploadImage" id="image">
 									</div>
 								</div>
@@ -182,7 +181,7 @@
 												</span>
 												<li class="col-md-12">
 													<p>@{{ step.content }}</p>
-													<img class="col-md-12" v-bind:src="step.image" alt="">
+													<img class="col-md-12" v-bind:src="'/' + step.image" alt="">
 												</li>
 											</div>
 										</ol>
@@ -247,7 +246,7 @@
 									</div>
 									<div v-if="price == 1">
 									<hr>
-									{{-- <label for="name">Gía Tiền (VND)</label>
+									<label for="name">Gía Tiền (VND)</label>
 									<div class="clearfix"></div>
 										<div class="col-md-12">
 											<div class="col-md-6" style="margin-left: -5%;">
@@ -272,8 +271,7 @@
 			                </div>
 			            </div>
         			</div>
-        			{{-- //modal youtube --}}
-        			<div class="modal fade" id="modalYotube" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
+        			<div class="modal fade" id="modalYotube11" tabindex="-1" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
 			            <div class="modal-dialog">
 			                <div class="modal-content">
 			                    <div class="modal-header">
@@ -326,7 +324,7 @@
 		</section>
 	</div>
 	<!--//wrap-->
-</main> --}}
+</main>
 @include('sites._sections.footer')
 @include('../data.editCooking')
 @endsection

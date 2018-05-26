@@ -23,7 +23,7 @@ class IngredientController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $ingredient = $this->ingredient->paginate('3');
+            $ingredient = $this->ingredient->paginate('10');
             $response = [
                 'pagination' => [
                     'total' => $ingredient->total(),
@@ -49,6 +49,63 @@ class IngredientController extends Controller
     public function create(IngredientRequest $request)
     {
         //
+    }
+
+
+    public function searchName(Request $request)
+    {
+        $cooking = $this->ingredient->searchNamePaginateInger($request[0],'10');
+        $response = [
+            'pagination' => [
+                'total' => $cooking->total(),
+                'per_page' => $cooking->perPage(),
+                'current_page' => $cooking->currentPage(),
+                'last_page' => $cooking->lastPage(),
+                'from' => $cooking->firstItem(),
+                'to' => $cooking->lastItem()
+            ],
+            'data' => $cooking
+        ];
+
+        return response()->json($response);
+    }
+
+
+    public function searchStatus(Request $request)
+    {
+        $cooking = $this->ingredient->searchStatusPaginateInger($request[0],'10');
+        $response = [
+            'pagination' => [
+                'total' => $cooking->total(),
+                'per_page' => $cooking->perPage(),
+                'current_page' => $cooking->currentPage(),
+                'last_page' => $cooking->lastPage(),
+                'from' => $cooking->firstItem(),
+                'to' => $cooking->lastItem()
+            ],
+            'data' => $cooking
+        ];
+
+        return response()->json($response);
+    }
+
+
+    public function statusInter(Request $request)
+    {
+        $cooking = $this->ingredient->searchStatusPaginateIngeredent($request[0],'10');
+        $response = [
+            'pagination' => [
+                'total' => $cooking->total(),
+                'per_page' => $cooking->perPage(),
+                'current_page' => $cooking->currentPage(),
+                'last_page' => $cooking->lastPage(),
+                'from' => $cooking->firstItem(),
+                'to' => $cooking->lastItem()
+            ],
+            'data' => $cooking
+        ];
+
+        return response()->json($response);
     }
 
     /**

@@ -21,6 +21,7 @@ new Vue({
         fillItem: [], 
         formErrors: {},
         formErrorsUpdate: {},
+        totalOrder: null,
     },
 
     computed: {
@@ -55,8 +56,11 @@ new Vue({
     },
 
     methods: {
+
         getCookings: function(page){
             axios.get('/admin/cooking?page=' + page).then((response) => {
+                this.totalOrder = response.data.data.total;
+
                 this.$set(this, 'cookings', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             });
@@ -88,6 +92,7 @@ new Vue({
                 $('#paginationIndex').hide();
                 $('#paginationSearchName').hide();
                 $('#paginationSearchStatus').show();
+                this.totalOrder = response.data.data.total;
 
                 this.$set(this, 'cookings', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
@@ -109,6 +114,8 @@ new Vue({
                 $('#paginationIndex').hide();
                 $('#paginationSearchStatus').hide();
                 $('#paginationSearchName').show();
+                this.totalOrder = response.data.data.total;
+                
                 this.$set(this, 'cookings', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             })

@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    {{ trans('admin.ingredient_manage') }}
+    Nguyên Liệu
 @endsection
 
 @section('style')
@@ -22,14 +22,38 @@
 @section('content')
     <!-- Item Listing -->
     <section class="content p-l-r-15" id="manage-vue">
+            <button  type="button" class="btn btn-success" data-toggle="modal" v-on:click="addItem" style="margin-top: 6px; margin-left: 10px;">
+                <i class="ti-plus"></i> {{ trans('admin.create') }}
+            </button>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-heading">
-                        <button  type="button" class="btn btn-success" data-toggle="modal" v-on:click="addItem">
-                            <i class="ti-plus"></i>{{ trans('admin.create') }}
-                        </button>
+                        <label>Tìm Kiếm</label>
+                        <select name="status" class="input-sm" v-model="search">
+                            <option v-bind:value="1">Theo Tên</option>
+                            <option v-bind:value="0">Theo Trạng Thái</option>
+                            <option v-bind:value="2">Theo Nguyên Liệu</option>
+                        </select>
+                            
+                        <input type="" v-if="search == 1" id="nameCooking" v-model="fillSearch.name" v-on:keyup="searchName">
+
+                        <select  v-if="search == 0" name="status" class="input-sm" v-model="statusSearch.status" v-on:change="searchChange" style="margin-left: 30px;">
+                            <option value="3">Tât Cả</option>
+                            <option value="0">Đang Chờ</option>
+                            <option value="1">Hiển Thị</option>
+                        </select>
+
+                         <select  v-if="search == 2" name="status" class="input-sm" v-model="statusInter.status" v-on:change="searchChangeInter" style="margin-left: 30px;">
+                            <option value="3">Tât Cả</option>
+                            <option value="0">Nguyên Liệu Chính</option>
+                            <option value="">Nguyên Liệu Người Dùng</option>
+                            <option value="1">Gia Vị</option>
+                        </select>
+
+                         <span class="label label-success"> Tổng nguyên liệu là : @{{ totalOrder }}</span>
                     </div>
+
                     <div class="panel-body">
                         <div class="table-responsive">
                             <div id="table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
@@ -39,40 +63,38 @@
                                             <thead>
                                                 <tr class="filters" role="row">
                                                 <th class="col-md-1">{{ trans('admin.id') }}</th>
-                                                <th class="col-md-3">{{ trans('admin.name') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.type') }}</th>
-                                                <th class="col-md-1">{{ trans('admin.image') }}</th>
+                                                <th class="col-md-1">{{ trans('admin.name') }}</th>
+                                                <th class="col-md-1">Thể loại</th>
                                                 <th class="col-md-1">{{ trans('admin.status') }}</th>
                                                 <th class="col-md-1">{{ trans('admin.action') }}</th>
                                             </thead>
                                             <tbody>
                                                 <tr role="row" v-for="item in items">
                                                     <td>@{{ item.id }}</td>
-                                                    <td><a data-toggle="modal" v-on:click="showItem(item)" type="button">@{{ item.name }}</a></td>
+                                                    <td>@{{ item.name }}</td>
                                                     <td v-if="item.type == 0">
-                                                        <span class="label label-danger">{{ trans('admin.ingredient_main') }}</span>
+                                                        <span class="label label-success">{{ trans('admin.ingredient_main') }}</span>
                                                     </td>
                                                     <td v-if="item.type == 1">
                                                         <span class="label label-primary">{{ trans('admin.ingredient_sub') }}</span>
                                                     </td>
-                                                    <td><img class="icon-ingredient" v-bind:src="item.image" alt="" height="100px"></td>
-                                                    <td v-if="item.status == null || item.status == 0">
-                                                        <span class="">
-                                                            <i class=" fa fa-eye-slash text-danger" aria-hidden="true" title="{{ trans('admin.not_show') }}"></i>
-                                                        </span>
+                                                    <td v-if="item.type == null">
+                                                        <span class="label label-primary">Dữ Liệu Người Dùng</span>
                                                     </td>
-                                                    <td v-if="item.status == 1">
-                                                        <span class="">
-                                                            <i class="fa fa-eye text-primary" aria-hidden="true" title="{{ trans('admin.show') }}"></i>
+
+                                                    <td>
+                                                        <span v-if="item.status == null || item.status == 0" class="action_unit label label-danger">
+                                                            Đang Chờ
+                                                        </span>
+                                                       <span v-if="item.status == 1" class="action_unit label label-success" >
+                                                            Hiển Thị
                                                         </span>
                                                     </td>
                                                     <td>
-                                                        <span class="" v-on:click="editItem(item)">
-                                                            <i class="fa fa-fw ti-pencil text-primary actions_icon" title="{{ trans('admin.edit') }}"></i>
+                                                        <span class="btn btn-info" v-on:click="editItem(item)">
+                                                            <i class="fa fa-edit" aria-hidden="true"></i> Cập Nhật
                                                         </span>
-                                                        <span class="" v-on:click="comfirmDeleteItem(item)">
-                                                            <i class="fa fa-fw ti-close text-danger actions_icon" title="{{ trans('admin.delete') }}"></i>
-                                                        </span>
+                                                       
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -80,6 +102,7 @@
                                     </div>
                                 </div>
                                 <!-- Pagination -->
+                                <div id="paginationIndex">
                                 <nav class="dataTables_paginate paging_simple_numbers">
                                     <ul class="pagination">
                                         <li v-if="pagination.current_page > 1">
@@ -101,6 +124,83 @@
                                         </li>
                                     </ul>
                                 </nav>
+                                </div>
+
+                                <div id="paginationSearchName">
+
+                                <nav class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li v-if="pagination.current_page > 1">
+                                            <a href="#"
+                                               @click.prevent="changePageName(pagination.current_page - 1)">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li v-for="page in pagesNumber"
+                                            v-bind:class="[ page == isActived ? 'active' : '']">
+                                            <a href="#"
+                                               @click.prevent="changePageName(page)">@{{ page }}</a>
+                                        </li>
+                                        <li v-if="pagination.current_page < pagination.last_page">
+                                            <a href="#"
+                                               @click.prevent="changePageName(pagination.current_page + 1)">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </div>
+
+                                <div id="paginationSearchStatus">
+                               
+                                <nav class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li v-if="pagination.current_page > 1">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(pagination.current_page - 1)">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li v-for="page in pagesNumber"
+                                            v-bind:class="[ page == isActived ? 'active' : '']">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(page)">@{{ page }}</a>
+                                        </li>
+                                        <li v-if="pagination.current_page < pagination.last_page">
+                                            <a href="#"
+                                               @click.prevent="changePageStatus(pagination.current_page + 1)">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </div>
+
+                                <div id="paginationInter">
+                               
+                                <nav class="dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li v-if="pagination.current_page > 1">
+                                            <a href="#"
+                                               @click.prevent="changePageInter(pagination.current_page - 1)">
+                                                <span aria-hidden="true">«</span>
+                                            </a>
+                                        </li>
+                                        <li v-for="page in pagesNumber"
+                                            v-bind:class="[ page == isActived ? 'active' : '']">
+                                            <a href="#"
+                                               @click.prevent="changePageInter(page)">@{{ page }}</a>
+                                        </li>
+                                        <li v-if="pagination.current_page < pagination.last_page">
+                                            <a href="#"
+                                               @click.prevent="changePageInter(pagination.current_page + 1)">
+                                                <span aria-hidden="true">»</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -109,139 +209,74 @@
         </div>
         <!-- Create Item Modal -->
         <div class="modal fade" id="create-item" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">{{ trans('admin.ingredient_new') }}</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="createItem">
-                            <div class="form-group">
-                                <label>{{ trans('admin.ingredient_name') }}</label>
-                                <input type="text" name="name" class="form-control" v-model="newItem.name" placeholder="{{ trans('admin.ingredient_name') }}" />
-                                <span v-if="formErrors['name']" class="error text-danger">@{{ formErrors['name'][0] }}</span>
-                                <br>
-                                <label>{{ trans('admin.ingredient_description') }}</label>
-                                <textarea class="ckeditor" name="description" id="my-editor" v-model="newItem.description"></textarea>
-                                <span v-if="formErrors['description']" class="error text-danger">@{{ formErrors['description'][0] }}</span><br>
-                                <div>
-                                    <img class="image-ingredient" id="new-image-preview">
-                                    <span class="input-group-btn">
-                                        <a id="new-image" data-input="name-new-image" data-preview="new-image-preview" class="btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> {{ trans('admin.choose_feature_image') }}</a>
-                                    </span>
-                                    <input id="name-new-image" hidden class="" type="text" name="filepath">
-                               </div>
-                                <table>
-                                    <tr>
-                                        <td><label for="type">{{trans('admin.ingredient_type') }}</label></td>
-                                        <td>
-                                            <select  class="input-sm" name="type" id="" v-model="newItem.type" >
-                                                <option v-bind:value="0">{{ trans('admin.ingredient_main') }}</option>
-                                                <option v-bind:value="1">{{ trans('admin.ingredient_sub') }}</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="status">{{trans('admin.status') }}</label></td>
-                                        <td>
-                                            <select  name="status" class="input-sm" id="" v-model="newItem.status" >
-                                                <option value="1">{{ trans('admin.show') }}</option>
-                                                <option value="0">{{ trans('admin.not_show') }}</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">{{ trans('admin.ingredient_create') }}</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- comfirm delete item -->
-        <div class="modal fade" id="delete-item" role="dialog" aria-labelledby="Heading" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
-                        </button>
-                        <h4 class="modal-title custom_align" id="Heading">{{ trans('admin.ingredient_delete') }}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-danger">
-                            <span class="glyphicon glyphicon-warning-sign"></span>
-                            {{ trans('admin.ingredient_comfirm_delete') . ': ' }} @{{ deleteItem.name }}
+                        <div class="form-group">
+                            <label>{{ trans('admin.ingredient_name') }}</label>
+                            <input type="text" name="name" class="form-control" v-model="newItem.name" placeholder="{{ trans('admin.ingredient_name') }}" />
+                            <span v-if="formErrors['name']" class="error text-danger">@{{ formErrors['name'][0] }}</span>
+                            <br>
+                            <label for="type">{{trans('admin.ingredient_type') }}</label>
+                            <select  class="input-sm" name="type" id="" v-model="newItem.type" >
+                                <option v-bind:value="0">{{ trans('admin.ingredient_main') }}</option>
+                                <option v-bind:value="1">{{ trans('admin.ingredient_sub') }}</option>
+                            </select>
+                            <label for="status">{{trans('admin.status') }}</label>
+                            <select  name="status" class="input-sm" id="" v-model="newItem.status" >
+                                <option value="1">{{ trans('admin.show') }}</option>
+                                <option value="0">{{ trans('admin.not_show') }}</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer ">
-                        <a href="javascript:void(0)" v-on:click="delItem(deleteItem.id)" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-ok-sign"></span> {{ trans('admin.yes') }}
-                        </a>
-                        <button type="button" class="btn btn-success" data-dismiss="modal">
+                        <a href="javascript:void(0)"  data-dismiss="modal"  class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove"></span> {{ trans('admin.no') }}
+                        </a>
+                        <button type="button" class="btn btn-success"  v-on:click="createItem">
+                            <span class="glyphicon glyphicon-ok-sign"></span> {{ trans('admin.yes') }}
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Edit Item Modal -->
+
         <div class="modal fade" id="edit-item" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">{{ trans('admin.ingredient_edit') }}</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(fillItem.id)">
-                            <div class="form-group">
-                                <label for="name">{{ trans('admin.ingredient_name') }}</label>
-                                <input type="text" name="name" class="form-control" v-model="fillItem.name" />
-                                <span v-if="formErrorsUpdate['name']" class="error text-danger">@{{ formErrorsUpdate['name'][0] }}</span>
-                                <br>
-                                <label for="description">{{ trans('admin.ingredient_description') }}</label>
-                                <textarea class="ckeditor" name="description-edit" id="my-editor-edit" v-model="fillItem.description" ></textarea>
-                                <span v-if="formErrorsUpdate['description']" class="error text-danger">@{{ formErrorsUpdate['description'][0] }}</span>
-                                <br>
-                                <label for="image">{{ trans('admin.ingredient_image') }}
-                                </label>
-                                <div>
-                                    <img id="edit-image-preview">
-                                    <span class="input-group-btn">
-                                        <a id="edit-image" data-input="name-edit-image" data-preview="edit-image-preview" class="btn btn-primary">
-                                        <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
-                                    </span>
-                                    <input id="name-edit-image" class="" type="text" name="filepath">
-                                </div>
-                                <table>
-                                    <tr>
-                                        <td><label for="type">{{trans('admin.ingredient_type') }}</label></td>
-                                        <td>
-                                            <select  class="input-sm" name="type" id="" v-model="fillItem.type" >
-                                                <option v-bind:value="0">{{ trans('admin.ingredient_main') }}</option>
-                                                <option v-bind:value="1">{{ trans('admin.ingredient_sub') }}</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="status">{{trans('admin.status') }}</label></td>
-                                        <td>
-                                            <select  name="status" class="input-sm" id="" v-model="fillItem.status" >
-                                                <option value="1">{{ trans('admin.show') }}</option>
-                                                <option value="0">{{ trans('admin.not_show') }}</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">{{ trans('admin.ingredient_update') }}</button>
-                            </div>
-                        </form>
+                    <div class="form-group">
+                        <label for="name">{{ trans('admin.ingredient_name') }}</label>
+                        <input type="text" name="name" class="form-control" v-model="fillItem.name" />
+                        <span v-if="formErrorsUpdate['name']" class="error text-danger">@{{ formErrorsUpdate['name'][0] }}</span>
+                        <br>
+                        <label for="type">{{trans('admin.ingredient_type') }}</label>
+                        <select  class="input-sm" name="type" id="" v-model="fillItem.type" >
+                            <option v-bind:value="0">{{ trans('admin.ingredient_main') }}</option>
+                            <option v-bind:value="1">{{ trans('admin.ingredient_sub') }}</option>
+                        </select>
+
+                        <label for="status">{{trans('admin.status') }}</label>
+                        <select  name="status" class="input-sm" id="" v-model="fillItem.status" >
+                            <option value="1">{{ trans('admin.show') }}</option>
+                            <option value="0">{{ trans('admin.not_show') }}</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer ">
+                        <a href="javascript:void(0)"  data-dismiss="modal"  class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span> {{ trans('admin.no') }}
+                        </a>
+                        <button type="button" class="btn btn-success"  v-on:click="updateItem(fillItem.id)">
+                            <span class="glyphicon glyphicon-ok-sign"></span> {{ trans('admin.yes') }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -266,9 +301,5 @@
     </section>
 @endsection
 @section('script')
-    <script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
-    {{ Html::script('bower/ckeditor/ckeditor.js') }}
-    {{ Html::script('sites_custom/js/config.lfm.ckeditor.js') }}
     {{ Html::script('admin/ingredient.js') }}
-
 @endsection

@@ -74,11 +74,6 @@ class SubmitCookingController extends Controller
     public function showEdit(Request $request, $id)
     {
         if ($request->ajax()) {
-            // $cooking = $this->cooking->find($id, [
-            //     'categories',
-            //     'cookingIngredients',
-            //     'steps'
-            // ]);
             $cooking = $this->cooking->find($id, [
             'user',
             'categories',
