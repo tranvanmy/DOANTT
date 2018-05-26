@@ -5,11 +5,13 @@ if (typeof window.data === 'string') {
 var app1 = new Vue({
     el: '#cooking',
     data:  window.data,
+
     mounted : function(){
         this.getCooking();
         $('.step').hide();
         $('#checkout-first').show();
     },
+
     methods: {
         submit: function() {
                 if (this.cookingError) {
@@ -58,7 +60,8 @@ var app1 = new Vue({
 
         showModalYT: function()
         {
-            $('#modalYotube').modal('show');
+            console.log(1);
+            $('#modalYotube11').modal('show');
         },
         converthtml: function()
         {

@@ -44,6 +44,7 @@ class HomeController extends Controller
         $users_top_3 = $this->user->getbyNumber('3', 0, ['level', 'cookings'], 'id');
         $users_top_6 = $this->user->getbyNumber('6', 0, ['level'], 'id');
         $cookings = $this->cooking->getbyNumber('6', 1, ['level', 'comments'], 'id');
+        // dump($cookings);
         $cooking_top_1 = $this->cooking->getbyNumber('1', 1, ['level', 'comments'], 'id');
         $categories = $this->category->status(config('category.in_home_page'));
         $posts = $this->post->getbyNumber('6', 2, [], 'id');

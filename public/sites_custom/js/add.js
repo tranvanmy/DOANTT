@@ -29,7 +29,6 @@ var app1 = new Vue({
     },
     mounted : function(){
         this.getCooking();
-        console.log();
         $('.step').hide();
         $('#checkout-first').show();
     },
