@@ -26,7 +26,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
     Route::resource('subcrice', 'Admins\SubcriceController');
     Route::resource('category', 'Admins\CategoryController');
     Route::resource('unit', 'Admins\UnitController');
+
     Route::resource('ingredient', 'Admins\IngredientController');
+    Route::get('search/nameIngredient', 'Admins\IngredientController@searchName');
+    Route::get('search/statusIngredient', 'Admins\IngredientController@searchStatus');
+    
+    Route::get('search/statusInter', 'Admins\IngredientController@statusInter');
+
+
     Route::resource('post', 'Admins\PostController');
     Route::resource('cooking', 'Admins\CookingController');
     Route::get('search/nameCooking', 'Admins\CookingController@searchName');

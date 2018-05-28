@@ -40,7 +40,7 @@ class CookingController extends Controller
     {
             
         if ($request->ajax()) {
-            $repices = $this->cooking->paginageCooking('10', ['level']);
+            $repices = $this->cooking->paginageCooking('9', ['level']);
             $response = [
                 'pagination' => [
                 'total'        => $repices->total(),

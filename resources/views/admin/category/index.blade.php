@@ -110,12 +110,13 @@
                                        </select>
                                        <br>
                                         <label for="status">{{ trans('admin.icon') }}</label>
-                                       <img class="icon-category" id="new-image-preview">
-                                       <span class="input-group-btn">
-                                           <a id="new-image" data-input="name-new-image" data-preview="new-image-preview" class="btn btn-primary">
-                                           <i class="fa fa-picture-o"></i> {{ trans('admin.choose_image') }}</a>
-                                       </span>
-                        
+
+                                       <div class="file-upload-form">
+                                         <input type="file" @change="previewImage" accept="image/*" name="avatar">
+                                      </div>
+                                    {{--   <div class="image-preview" v-if="imageData.length > 0">
+                                         <img class="preview" :src="imageData">
+                                      </div> --}}
                                     </div>
                               </div>
                               <div class="modal-footer ">
@@ -198,6 +199,5 @@
 </section>
 @endsection
 @section('script')
-<script src="{{asset('/vendor/laravel-filemanager/js/lfm.js')}}"></script>
 {{ Html::script('admin/category.js') }}
 @endsection

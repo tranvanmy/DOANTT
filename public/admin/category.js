@@ -14,6 +14,8 @@ new Vue({
         },
         offset: 4,
         formErrors: {},
+        imageData: "",
+        image: "",
         formErrorsUpdate: {},
         newItem: {'name':'', 'parent_id': '', 'status': '1', 'icon': ''},
         fillItem: {'name':'','id':'', 'status': '', 'icon': ''},
@@ -59,6 +61,17 @@ new Vue({
             });
         },
 
+        previewImage: function(event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.imageData = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
+
         addItem: function(){
             this.formErrors = '';
             $("#create-item").modal('show');
@@ -66,8 +79,8 @@ new Vue({
 
         createItem: function(){
             var input = this.newItem;
-            var icon = $('#name-new-image').val();
-            input.icon = icon;
+            input.icon = this.imageData;
+            
             axios.post('/admin/category',input).then((response) => {
                 this.changePage(this.pagination.current_page);
                 this.newItem = {'name':'', 'parent_id': '', 'status': '1'};

@@ -382,7 +382,9 @@
                         </div>
                         <div class="tab-content" id="follow">
                             <div class="entries row">
+                            {{-- {{ dd($allData) }} --}}
                                 @foreach($allData->follows as $follow)
+                                    @if($follow->userFollow)
                                     <div class="entry one-third">
                                         <figure>
                                             <img src="{{ ($follow->userFollow->avatar) }}" alt=""  height="250px" width="300px"/>
@@ -395,6 +397,7 @@
                                             <p><i class="fa fa-address-book" aria-hidden="true"></i> | {{ $follow->userFollow->email }}</p>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <div>
@@ -407,13 +410,14 @@
                         <div class="tab-content" id="byfollow">
                             <div class="entries row">
                                 @foreach($allData->followBys as $byFollow)
+                                @if($byFollow->user)
                                     <div class="entry one-third">
                                         <figure>
                                             <img src="{{ ($byFollow->user->avatar) }}" alt=""  height="250px" width="300px"/>
                                             <figcaption>
                                                 <a href="{{ ($byFollow->user->id) }}">
                                                     <i class="ico i-view"></i>
-                                                    <span>{{ trans('sites.view') }}</span>
+                                                    <span>Xem thông tin</span>
                                                 </a>
                                             </figcaption>
                                         </figure>
@@ -425,6 +429,7 @@
                                             </h2>
                                         </div>
                                     </div>
+                                    @endif
                                 @endforeach
                             </div>
                             <div>

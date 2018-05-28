@@ -28,4 +28,30 @@ class IngredientEloquentRepository extends AbstractEloquentRepository implements
 
         return $ingredient;
     }
+
+    public function searchNamePaginateInger($name, $paginate, $select = null)
+    {
+        $Inger = Ingredient::where('name', 'like', '%' . $name . '%')
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $Inger;
+    }
+
+    public function searchStatusPaginateInger($status, $paginate, $select = null)
+    {
+         $Inger = Ingredient::where('status', $status)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $Inger;
+    }
+     public function searchStatusPaginateIngeredent($status, $paginate, $select = null)
+    {
+         $Inger = Ingredient::where('type', $status)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $Inger;
+    }
 }

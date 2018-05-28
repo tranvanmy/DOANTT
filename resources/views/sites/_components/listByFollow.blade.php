@@ -29,11 +29,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
-            <!--right sidebar-->
-            @include('sites._sections.sidebar')
-        </div>
-        <nav>
+                <nav>
             <ul class="pagination">
                 <li v-if="pagination.current_page > 1">
                     <a href="#" aria-label="Previous" @click.prevent="changePage(pagination.current_page - 1)">
@@ -50,6 +46,10 @@
             </li>
         </ul>
     </nav>
+            </section>
+            <!--right sidebar-->
+            @include('sites._sections.sidebar')
+        </div>
 </div>
 </main>
 <!--//wrap-->

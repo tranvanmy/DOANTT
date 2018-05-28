@@ -21,7 +21,8 @@ new Vue({
         statusLevel: {'level': ''},
         newItem: {'name':'', 'email':'', 'password':'', 'phone':'', 'avatar':'', 'level_id': '1', 'status':'0', 'levels-name': '', 'confirm_pass': ''},
         fillItem: {'id':'', 'name': '', 'email': '', 'password':'', 'phone': '', 'avatar': '', 'level_id': '', 'status': ''},
-        deleteItem: {'name':'','id':''}
+        deleteItem: {'name':'','id':''},
+        totalOrder: null,
     },
 
     computed: {
@@ -53,14 +54,13 @@ new Vue({
         $('#paginationName').hide();
         $('#paginationStatus').hide();
         $('#paginationLevel').hide();
-        // this.initFilemanager();
     },
 
     methods: {
         showInfor: function(page) {
             axios.get('/admin/user?page='+ page).then(response => {
+                this.totalOrder = response.data.data.total;
                 this.$set(this, 'items', response.data.data.data);
-                console.log(this.items);
                 this.$set(this, 'pagination', response.data.pagination);
             })
         },
@@ -79,13 +79,11 @@ new Vue({
             axios(authOptions).then(response => {
                 $('#paginationIndex').hide();
                 $('#paginationStatus').hide();
-        $('#paginationLevel').hide();
-
+                $('#paginationLevel').hide();
                 $('#paginationName').show();
-
-                this.$set(this, 'items', response.data.data.data);
-                console.log(this.items);
                 
+                this.totalOrder = response.data.data.total;
+                this.$set(this, 'items', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             })
         },
@@ -110,10 +108,9 @@ new Vue({
             axios(authOptions).then(response => {
                 $('#paginationIndex').hide();
                 $('#paginationName').hide();
-        $('#paginationLevel').hide();
-
+                $('#paginationLevel').hide();
                 $('#paginationStatus').show();
-
+                this.totalOrder = response.data.data.total;
                 this.$set(this, 'items', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             })
@@ -145,7 +142,7 @@ new Vue({
                 $('#paginationName').hide();
                 $('#paginationStatus').hide();
                 $('#paginationLevel').show();
-                
+                this.totalOrder = response.data.data.total;
                 this.$set(this, 'items', response.data.data.data);
                 this.$set(this, 'pagination', response.data.pagination);
             })
