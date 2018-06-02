@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 @include('sites._sections.header')
-<main class="main not-home" role="main" id="cooking">
+<main class="main not-home" role="main" id="checkout">
     <!--wrap-->
     <div class="wrap clearfix add-cooking">
        <section class="site-content site-section clearfix">
@@ -40,7 +40,7 @@
                                         <div class="col-xs-12"><small>{{ trans('sites.quantity') }}:<span>{{ $cookings['cart'][$cooking->id] }}</span></small></div>
                                     </div>
                                     <div class="col-sm-3 col-xs-3 text-right">
-                                        <h6><span>$</span>{{ number_format($cookings['cart'][$cooking->id] * $cooking->price) }}đ</h6>
+                                        <h6>{{ number_format($cookings['cart'][$cooking->id] * $cooking->price) }}đ</h6>
                                     </div>
                                 </div>
                                 <div class="form-group"><hr /></div>
@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <strong>{{ trans('sites.order_total') }}</strong>
-                                    <div class="pull-right"><span>$</span><span>{{ !empty($cookings['total']) ?  number_format($cookings['total'])  : '' }}đ</span></div>
+                                    <div class="pull-right"><span>{{ !empty($cookings['total']) ?  number_format($cookings['total'])  : '' }}đ</span></div>
                                 </div>
                             </div>
                         </div>
@@ -80,12 +80,12 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12"><strong>{{ trans('sites.phone') }}</strong></div>
-                                <div class="col-md-12"><input type="number" name="phone" class="form-control" value="{{ Auth::user()->phone }}" /></div>
+                                <div class="col-md-12"><input type="number" v-on:keyup="handlePhone" name="phone" class="form-control" value="{{ Auth::user()->phone }}" /></div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12"><strong>{{ trans('sites.address') }}:</strong></div>
                                 <div class="col-md-12">
-                                    <input type="text" name="address" class="form-control" value="{{ Auth::user()->address }}" />
+                                    <input type="text"  ref="inputAddress"  v-on:keyup="handleAddress" name="address" class="form-control" value="{{ Auth::user()->address }}" />
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                     <!--CREDIT CART PAYMENT-->
                    <div class="col-md-6 col-sm-6 col-xs-12">
                     @if(!empty($cookings['cookings']))
-                        <button type="submit" class="btn btn-primary btn-submit-fix">{{ trans('sites.place_order') }}</button>
+                        <button type="submit" class="btn btn-primary btn-submit-fix" ref="submitCheckout">{{ trans('sites.place_order') }}</button>
                     @endif
                     </div>
                     <!--CREDIT CART PAYMENT END-->
@@ -113,5 +113,6 @@
 @include('sites._sections.footer')
 @endsection
 @section('script')
+{{ Html::script('js/checkOut.js') }}
 @endsection
 </div>

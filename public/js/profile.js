@@ -142,6 +142,7 @@ var followView = new Vue({
                 $("#addpost").modal('hide');
                 if(response.data) {
                     toastr.success(response.data.message, response.data.action, {timeOut: 5000});
+                    setTimeout(function(){ window.location.reload(); }, 1000);
                 }
             }).catch((e) => {
                 this.formPostErrors = e.response.data;

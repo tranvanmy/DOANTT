@@ -31,6 +31,12 @@
                     </div>
                     <div class="container">
                         <div class="entry-featured"><a href="#"><img src="{{ $detailPost->image }}" alt="" /></a></div>
+                        <div style="margin-top: 10px;" class="clearfix">
+                        <h4>
+                            {!! $detailPost->description !!} 
+                        </h4>
+                        </div>
+                        <hr>
                         <div class="entry-content">
                             {!! $detailPost->content !!}
                         </div>
@@ -163,5 +169,6 @@
 @endsection
 
 @section('script')
+{{ Html::script('bower/ckeditor/ckeditor.js') }}
 {{ Html::script('js/detalt_blog.js') }} 
 @endsection

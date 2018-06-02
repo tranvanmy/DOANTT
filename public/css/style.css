@@ -113,6 +113,59 @@ tr:nth-child(2n+1) td{background:#f6f6f6;}
 
 .demoanimate {margin:0 20px 20px 0;width:25%;height:100px;position:relative;z-index:2;}
 
+.bottom-toolbox {
+    padding-bottom: 130px;
+    position: fixed;
+    bottom: 0;
+    cursor: pointer;
+    max-height: 190px;
+    width: 45px;
+    text-align: center;
+    background: rgba(203,203,203,.3);
+}
+
+.ico.ico-24 {
+	width: 24px;
+    height: 24px;
+    background-size: 24px 24px;
+}
+
+.top-course-list {
+	width: 25%;
+    font-size: 14px;
+    float: left;
+}
+
+footer .top-list {
+    width: 33.333%;
+    float: left;
+}
+
+.headline {
+    font-size: 18px;
+    padding: 10px 0;
+    display: block;
+}
+
+footer .cooky-statistic .item {
+    padding: 8px 0;
+    width: 50%;
+    float: left;
+}
+
+footer .top-list {
+    width: 33.333%;
+    float: left;
+}
+
+
+.static-footer {
+    position: relative;
+}
+
+.ico-facebook {
+    background-image: url(/ImageFooter/fb_icon_325x325.png);
+}
 /*PRICING TABLES*/
 .two-col div        {float:left;width:50%;}
 .three-col div  {float:left;width:33.33%;}

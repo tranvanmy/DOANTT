@@ -27,7 +27,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                     <button class="btn btn-success" onclick="window.print();">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> {{ trans('admin.prindsub') }}
+                        <i class="fas fa-print"></i> {{ trans('admin.prindsub') }}
                     </button>
                     </div>
                     <div class="panel-body">
@@ -46,11 +46,11 @@
                                                 <tr role="row" v-for="item in items">
                                                     <td>@{{ item.id }}</td>
                                                     <td>
-                                                        <a data-toggle="modal" v-on:click="showItem(item)" type="button">@{{ item.email }}</a>
+                                                        <a mailto>@{{ item.email }}</a>
                                                     </td>
                                                     <td>
                                                         <span class="btn btn-danger" v-on:click="comfirmDeleteItem(item)">
-                                                           <i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('admin.delete') }}
+                                                          <i class="fas fa-trash-alt"></i> {{ trans('admin.delete') }}
                                                         </span>
                                                     </td>
                                                 </tr>
