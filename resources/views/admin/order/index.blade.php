@@ -235,6 +235,7 @@ Quản lý đơn hàng
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <button class="btn btn-info"  @click.prevent="print()">In</button>
                                         </div>
                                     </div>
                                 </div>

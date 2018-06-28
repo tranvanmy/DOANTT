@@ -50,6 +50,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 
 Route::group(['prefix' => 'site', 'as' => 'site.'], function () {
     Route::resource('profile/user', 'ProfileController');
+
+    Route::get('image', 'ProfileController@image');
     Route::get('master', 'ProfileController@showMaster')->name('master');
     Route::get('/top/master', 'ProfileController@topMaster')->name('master');
     Route::get('cooking/{id}', 'Sites\CookingController@show');
