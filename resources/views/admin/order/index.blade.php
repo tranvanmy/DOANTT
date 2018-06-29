@@ -47,7 +47,7 @@ Quản lý đơn hàng
                                                     <th class="col-md-1">{{ trans('admin.id') }}</th>
                                                     <th class="col-md-1">Người đặt hàng</th>
                                                     <th class="col-md-1">Đia Chỉ</th>
-                                                    <th class="col-md-1">Người bán hàng</th>
+                                                    <!-- <th class="col-md-1">Người bán hàng</th> -->
                                                     <th class="col-md-1">{{ trans('admin.status') }}</th>
                                                     <th class="col-md-1">{{ trans('admin.action') }}</th>
                                                 </thead>
@@ -60,11 +60,11 @@ Quản lý đơn hàng
                                                             </a>
                                                         </td>
                                                         <td>@{{ order.address }}</td>
-                                                        <td v-for="cookingdetail in order.order_detail">
+                                                       <!--  <td v-for="cookingdetail in order.order_detail">
                                                             <a v-bind:href="'/site/profile/user/' + cookingdetail.cooking.user.id" target="_blank">
                                                                 @{{ cookingdetail.cooking.user.name }}
                                                             </a>
-                                                        </td>
+                                                        </td> -->
 
                                                             <td v-if="order.status == 0">
                                                                 <span class="label label-warning">
@@ -210,7 +210,7 @@ Quản lý đơn hàng
                                                                     @{{ orderDetail.cooking.name }}
                                                             </a>
                                                         </td>
-                                                        <td class="text-center">@{{ orderDetail.price / orderDetail.quantity }}</td>
+                                                        <td class="text-center">@{{ orderDetail.price * orderDetail.quantity }}</td>
                                                         <td class="text-center">@{{ orderDetail.quantity }}</td>
                                                         <td class="text-right">@{{ orderDetail.price }}</td>
                                                     </tr>
@@ -231,11 +231,12 @@ Quản lý đơn hàng
                                                         <td class="no-line"></td>
                                                         <td class="no-line"></td>
                                                         <td class="no-line text-center"><strong>Tổng Tiền</strong></td>
-                                                        <td class="no-line text-right">@{{ order.total }}</td>
+                                                        <td class="no-line text-right">@{{ order.total }} VND</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <button class="btn btn-info"  @click.prevent="print()">In</button>
+                                            <a class="btn btn-info"  v-bind:href="'/admin/invoice/' + order.id">In hóa đơn</a>
+                                            <a class="btn btn-info"  v-bind:href="'/admin/down/invoice/' + order.id">Tải về</a>
                                         </div>
                                     </div>
                                 </div>
