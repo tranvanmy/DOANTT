@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contracts\Repositories\OrderRepository;
 use App\Contracts\Repositories\OrderDetailRepository;
+use App\Http\Controllers\Admins\PDF;
 use Auth;
 
 class OrderController extends Controller
@@ -44,7 +45,31 @@ class OrderController extends Controller
             return response()->json($response);
         }
 
+
         return view('admin.order.index');
+    }
+
+    public function invoice(Request $request, $id)
+    {
+
+        $data = $this->orderDetail->getByOrder($id, ['cooking']);
+        $order = $this->order->firstByIdOrder(['user', 'sellerr', 'orderDetail.cooking.user'], $id);
+
+        return view('admin.invoice.invoice',  compact('data', 'order'));
+    }
+
+    public function down(Request $request, $id)
+    {
+
+        $data = $this->orderDetail->getByOrder($id, ['cooking']);
+        $order = $this->order->firstByIdOrder(['user', 'sellerr', 'orderDetail.cooking.user'], $id);
+
+        // return view('admin.invoice.invoice',  compact('data', 'order'));
+
+        // // dd($id);
+        $pdf = \PDF::loadView('admin.invoice.invoice',  compact('data', 'order'));
+        
+        return $pdf->download('invoice.pdf');
     }
 
     public function searchStatus(Request $request)
@@ -101,7 +126,7 @@ class OrderController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function edit($id)
     {
         //

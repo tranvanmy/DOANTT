@@ -44,6 +44,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], f
 
 
     Route::resource('order', 'Admins\OrderController');
+    
+    Route::get('invoice/{id}', 'Admins\OrderController@invoice')->name('invoice');
+
+    Route::get('down/invoice/{id}', 'Admins\OrderController@down')->name('invoice');
+
+
+
+
     Route::get('search/statusOder', 'Admins\OrderController@searchStatus');
 });
 
