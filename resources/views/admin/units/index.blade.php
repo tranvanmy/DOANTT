@@ -21,7 +21,7 @@
                 <div class="panel">
                     <div class="panel-heading">
                         <button class="btn btn-success" v-on:click="addUnit">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> Thêm Đơn Vị
+                           <i class="fas fa-plus-circle"></i> Thêm Đơn Vị
                         </button>
                     </div>
                     <div class="panel-body">

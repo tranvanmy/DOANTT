@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = $this->category->paginate('5');
+            $categories = $this->category->paginate('10');
             // $categories = Helpers::categoriesToArray($categories);
 
              $response = [
@@ -45,6 +45,14 @@ class CategoryController extends Controller
         return view('admin.category.index');
     }
 
+
+    public function parentCategory(Request $request)
+    {
+        $categories = $this->category->all();
+        $categories = Helpers::categoriesToArray($categories);
+            // $categories = json_encode($categories);
+        return response()->json($categories);
+    }
     /**
      * Show the form for creating a new resource.
      *

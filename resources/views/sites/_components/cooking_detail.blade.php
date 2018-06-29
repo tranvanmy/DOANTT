@@ -106,32 +106,38 @@
                            @endif
                         </div>
                         <dl class="basic">
-                           {{-- @if(Auth::check())
-                           <div v-if="cooking.user.id == {{ Auth::user()->id }}">
-                              <dt>{{ trans('sites.price') }}</dt>
-                              <dd>
-                                 <form method="POST" enctype="multipart/form-data" v-on:submit.prevent="updateItem(cooking.id)">
-                                    <input type="number" name="price" min="1" class="input" v-model="newItem.price"/>
-                                    <button type="submit" style="margin-top: 189px; margin-left: 100px; ">Update</button>
-                                 </form>
-                              </dd>
-                           </div>
-                           @endif --}}
                            <dd>{{ trans('sites.difficulty') }}</dd>
                            <dt>@{{ cooking.level.name }}</dt>
                            <dd>{{ trans('sites.cooking_time') }}</dd>
                            <dt>@{{ cooking.time }} Giờ </dt>
-                           <dd>{{ trans('sites.serves') }}</dd>
-                           <dt><input v-bind:value="cooking.ration" type="number" name="seres" min="1" max="20" class="input" /></dt>
+                           <dd style="width: 50%;">{{ trans('sites.serves') }}</dd>
+                           <dt style="width: 50%;">@{{ cooking.ration }} Người</dt>
                            <dd>{{ trans('sites.price') }}</dd>
-                           <dt>@{{ cooking.price }} VND</dt>
+                           <dt>@{{ formatVND }} VND</dt>
                         </dl>
                         <dl class="ingredients">
-                           <div v-for=" ingredient in cooking.cooking_ingredients">
+                           <div v-for="ingredient in cooking.cooking_ingredients">
                               <dt>@{{ ingredient.quantity }} @{{ ingredient.unit.name }}</dt>
-                              <dd>@{{ ingredient.ingredient.name }}</dd>
+                               <a href="javascript:void(0)">
+                                  <dd v-on:click="showDescription(ingredient.description)">@{{ ingredient.ingredient.name }}</dd>
+                               </a>
                            </div>
                         </dl>
+                        
+                        <dl class="basic">
+                           <dd style="width: 50%;">Khẩu Phần</dd>
+                           <dt style="width: 50%;"><input type="number"  v-on:change="upvotePre" min="1" max="20" class="input"/></dt>
+                        </dl>
+
+                        <dl class="ingredients" v-if="upvoteIngeredient">
+                           <div v-for="ingredient in showCookingOneShow">
+                              <dt>@{{ ingredient.quantity }} @{{ ingredient.unit }}</dt>
+                               <a href="javascript:void(0)">
+                                  <dd v-on:click="showDescription(ingredient.description)">@{{ ingredient.ingredient }}</dd>
+                               </a>
+                           </div>
+                        </dl>
+
                         <div class="widget widget-sidebar">
                            <h5>{{ trans('sites.recipe_category') }}</h5>
                            <ul class="boxed">
@@ -255,9 +261,7 @@
 @endsection
 @section('script')
 <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
-{{-- <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script> --}}
 {!! Html::script('sites_custom/js/cooking.js') !!}
-{{-- {!! Html::script('js/wishlist.js') !!} --}}
 @if (Auth::check())
 <script>
    wishlish.initData({{ $wishlish ? 1 : 0 }});

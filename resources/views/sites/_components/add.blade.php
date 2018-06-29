@@ -56,7 +56,7 @@
 									<div class="form-group">
 										<label for="description">Link Video</label>
 										<br>
-										<a class="btn btn-success" v-on:click="showModalYT"><i class="fas fa-plus-square"></i> Add Link</a>
+										<a class="btn btn-success" v-on:click="showModalYT">+ Add Link</a>
 									</div>
 									<br>
 									<div class="form-group">
@@ -324,6 +324,5 @@
 @include('sites._sections.footer')
 @endsection
 @section('script')
-	<script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js."></script>
 	{{ Html::script('sites_custom/js/add.js') }}
 @endsection

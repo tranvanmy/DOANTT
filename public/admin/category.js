@@ -19,7 +19,8 @@ new Vue({
         formErrorsUpdate: {},
         newItem: {'name':'', 'parent_id': '', 'status': '1', 'icon': ''},
         fillItem: {'name':'','id':'', 'status': '', 'icon': ''},
-        deleteItem: {'name':'','id':''}
+        deleteItem: {'name':'','id':''},
+        category: null,
     },
 
     computed: {
@@ -57,6 +58,8 @@ new Vue({
         getItems: function(page){
             axios.get('/admin/category?page='+ page).then((response) => {
                 this.$set(this, 'items', response.data.data.data);
+
+                console.log(this.items);
                 this.$set(this, 'pagination', response.data.pagination);
             });
         },
@@ -75,6 +78,10 @@ new Vue({
         addItem: function(){
             this.formErrors = '';
             $("#create-item").modal('show');
+            axios.get('/admin/parent/category').then((response) => {
+                console.log(response);
+                this.$set(this, 'category', response.data);
+            });
         },
 
         createItem: function(){
@@ -86,6 +93,8 @@ new Vue({
                 this.newItem = {'name':'', 'parent_id': '', 'status': '1'};
                 this.formErrors = '';
                 $('#name-new-image').val('');
+                this.imageData = null;
+                this.newItem = null;
                 $('#new-image-preview').attr('src', '');
                 $("#create-item").modal('hide');
                 if (response.data.status == 'error') {
@@ -105,7 +114,6 @@ new Vue({
             var name = item.name.split('-');
             this.deleteItem.name = name[name.length -1];
             this.deleteItem.id = item.id;
-            console.log(this.deleteItem.name)
             $("#delete-item").modal('show');
         },
 
@@ -124,15 +132,19 @@ new Vue({
         },
 
         editItem: function(item){
-            var icon = $('#name-edit-image').val();
-            var name = item.name.split('-');
-            this.fillItem.name = name[name.length -1];
-            this.fillItem.id = item.id;
-            this.fillItem.status = item.status;
-            this.fillItem.icon = icon;
-            $('#edit-image-preview').attr('src', item.icon);
-            $('#name-edit-image').val(item.icon);
-            $("#edit-item").modal('show');
+             axios.get('/admin/parent/category').then((response) => {
+                this.$set(this, 'category', response.data);
+                // var icon = $('#name-edit-image').val();
+                var name = item.name.split('-');
+                this.fillItem.name = name[name.length -1];
+                this.fillItem.id = item.id;
+                this.fillItem.status = item.status;
+                this.fillItem.icon = item.icon;
+                this.fillItem.parent_id = item.parent_id;
+                $('#edit-image-preview').attr('src', item.icon);
+                $('#name-edit-image').val(item.icon);
+                $("#edit-item").modal('show');
+            });
         },
 
         updateItem: function(id){

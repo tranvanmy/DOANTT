@@ -148,6 +148,12 @@ class ProfileController extends Controller
     {
         //
     }
+
+     public function image()
+    {
+        return view('sites._components.image');
+    }
+
     /**
      * Display the specified resource.
      *

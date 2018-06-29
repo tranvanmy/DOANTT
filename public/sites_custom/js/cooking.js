@@ -75,6 +75,10 @@ var wishlish = new Vue({
         },
         inCart: '',
         showvideo: false,
+        upvoteIngeredient: false,
+        cookingIngredientsOne:{},
+        showCookingOneShow:{},
+        formatVND: null,
     },
 
     computed: {
@@ -111,14 +115,53 @@ var wishlish = new Vue({
     },
 
     methods: {
-        //cooking method
         showCooking: function() {
             var id = $('#cooking_id').val();
             axios.get('/site/cooking/' + id).then((response) => {
                 this.cooking = response.data;
-                console.log(this.cooking)
+
+                this.formatVND = new Intl.NumberFormat('nl-NL').format(this.cooking.price);
+                var cookingUp = [];
+    
+                for (var i = 0; i < this.cooking.cooking_ingredients.length; i++) {
+                    var b = {
+                    'quantity': this.cooking.cooking_ingredients[i].quantity / this.cooking.ration, 
+                    'unit': this.cooking.cooking_ingredients[i].unit.name,
+                    'description': this.cooking.cooking_ingredients[i].description,
+                    'ingredient': this.cooking.cooking_ingredients[i].ingredient.name,
+                    }
+                    cookingUp.push(b);
+                }
+                this.cookingIngredientsOne = cookingUp;
             })
         },
+
+        upvotePre: function(e)
+        {
+            var showIngredient = [];
+            this.upvoteIngeredient = true;
+            for (var i = 0; i < this.cookingIngredientsOne.length; i++) {
+                var a = {
+                    'quantity': Math.round(e.target.value * this.cookingIngredientsOne[i].quantity),
+                    'unit': this.cookingIngredientsOne[i].unit,
+                    'description': this.cookingIngredientsOne[i].description,
+                    'ingredient': this.cookingIngredientsOne[i].ingredient                 
+                }
+
+                showIngredient.push(a);
+            }
+
+            this.showCookingOneShow = showIngredient
+        },
+
+        showDescription: function(description)
+        {
+            if(description == null) {description = 'Nguyên liệu này không có mô tả!'}
+            toastr.success(description, 'Mô Tả', {
+                timeOut: 5000
+            });
+        },
+
 
         print: function() {
             window.print();
@@ -129,7 +172,6 @@ var wishlish = new Vue({
             $('#modalRate').modal('show');
 
             axios.get('/site/show/rate/' + id).then((response) => {
-                // console.log(response.data.ratesCooking)
                 this.resultRating.count = response.data.CountratesCooking;
                 this.resultRating.ratesCooking = response.data.ratesCooking;
                 console.log(this.resultRating.count);

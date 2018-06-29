@@ -141,11 +141,12 @@ new Vue({
             },
             editPost: function(item) {
                 axios.get('/site/profile/editpost/' + item).then((response) => {
+                    console.log(response.data);
                     this.fillPost.id = response.data.id;
-                    this.fillPost.title = response.data.title;
+                    this.fillPost.title = response.data.description;
                     this.fillPost.image = response.data.image;
                     this.fillPost.description = response.data.description;
-                    var content = CKEDITOR.instances['my-editor'].setData(response.data.content);
+                    var content =response.data.content;
                     this.fillPost.content = content;
                     $("#updatePost").modal('show');
                 })
