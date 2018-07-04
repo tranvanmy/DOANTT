@@ -81,6 +81,13 @@ class CartController extends Controller
         //
     }
 
+    public function prinyInvoice($id)
+    {
+        $data = $this->orderDetail->getByOrder($id, ['cooking']);
+        $order = $this->order->firstByIdOrder(['user', 'sellerr', 'orderDetail.cooking.user'], $id);
+
+        return view('admin.invoice.invoice',  compact('data', 'order'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -87,7 +87,7 @@
                                     <td>{{ $orderDetail->cooking->name }}</td>
                                     <td class="text-center">{{ number_format($orderDetail->price / $orderDetail->quantity) }}đ</td>
                                     <td class="text-center">{{ $orderDetail->quantity }}</td>
-                                    <td class="text-right">{{ number_format($orderDetail->price) }}đ</td>
+                                    <td class="text-right">{{ number_format($orderDetail->price) }} VND</td>
                                 </tr>
                             @endforeach
                                 </tr>
@@ -101,14 +101,15 @@
                                     <td class="no-line"></td>
                                     <td class="no-line"></td>
                                     <td class="no-line text-center"><strong>{{ trans('sites.total') }}</strong></td>
-                                    <td class="no-line text-right">{{ $invoice->total }}</td>
+                                    <td class="no-line text-right">{{ number_format($invoice->total) }} VND</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <button onClick="window.print();" class="btn btn-success col-md-2 col-md-offset-10">
+                        {{-- <button onClick="window.print();" class="btn btn-success col-md-2 col-md-offset-10">
                             <i class="fa fa-print" aria-hidden="true"></i>
                             {{ trans('sites.print_invoice') }}
-                        </button>
+                        </button> --}}
+                        <a class="btn btn-success col-md-2 col-md-offset-10"  href="/print/invoice/{{$invoice->id}}">In hóa đơn</a>
                     </div>
                 </div>
             </div>

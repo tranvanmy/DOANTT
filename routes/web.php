@@ -134,6 +134,9 @@ Route::get('checkout', 'Sites\CartController@checkout')->middleware('auth');
 Route::post('checkout', 'Sites\CartController@storeOrder')->middleware('auth');
 Route::get('order', 'Sites\CartController@showOrder')->middleware('auth');
 Route::get('order/sell', 'Admins\OrderController@orderSell')->middleware('auth');
+
 Route::get('invoice/{id}', 'Sites\CartController@showInvoice')->middleware('auth');
+Route::get('print/invoice/{id}', 'Sites\CartController@prinyInvoice')->middleware('auth');
+
 Route::get('order/show/{id}', 'Admins\OrderController@show')->middleware('auth');
 Route::put('order/show/{id}', 'Admins\OrderController@update')->middleware('auth');

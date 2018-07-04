@@ -18,7 +18,7 @@
                                                 <thead>
                                                     <tr class="filters" role="row">
                                                         <th class="col-md-1">{{ trans('admin.id') }}</th>
-                                                        <th class="col-md-1">Khách đặt hàng</th>
+                                                        <th class="col-md-1">xcvxcvcKhách đặt hàng</th>
                                                         <th class="col-md-1">Địa Chỉ</th>
                                                         <th class="col-md-1">Trang Thai</th>
                                                         <th class="col-md-1">Chi tiết đơn hàng</th>
