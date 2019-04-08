@@ -1,0 +1,84 @@
+version: '2'
+
+services:
+    application:
+        container_name: cook_application
+        image: debian
+        volumes:
+            - ./:/var/www/laravel
+    workspace:
+        container_name: cook_workspace
+        image: framgia/laravel-workspace
+        volumes_from:
+            - application
+        tty: true
+    php-fpm:
+        container_name: cook_php-fpm
+        image: framgia/laravel-php-fpm
+        volumes_from:
+            - application
+        expose:
+            - "9000"
+        links:
+            - workspace
+    nginx:
+        container_name: cook_nginx
+        image: framgia/laravel-nginx
+        volumes_from:
+            - data
+            - logs
+            - application
+        ports:
+            - "2019:80"
+        links:
+            - php-fpm
+    data:
+        container_name: cook_data
+        image: debian
+        volumes:
+            - .docker/mysql:/var/lib/mysql
+            - .docker/data:/data
+    data_test:
+        container_name: cook_data_test
+        image: debian
+        volumes:
+            - .docker/mysql_test:/var/lib/mysql
+            - .docker/data_test:/data
+    logs:
+        container_name: cook_logs
+        image: debian
+        volumes:
+            - .docker/logs/nginx:/var/log/nginx
+            - .docker/logs/mongodb:/var/log/mongodb
+    mysql:
+        container_name: cook_mysql
+        image: mysql:5.7
+        volumes_from:
+            - data
+            - logs
+        expose:
+            - "3306"
+        environment:
+            MYSQL_DATABASE: cook
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+    mysql_test:
+        container_name: cook_mysql_test
+        image: mysql:5.7
+        volumes_from:
+            - data_test
+        expose:
+            - "3306"
+        environment:
+            MYSQL_DATABASE: cook_test
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+    redis:
+        container_name: cook_redis
+        image: redis
+        expose:
+            - "6379"
+        volumes_from:
+            - data
